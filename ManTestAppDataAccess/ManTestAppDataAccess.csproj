@@ -74,12 +74,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ManTestAppModels\ManTestAppModels.csproj">
-      <Project>{5e5503b1-1b3d-4ad5-a08b-097b6599cdad}</Project>
-      <Name>ManTestAppModels</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Migrations\201702241052549_Initial.resx">
       <DependentUpon>201702241052549_Initial.cs</DependentUpon>
     </EmbeddedResource>

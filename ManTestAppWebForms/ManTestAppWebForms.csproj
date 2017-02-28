@@ -382,6 +382,12 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\ApplicationDbContext.cs" />
+    <Compile Include="DataAccess\GenericRepository.cs" />
+    <Compile Include="DataAccess\IDataRepository.cs" />
+    <Compile Include="DataAccess\TestCaseDbContext.cs" />
+    <Compile Include="DataAccess\UnitOfWork.cs" />
+    <Compile Include="DataAccess\Utilities.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -397,7 +403,15 @@
       <DependentUpon>201702271027238_initialAppUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IIdentifiableEntity.cs" />
+    <Compile Include="Models\ManualTestCaseViewModels\ProjectViewModel.cs" />
+    <Compile Include="Models\Module.cs" />
+    <Compile Include="Models\Project.cs" />
+    <Compile Include="Models\Step.cs" />
+    <Compile Include="Models\TestCase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
