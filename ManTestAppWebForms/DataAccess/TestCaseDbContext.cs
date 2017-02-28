@@ -5,6 +5,11 @@ namespace ManTestAppWebForms.DataAccess
 {
     public class TestCaseDbContext : DbContext
     {
+        public TestCaseDbContext()
+            : base("DefaultConnection")
+        {
+        }
+
         public DbSet<Project> Projects { get; set; }
         public DbSet<Module> Module { get; set; }
         public DbSet<TestCase> TestCase { get; set; }

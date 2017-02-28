@@ -394,11 +394,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201702271027238_initialAppUsers.cs" />
-    <Compile Include="Migrations\201702271027238_initialAppUsers.Designer.cs">
-      <DependentUpon>201702271027238_initialAppUsers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -455,11 +450,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201702271027238_initialAppUsers.resx">
-      <DependentUpon>201702271027238_initialAppUsers.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
