@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ManTestAppWebForms
+namespace ManTestAppWebForms.Views
 {
 
 
-    public partial class About
+    public partial class TestCaseIndex
     {
     }
 }
