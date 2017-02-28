@@ -1,6 +1,4 @@
-﻿using ManTestAppWebForms.Controllers;
-using ManTestAppWebForms.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,16 +9,9 @@ namespace ManTestAppWebForms.Views
 {
     public partial class ProjectIndex : System.Web.UI.Page
     {
-        private ProjectController projectController;
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            projectController = new ProjectController();
-        }
 
-        public IQueryable<Project> GetProjects()
-        {
-            return projectController.Get();
         }
     }
 }
