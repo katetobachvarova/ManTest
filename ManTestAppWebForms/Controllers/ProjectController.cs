@@ -7,7 +7,7 @@ using System.Web;
 
 namespace ManTestAppWebForms.Controllers
 {
-    public class ProjectController
+    public class ProjectController : IDisposable
     {
         private UnitOfWork uof;
 
@@ -16,11 +16,38 @@ namespace ManTestAppWebForms.Controllers
             uof = new UnitOfWork();
         }
 
-        public IQueryable<Project> Get()
+        public IQueryable<Project> GetAllProjects()
         {
-            var t = new List<Project>() { new Project() { Decription = "Bla", Title = "kat" } };
-            return t.AsQueryable();
-            //return uof.ProjectRepository.All().AsQueryable();
+            return uof.ProjectRepository.All().AsQueryable();
+        }
+
+        public void InsertProject(Project project)
+        {
+            uof.ProjectRepository.Insert(project);
+            uof.Save();
+        }
+
+        public void DeleteProject(int id)
+        {
+            uof.ProjectRepository.Delete(id);
+            uof.Save();
+        }
+
+        public void UpdateProject(Project project)
+        {
+            uof.ProjectRepository.Update(project);
+            uof.Save();
+        }
+
+        public Project FindProjectById(int id)
+        {
+            Project project = uof.ProjectRepository.FindByKey(id);
+            return project;
+        }
+
+        public void Dispose()
+        {
+            uof.Dispose();
         }
     }
 }

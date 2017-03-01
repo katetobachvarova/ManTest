@@ -245,6 +245,7 @@
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Views\ModuleIndex.aspx" />
+    <Content Include="Views\ProjectCreate.aspx" />
     <Content Include="Views\ProjectIndex.aspx" />
     <Content Include="Views\TestCaseIndex.aspx" />
     <Content Include="Web.config" />
@@ -366,10 +367,28 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ApplicationUserDataMigration\201702281002564_Initial.cs" />
+    <Compile Include="ApplicationUserDataMigration\201702281002564_Initial.Designer.cs">
+      <DependentUpon>201702281002564_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ApplicationUserDataMigration\Configuration.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Migrations\201702281024566_Initial.cs" />
+    <Compile Include="Migrations\201702281024566_Initial.Designer.cs">
+      <DependentUpon>201702281024566_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702281346394_Second.cs" />
+    <Compile Include="Migrations\201702281346394_Second.Designer.cs">
+      <DependentUpon>201702281346394_Second.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702281402180_Second1.cs" />
+    <Compile Include="Migrations\201702281402180_Second1.Designer.cs">
+      <DependentUpon>201702281402180_Second1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Views\Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -433,6 +452,13 @@
     <Compile Include="Views\ModuleIndex.aspx.designer.cs">
       <DependentUpon>ModuleIndex.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\ProjectCreate.aspx.cs">
+      <DependentUpon>ProjectCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ProjectCreate.aspx.designer.cs">
+      <DependentUpon>ProjectCreate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProjectIndex.aspx.cs">
       <DependentUpon>ProjectIndex.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -450,6 +476,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ApplicationUserDataMigration\201702281002564_Initial.resx">
+      <DependentUpon>201702281002564_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702281024566_Initial.resx">
+      <DependentUpon>201702281024566_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702281346394_Second.resx">
+      <DependentUpon>201702281346394_Second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702281402180_Second1.resx">
+      <DependentUpon>201702281402180_Second1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

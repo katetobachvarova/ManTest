@@ -51,8 +51,8 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/Views/ProjectIndex">Projects</a></li>
-                        <li><a runat="server" href="~/Views/ModuleIndex">Modules</a></li>
-                        <li><a runat="server" href="~/Views/TestCaseIndex">Test Cases</a></li>
+                       <%-- <li><a runat="server" href="~/Views/ModuleIndex">Modules</a></li>
+                        <li><a runat="server" href="~/Views/TestCaseIndex">Test Cases</a></li>--%>
                         <li><a runat="server" href="~/Views/Contact">Contact</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
