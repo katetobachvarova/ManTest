@@ -197,6 +197,10 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="images\minus.gif" />
+    <Content Include="images\minus.png" />
+    <Content Include="images\plus.gif" />
+    <Content Include="images\plus.png" />
     <Content Include="Views\Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -244,9 +248,11 @@
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="Views\ModuleCreate.aspx" />
     <Content Include="Views\ModuleIndex.aspx" />
     <Content Include="Views\ProjectCreate.aspx" />
     <Content Include="Views\ProjectIndex.aspx" />
+    <Content Include="Views\TestCaseCreate.aspx" />
     <Content Include="Views\TestCaseIndex.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -376,6 +382,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Migrations\201702281024566_Initial.cs" />
     <Compile Include="Migrations\201702281024566_Initial.Designer.cs">
       <DependentUpon>201702281024566_Initial.cs</DependentUpon>
@@ -387,6 +394,10 @@
     <Compile Include="Migrations\201702281402180_Second1.cs" />
     <Compile Include="Migrations\201702281402180_Second1.Designer.cs">
       <DependentUpon>201702281402180_Second1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703011325160_F.cs" />
+    <Compile Include="Migrations\201703011325160_F.Designer.cs">
+      <DependentUpon>201703011325160_F.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Views\Contact.aspx.cs">
@@ -445,6 +456,13 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Views\ModuleCreate.aspx.cs">
+      <DependentUpon>ModuleCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ModuleCreate.aspx.designer.cs">
+      <DependentUpon>ModuleCreate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\ModuleIndex.aspx.cs">
       <DependentUpon>ModuleIndex.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -465,6 +483,13 @@
     </Compile>
     <Compile Include="Views\ProjectIndex.aspx.designer.cs">
       <DependentUpon>ProjectIndex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestCaseCreate.aspx.cs">
+      <DependentUpon>TestCaseCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\TestCaseCreate.aspx.designer.cs">
+      <DependentUpon>TestCaseCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\TestCaseIndex.aspx.cs">
       <DependentUpon>TestCaseIndex.aspx</DependentUpon>
@@ -489,6 +514,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702281402180_Second1.resx">
       <DependentUpon>201702281402180_Second1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703011325160_F.resx">
+      <DependentUpon>201703011325160_F.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -15,7 +15,7 @@ namespace ManTestAppWebForms.Models
         public string Title { get; set; }
         [Required]
         [StringLength(5000)]
-        public string Decription { get; set; }
+        public string Description { get; set; }
 
         public int ProjectId { get; set; }
         public virtual Project Project { get; set; }

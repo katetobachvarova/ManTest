@@ -1,4 +1,5 @@
 ﻿using ManTestAppWebForms.Controllers;
+using ManTestAppWebForms.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,11 @@ namespace ManTestAppWebForms.Views
 {
     public partial class ProjectCreate : System.Web.UI.Page
     {
-        private ProjectController projectController;
+        private ControllerBase<Project> projectController;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            projectController = new ProjectController();
+            projectController = new ControllerBase<Project>();
         }
 
         public void InsertItem_Project()
@@ -23,7 +24,7 @@ namespace ManTestAppWebForms.Views
             TryUpdateModel(item);
             if (ModelState.IsValid)
             {
-                projectController.InsertProject(item);
+                projectController.Insert(item);
             }
         }
         protected void Cancel_Click(object sender, EventArgs e)

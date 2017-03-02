@@ -11,11 +11,16 @@ namespace ManTestAppWebForms.Views
 {
     public partial class ProjectIndex : System.Web.UI.Page
     {
-        private ProjectController projectController;
+        private ControllerBase<Project> projectController;
+        private ControllerBase<Module> moduleController;
+        private ControllerBase<TestCase> testCaseController;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            projectController = new ProjectController();
+            projectController = new ControllerBase<Project>();
+            moduleController = new ControllerBase<Module>();
+            testCaseController = new ControllerBase<TestCase>();
         }
 
         // The return type can be changed to IEnumerable, however to support
@@ -26,13 +31,15 @@ namespace ManTestAppWebForms.Views
         //     string sortByExpression
         public IQueryable<Project> GetData_ProjectIndex()
         {
-            return projectController.GetAllProjects();
+            return projectController.GetAll();
         }
 
         // The id parameter name should match the DataKeyNames value set on the control
         public void gv_ProjectIndex_DeleteItem(int id)
         {
-            projectController.DeleteProject(id);
+            GridView childgv = gv_ProjectIndex.FindControl("Kat") as GridView;
+
+            projectController.Delete(id);
         }
 
         protected void gv_ProjectIndex_RowDeleted(object sender, GridViewDeletedEventArgs e)
@@ -44,7 +51,7 @@ namespace ManTestAppWebForms.Views
         public void gv_ProjectIndex_UpdateItem(int id)
         {
             ManTestAppWebForms.Models.Project item = null;
-            item = projectController.FindProjectById(id);
+            item = projectController.FindById(id);
             if (item == null)
             {
                 // The item wasn't found
@@ -54,18 +61,99 @@ namespace ManTestAppWebForms.Views
             TryUpdateModel(item);
             if (ModelState.IsValid)
             {
-                projectController.UpdateProject(item);
+                projectController.Update(item);
 
             }
         }
 
-        public override void Dispose()
+        protected void gv_ProjectIndex_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (projectController != null)
-            {
-                projectController.Dispose();
-            }
-            base.Dispose();
+            var id = 1;
+           
         }
+
+        protected void parent_OnRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                GridView childgv = (GridView)e.Row.FindControl("Module");
+                if (childgv != null)
+                {
+                    childgv.DataSource = moduleController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Project).Id);
+                    childgv.DataBind();
+                }
+                //GridView grandchildgv = (GridView)((GridView)e.Row.FindControl("Kat")).SelectedRow?.FindControl("TestCase");
+                ////GridView grandchildgv = (GridView)e.Row.FindControl("TestCase");
+                //if (grandchildgv != null)
+                //{
+                //    grandchildgv.DataSource = moduleController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Project).Id);
+                //    grandchildgv.DataBind();
+                //}
+            }
+            
+        }
+        protected void child_OnRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                GridView childgv = (GridView)e.Row.FindControl("TestCase");
+                if (childgv != null)
+                {
+                    childgv.DataSource = testCaseController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Module).ProjectId);
+                    childgv.DataBind();
+                }
+
+            }
+            //if (e.Row.RowType == DataControlRowType.EmptyDataRow)
+            //{
+            //    GridView childgv = (GridView)e.Row.FindControl("Kat");
+            //    if (childgv != null)
+            //    {
+            //        childgv.DataSource = moduleController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Project).Id);
+            //        childgv.DataBind();
+            //    }
+            //    GridView grandchildgv = (GridView)e.Row.FindControl("TestCase");
+            //    if (grandchildgv != null)
+            //    {
+            //        grandchildgv.DataSource = moduleController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Project).Id);
+            //        grandchildgv.DataBind();
+            //    }
+            //}
+
+        }
+        protected void grandchild_OnRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+
+            }
+            //if (e.Row.RowType == DataControlRowType.EmptyDataRow)
+            //{
+            //    GridView childgv = (GridView)e.Row.FindControl("Kat");
+            //    if (childgv != null)
+            //    {
+            //        childgv.DataSource = moduleController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Project).Id);
+            //        childgv.DataBind();
+            //    }
+            //    GridView grandchildgv = (GridView)e.Row.FindControl("TestCase");
+            //    if (grandchildgv != null)
+            //    {
+            //        grandchildgv.DataSource = moduleController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Project).Id);
+            //        grandchildgv.DataBind();
+            //    }
+            //}
+
+        }
+
+
+
+        //public override void Dispose()
+        //{
+        //    if (projectController != null)
+        //    {
+        //        projectController.Dispose();
+        //    }
+        //    base.Dispose();
+        //}
     }
 }

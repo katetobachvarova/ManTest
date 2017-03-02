@@ -9,78 +9,112 @@ namespace ManTestAppWebForms.DataAccess
 {
     public class UnitOfWork : IDisposable
     {
-        private TestCaseDbContext testCaseContext = new TestCaseDbContext();
+        private TestCaseDbContext testCaseContext;
 
-        private GenericRepository<Project> projectRepository;
-        private GenericRepository<Module> moduleRepository;
-        private GenericRepository<TestCase> testCaseRepository;
-        private GenericRepository<Step> stepRepository;
-        private GenericRepository<Attachment> attachmentRepository;
+        //private GenericRepository<Project> projectRepository;
+        //private GenericRepository<Module> moduleRepository;
+        //private GenericRepository<TestCase> testCaseRepository;
+        //private GenericRepository<Step> stepRepository;
+        //private GenericRepository<Attachment> attachmentRepository;
 
-        public GenericRepository<Project> ProjectRepository
+        private Dictionary<string, object> repositories;
+
+        public UnitOfWork()
         {
-            get
-            {
+            this.testCaseContext = new TestCaseDbContext();
+            SetRepositories();
+        }
 
-                if (this.projectRepository == null)
-                {
-                    this.projectRepository = new GenericRepository<Project>(testCaseContext);
-                }
-                return projectRepository;
+        public GenericRepository<T> GetRepository<T>() where T : class, IIdentifiableEntity
+        {
+            string typeName = typeof(T).Name;
+
+            if (repositories.ContainsKey(typeName))
+            {
+                return (GenericRepository<T>)repositories[typeName];
+            }
+            else
+            {
+                repositories.Add(typeName, new GenericRepository<T>(testCaseContext));
+                return (GenericRepository<T>)repositories[typeName];
             }
         }
 
-        public GenericRepository<Module> ModuleRepository
+        private void SetRepositories()
         {
-            get
-            {
-
-                if (this.moduleRepository == null)
-                {
-                    this.moduleRepository = new GenericRepository<Module>(testCaseContext);
-                }
-                return moduleRepository;
-            }
+            if (repositories == null)
+                repositories = new Dictionary<string, object>();
+            repositories.Add("Project", new GenericRepository<Project>(testCaseContext));
+            repositories.Add("Module", new GenericRepository<Module>(testCaseContext));
+            repositories.Add("TestCase", new GenericRepository<TestCase>(testCaseContext));
+            repositories.Add("Step", new GenericRepository<Step>(testCaseContext));
+            repositories.Add("Attachment", new GenericRepository<Attachment>(testCaseContext));
         }
 
-        public GenericRepository<TestCase> TestCaseRepository
-        {
-            get
-            {
+        //public GenericRepository<Project> ProjectRepository
+        //{
+        //    get
+        //    {
 
-                if (this.testCaseRepository == null)
-                {
-                    this.testCaseRepository = new GenericRepository<TestCase>(testCaseContext);
-                }
-                return testCaseRepository;
-            }
-        }
+        //        if (this.projectRepository == null)
+        //        {
+        //            this.projectRepository = new GenericRepository<Project>(testCaseContext);
+        //        }
+        //        return projectRepository;
+        //    }
+        //}
 
-        public GenericRepository<Step> StepRepository
-        {
-            get
-            {
+        //public GenericRepository<Module> ModuleRepository
+        //{
+        //    get
+        //    {
 
-                if (this.stepRepository == null)
-                {
-                    this.stepRepository = new GenericRepository<Step>(testCaseContext);
-                }
-                return stepRepository;
-            }
-        }
+        //        if (this.moduleRepository == null)
+        //        {
+        //            this.moduleRepository = new GenericRepository<Module>(testCaseContext);
+        //        }
+        //        return moduleRepository;
+        //    }
+        //}
 
-        public GenericRepository<Attachment> AttachmentRepository
-        {
-            get
-            {
+        //public GenericRepository<TestCase> TestCaseRepository
+        //{
+        //    get
+        //    {
 
-                if (this.attachmentRepository == null)
-                {
-                    this.attachmentRepository = new GenericRepository<Attachment>(testCaseContext);
-                }
-                return attachmentRepository;
-            }
-        }
+        //        if (this.testCaseRepository == null)
+        //        {
+        //            this.testCaseRepository = new GenericRepository<TestCase>(testCaseContext);
+        //        }
+        //        return testCaseRepository;
+        //    }
+        //}
+
+        //public GenericRepository<Step> StepRepository
+        //{
+        //    get
+        //    {
+
+        //        if (this.stepRepository == null)
+        //        {
+        //            this.stepRepository = new GenericRepository<Step>(testCaseContext);
+        //        }
+        //        return stepRepository;
+        //    }
+        //}
+
+        //public GenericRepository<Attachment> AttachmentRepository
+        //{
+        //    get
+        //    {
+
+        //        if (this.attachmentRepository == null)
+        //        {
+        //            this.attachmentRepository = new GenericRepository<Attachment>(testCaseContext);
+        //        }
+        //        return attachmentRepository;
+        //    }
+        //}
 
         public void Save()
         {
