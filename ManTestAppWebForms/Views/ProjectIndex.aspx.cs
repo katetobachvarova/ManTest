@@ -82,6 +82,12 @@ namespace ManTestAppWebForms.Views
                     childgv.DataSource = moduleController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Project).Id);
                     childgv.DataBind();
                 }
+                GridView childgv2 = (GridView)e.Row.FindControl("TestCase2");
+                if (childgv2 != null)
+                {
+                    childgv2.DataSource = testCaseController.GetAll().Where(i => i.ModuleId == null &&  i.ProjectId == (e.Row.DataItem as Project).Id);
+                    childgv2.DataBind();
+                }
                 //GridView grandchildgv = (GridView)((GridView)e.Row.FindControl("Kat")).SelectedRow?.FindControl("TestCase");
                 ////GridView grandchildgv = (GridView)e.Row.FindControl("TestCase");
                 //if (grandchildgv != null)
@@ -99,7 +105,8 @@ namespace ManTestAppWebForms.Views
                 GridView childgv = (GridView)e.Row.FindControl("TestCase");
                 if (childgv != null)
                 {
-                    childgv.DataSource = testCaseController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Module).ProjectId);
+                    
+                    childgv.DataSource = (testCaseController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Module).ProjectId && i.ModuleId != null && i.ModuleId == (e.Row.DataItem as Module).Id));
                     childgv.DataBind();
                 }
 
@@ -127,25 +134,22 @@ namespace ManTestAppWebForms.Views
             {
 
             }
-            //if (e.Row.RowType == DataControlRowType.EmptyDataRow)
-            //{
-            //    GridView childgv = (GridView)e.Row.FindControl("Kat");
-            //    if (childgv != null)
-            //    {
-            //        childgv.DataSource = moduleController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Project).Id);
-            //        childgv.DataBind();
-            //    }
-            //    GridView grandchildgv = (GridView)e.Row.FindControl("TestCase");
-            //    if (grandchildgv != null)
-            //    {
-            //        grandchildgv.DataSource = moduleController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Project).Id);
-            //        grandchildgv.DataBind();
-            //    }
-            //}
-
         }
 
+        protected void NoModuleDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                GridView childgv = (GridView)e.Row.FindControl("TestCase");
+                if (childgv != null)
+                {
+                    childgv.DataSource = testCaseController.GetAll().Where(i => i.ModuleId == null);
+                    childgv.DataBind();
+                }
+            }
+        }
 
+        
 
         //public override void Dispose()
         //{

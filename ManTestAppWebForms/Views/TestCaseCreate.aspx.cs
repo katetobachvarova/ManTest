@@ -19,18 +19,25 @@ namespace ManTestAppWebForms.Views
         {
             this.testCaseController = new ControllerBase<TestCase>();
             moduleId = Request.QueryString["moduleId"];
+            projectId = Request.QueryString["projectId"];
         }
 
         public void InsertItem_TestCase()
         {
             var item = new ManTestAppWebForms.Models.TestCase();
-
-            int moduleid;
-            Int32.TryParse(moduleId, out moduleid);
-            item.ModuleId = moduleid;
-
-            item.ProjectId = this.testCaseController.uof.GetRepository<Module>().FindByKey(moduleid).ProjectId;
-
+            if (!string.IsNullOrEmpty(moduleId))
+            {
+                int moduleid;
+                Int32.TryParse(moduleId, out moduleid);
+                item.ModuleId = moduleid;
+                item.ProjectId = this.testCaseController.uof.GetRepository<Module>().FindByKey(moduleid).ProjectId;
+            }
+            else
+            {
+                int projectid;
+                Int32.TryParse(projectId, out projectid);
+                item.ProjectId = projectid;
+            }
             TryUpdateModel(item);
             if (ModelState.IsValid)
             {

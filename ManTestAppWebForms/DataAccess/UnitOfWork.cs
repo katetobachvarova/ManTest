@@ -10,13 +10,6 @@ namespace ManTestAppWebForms.DataAccess
     public class UnitOfWork : IDisposable
     {
         private TestCaseDbContext testCaseContext;
-
-        //private GenericRepository<Project> projectRepository;
-        //private GenericRepository<Module> moduleRepository;
-        //private GenericRepository<TestCase> testCaseRepository;
-        //private GenericRepository<Step> stepRepository;
-        //private GenericRepository<Attachment> attachmentRepository;
-
         private Dictionary<string, object> repositories;
 
         public UnitOfWork()
@@ -50,71 +43,6 @@ namespace ManTestAppWebForms.DataAccess
             repositories.Add("Step", new GenericRepository<Step>(testCaseContext));
             repositories.Add("Attachment", new GenericRepository<Attachment>(testCaseContext));
         }
-
-        //public GenericRepository<Project> ProjectRepository
-        //{
-        //    get
-        //    {
-
-        //        if (this.projectRepository == null)
-        //        {
-        //            this.projectRepository = new GenericRepository<Project>(testCaseContext);
-        //        }
-        //        return projectRepository;
-        //    }
-        //}
-
-        //public GenericRepository<Module> ModuleRepository
-        //{
-        //    get
-        //    {
-
-        //        if (this.moduleRepository == null)
-        //        {
-        //            this.moduleRepository = new GenericRepository<Module>(testCaseContext);
-        //        }
-        //        return moduleRepository;
-        //    }
-        //}
-
-        //public GenericRepository<TestCase> TestCaseRepository
-        //{
-        //    get
-        //    {
-
-        //        if (this.testCaseRepository == null)
-        //        {
-        //            this.testCaseRepository = new GenericRepository<TestCase>(testCaseContext);
-        //        }
-        //        return testCaseRepository;
-        //    }
-        //}
-
-        //public GenericRepository<Step> StepRepository
-        //{
-        //    get
-        //    {
-
-        //        if (this.stepRepository == null)
-        //        {
-        //            this.stepRepository = new GenericRepository<Step>(testCaseContext);
-        //        }
-        //        return stepRepository;
-        //    }
-        //}
-
-        //public GenericRepository<Attachment> AttachmentRepository
-        //{
-        //    get
-        //    {
-
-        //        if (this.attachmentRepository == null)
-        //        {
-        //            this.attachmentRepository = new GenericRepository<Attachment>(testCaseContext);
-        //        }
-        //        return attachmentRepository;
-        //    }
-        //}
 
         public void Save()
         {

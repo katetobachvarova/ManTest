@@ -30,7 +30,7 @@
         <Columns>
             <asp:TemplateField>
                 <ItemTemplate>
-                    <img alt="" src="../images/plus.png" style="cursor: pointer" />
+                    <img alt="Modules"  src="../images/plus.png" style="cursor: pointer"  title="Modules" />
                     <asp:Panel ID="pnlOrders" runat="server" Style="display: none">
                     <asp:GridView runat="server" 
                         AutoGenerateColumns="false"  ID="Module" EmptyDataText="No related Modules" Visible="true"
@@ -38,7 +38,7 @@
                         <Columns>
                                 <asp:TemplateField>
                                     <ItemTemplate>
-                                        <img alt="" src="../images/plus.png" style="cursor: pointer" />
+                                        <img alt="" src="../images/plus.png" style="cursor: pointer"  />
                                         <asp:Panel ID="pnlTestCase" runat="server" Style="display: none">
                                         <asp:GridView runat="server" 
                                                       AutoGenerateColumns="false"  ID="TestCase" EmptyDataText="No related TestCases" Visible="true"
@@ -58,8 +58,26 @@
                         </Columns>
                     </asp:GridView>
                     </asp:Panel>
+                    Modules
                 </ItemTemplate>
             </asp:TemplateField>
+            <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <img alt="Test Cases" src="../images/plus.png" style="cursor: pointer"  title="Test Cases"/>
+                                        <asp:Panel ID="pnlTestCase2" runat="server" Style="display: none">
+                                        <asp:GridView runat="server" 
+                                                      AutoGenerateColumns="false"  ID="TestCase2" EmptyDataText="No related TestCases" Visible="true"
+                                                      OnRowDataBound="NoModuleDataBound">
+                                            <Columns>
+                                                <asp:BoundField DataField="Id" HeaderText="ID"></asp:BoundField>
+                                                <asp:BoundField DataField="Title" HeaderText="TITLE"></asp:BoundField>
+                                                <asp:BoundField DataField="Description" HeaderText="DESCRIPTION"></asp:BoundField>
+                                            </Columns>
+                                        </asp:GridView>
+                                        </asp:Panel>
+                                        TestCases
+                                    </ItemTemplate>
+                                </asp:TemplateField>
             <asp:BoundField DataField="Id" HeaderText="ID"></asp:BoundField>
             <asp:BoundField DataField="Title" HeaderText="TITLE"></asp:BoundField>
             <asp:BoundField DataField="Description" HeaderText="DESCRIPTION"></asp:BoundField>
@@ -68,6 +86,11 @@
                             datanavigateurlformatstring="ModuleCreate.aspx?projectId={0}"
                             Text="Add Module"
               />
+            <asp:hyperlinkfield HeaderText="Add TestCase"
+                                DataNavigateUrlFields="Id"
+                                DataNavigateUrlFormatString="TestCaseCreate.aspx?projectId={0}"
+                                Text="Add TestCase"/>
+
             <asp:CommandField ShowEditButton="True" ShowDeleteButton="True"/>
         </Columns>
     </asp:GridView>
