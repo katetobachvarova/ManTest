@@ -14,7 +14,7 @@
                     Title:
                   </td>
                   <td>
-                    <asp:TextBox ID="ModuleTitle" runat="server" 
+                    <asp:TextBox ID="ModuleTitle" runat="server" CssClass="form-control"
                          Text='<%# Bind("Title") %>'></asp:TextBox>
                       <asp:DynamicValidator runat="server" ID="DynamicValidator2" 
                         CssClass="DDControl DDValidator" ControlToValidate="ModuleTitle" Display="Static" />
@@ -27,7 +27,7 @@
                     Description:
                   </td>
                   <td>
-                    <asp:TextBox ID="ModuleDescription" runat="server" 
+                    <asp:TextBox ID="ModuleDescription" runat="server" CssClass="form-control"
                            Text='<%# Bind("Description") %>'></asp:TextBox>
                     <asp:DynamicValidator runat="server" ID="DynamicValidator1" 
                         CssClass="DDControl DDValidator" ControlToValidate="ModuleDescription" Display="Static" />

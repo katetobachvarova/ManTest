@@ -1,26 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="TestCaseCreate.aspx.cs" Inherits="ManTestAppWebForms.Views.TestCaseCreate" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AttachTestCase.aspx.cs" Inherits="ManTestAppWebForms.Views.AttachTestCaseToModule" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:ValidationSummary ShowModelStateErrors="true" runat="server" />
-    
-    <asp:Label ID="Label1" runat="server" Text="Project : "></asp:Label>
-    <asp:DropDownList ID="DropDownListProjects" runat="server"  CssClass="form-control" 
-        OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" AutoPostBack="true"
-        ItemType="ManTestAppWebForms.Models.Project" >
-    </asp:DropDownList>
-    <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator3" CssClass="DDControl DDValidator" ControlToValidate="DropDownListProjects" Display="Static" Enabled="false" />
-
-    <asp:Label ID="Label2" runat="server" Text="Module : "></asp:Label>
-     <asp:DropDownList runat="server"
-          ID="DropDownListModules"
-          CssClass="form-control"
-         Enabled="false"
-          OnSelectedIndexChanged="DropDownListModules_SelectedIndexChanged" AutoPostBack="true">
-     </asp:DropDownList>
         <asp:FormView runat="server"  CssClass="FormView" ID="Form"
           ItemType="ManTestAppWebForms.Models.TestCase"
-          InsertMethod="InsertItem_TestCase"
+           InsertMethod="InsertItem_TestCase"
           DefaultMode="Insert"
-          OnItemInserted="ItemInserted_TestCase" Height="130px" Width="279px"
+           OnItemInserted="TestCase_Inserted" Height="130px" Width="279px"
           EnableModelValidation="true" >
             <InsertItemTemplate>
               <table>
@@ -52,9 +37,12 @@
                 </tr>
               </table>
                 <asp:Button runat="server" Text="Insert" CommandName="Insert" class="btn btn-default"  CausesValidation="true"/>
-                <asp:Button runat="server" Text="Cancel" CausesValidation="false"  OnClick="Cancel_Click"  class="btn btn-default" />
+                <asp:Button runat="server" Text="Cancel" CausesValidation="false"   OnClick="Cancel_Click" class="btn btn-default" />
             </InsertItemTemplate>
 
         </asp:FormView>
+
+
+
 
 </asp:Content>

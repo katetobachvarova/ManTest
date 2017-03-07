@@ -26,7 +26,15 @@ namespace ManTestAppWebForms.Views
             var item = new ManTestAppWebForms.Models.Module();
             int id;
             Int32.TryParse(projectId, out id);
-            item.ProjectId = id;
+            Project existingProject = moduleController.uof.GetRepository<Project>().FindByKey(id);
+            if (existingProject != null)
+            {
+                item.ProjectId = id;
+            }
+            else
+            {
+                ModelState.AddModelError("ProjectId", "Project not found!");
+            }
             TryUpdateModel(item);
             if (ModelState.IsValid)
             {

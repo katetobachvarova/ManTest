@@ -26,7 +26,7 @@
         <asp:BoundField  DataField="Description"  HeaderText="DESCRIPTION"></asp:BoundField>
         <asp:hyperlinkfield headertext="Add Test Case"
                             datanavigateurlfields="Id" 
-                            datanavigateurlformatstring="TestCaseCreate.aspx?moduleId={0}"
+                            datanavigateurlformatstring="AttachTestCase.aspx?moduleId={0}"
                             Text="Add Test Case"
               />
         </Columns>

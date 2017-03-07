@@ -37,8 +37,6 @@ namespace ManTestAppWebForms.Views
         // The id parameter name should match the DataKeyNames value set on the control
         public void gv_ProjectIndex_DeleteItem(int id)
         {
-            GridView childgv = gv_ProjectIndex.FindControl("Kat") as GridView;
-
             projectController.Delete(id);
         }
 

@@ -10,15 +10,15 @@
 namespace ManTestAppWebForms.Views {
     
     
-    public partial class TestCaseIndex {
+    public partial class StepCreate {
         
         /// <summary>
-        /// gvTestCases control.
+        /// FormViewStep control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvTestCases;
+        protected global::System.Web.UI.WebControls.FormView FormViewStep;
     }
 }

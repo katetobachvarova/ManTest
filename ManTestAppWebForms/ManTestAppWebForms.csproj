@@ -201,6 +201,8 @@
     <Content Include="images\minus.png" />
     <Content Include="images\plus.gif" />
     <Content Include="images\plus.png" />
+    <Content Include="Views\AttachTestCase.aspx" />
+    <Content Include="Views\AttechmentCreate.aspx" />
     <Content Include="Views\Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -251,8 +253,12 @@
     <Content Include="Views\ModuleCreate.aspx" />
     <Content Include="Views\ModuleIndex.aspx" />
     <Content Include="Views\ProjectCreate.aspx" />
+    <Content Include="Views\ProjectDetails.aspx" />
     <Content Include="Views\ProjectIndex.aspx" />
+    <Content Include="Views\StepCreate.aspx" />
+    <Content Include="Views\StepDetails.aspx" />
     <Content Include="Views\TestCaseCreate.aspx" />
+    <Content Include="Views\TestCaseDetails.aspx" />
     <Content Include="Views\TestCaseIndex.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -400,6 +406,20 @@
       <DependentUpon>201703011325160_F.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Views\AttachTestCase.aspx.cs">
+      <DependentUpon>AttachTestCase.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AttachTestCase.aspx.designer.cs">
+      <DependentUpon>AttachTestCase.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AttechmentCreate.aspx.cs">
+      <DependentUpon>AttechmentCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AttechmentCreate.aspx.designer.cs">
+      <DependentUpon>AttechmentCreate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -477,6 +497,13 @@
     <Compile Include="Views\ProjectCreate.aspx.designer.cs">
       <DependentUpon>ProjectCreate.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\ProjectDetails.aspx.cs">
+      <DependentUpon>ProjectDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ProjectDetails.aspx.designer.cs">
+      <DependentUpon>ProjectDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProjectIndex.aspx.cs">
       <DependentUpon>ProjectIndex.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -484,12 +511,33 @@
     <Compile Include="Views\ProjectIndex.aspx.designer.cs">
       <DependentUpon>ProjectIndex.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\StepCreate.aspx.cs">
+      <DependentUpon>StepCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\StepCreate.aspx.designer.cs">
+      <DependentUpon>StepCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StepDetails.aspx.cs">
+      <DependentUpon>StepDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\StepDetails.aspx.designer.cs">
+      <DependentUpon>StepDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\TestCaseCreate.aspx.cs">
       <DependentUpon>TestCaseCreate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Views\TestCaseCreate.aspx.designer.cs">
       <DependentUpon>TestCaseCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestCaseDetails.aspx.cs">
+      <DependentUpon>TestCaseDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\TestCaseDetails.aspx.designer.cs">
+      <DependentUpon>TestCaseDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\TestCaseIndex.aspx.cs">
       <DependentUpon>TestCaseIndex.aspx</DependentUpon>
