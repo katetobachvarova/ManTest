@@ -201,8 +201,9 @@
     <Content Include="images\minus.png" />
     <Content Include="images\plus.gif" />
     <Content Include="images\plus.png" />
+    <Content Include="Views\AttachmentOpen.aspx" />
     <Content Include="Views\AttachTestCase.aspx" />
-    <Content Include="Views\AttechmentCreate.aspx" />
+    <Content Include="Views\AttachmentCreate.aspx" />
     <Content Include="Views\Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -405,7 +406,18 @@
     <Compile Include="Migrations\201703011325160_F.Designer.cs">
       <DependentUpon>201703011325160_F.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703081030339_five.cs" />
+    <Compile Include="Migrations\201703081030339_five.Designer.cs">
+      <DependentUpon>201703081030339_five.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Views\AttachmentOpen.aspx.cs">
+      <DependentUpon>AttachmentOpen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AttachmentOpen.aspx.designer.cs">
+      <DependentUpon>AttachmentOpen.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\AttachTestCase.aspx.cs">
       <DependentUpon>AttachTestCase.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -413,12 +425,12 @@
     <Compile Include="Views\AttachTestCase.aspx.designer.cs">
       <DependentUpon>AttachTestCase.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\AttechmentCreate.aspx.cs">
-      <DependentUpon>AttechmentCreate.aspx</DependentUpon>
+    <Compile Include="Views\AttachmentCreate.aspx.cs">
+      <DependentUpon>AttachmentCreate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\AttechmentCreate.aspx.designer.cs">
-      <DependentUpon>AttechmentCreate.aspx</DependentUpon>
+    <Compile Include="Views\AttachmentCreate.aspx.designer.cs">
+      <DependentUpon>AttachmentCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
@@ -566,6 +578,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703011325160_F.resx">
       <DependentUpon>201703011325160_F.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703081030339_five.resx">
+      <DependentUpon>201703081030339_five.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

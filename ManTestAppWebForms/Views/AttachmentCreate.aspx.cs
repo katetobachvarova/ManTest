@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -38,12 +39,16 @@ namespace ManTestAppWebForms.Views
                     if (Int32.TryParse(stepId, out stepid))
                     {
                         att.StepId = stepid;
-                        //string url = string.Format(@"C:\Users\k.petrova\Documents\Visual Studio 2015\Projects\ManTestApp\ManTestAppWebForms\Data\{0}", filename);
+                        att.FileName = filename;
                         att.Url = completeUrl;
                     }
                     attachementController.Insert(att);
                     Response.Redirect(string.Format("~/Views/StepDetails.aspx?stepId={0}", stepId));
 
+                }
+                catch (ThreadAbortException ex)
+                {
+                    //StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
                 }
                 catch (Exception ex)
                 {

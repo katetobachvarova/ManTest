@@ -44,7 +44,7 @@ namespace ManTestAppWebForms.Views
         public void gvTestCases_UpdateItem(int id)
         {
             ManTestAppWebForms.Models.TestCase item = null;
-            // Load the item here, e.g. item = MyDataLayer.Find(id);
+            item = testCaseController.FindById(id);
             if (item == null)
             {
                 // The item wasn't found

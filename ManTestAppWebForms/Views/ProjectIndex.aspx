@@ -63,7 +63,7 @@
                     Modules
                 </ItemTemplate>
             </asp:TemplateField>--%>
-   <%--         <asp:TemplateField>
+            <asp:TemplateField>
                                     <ItemTemplate>
                                         <img alt="Test Cases" src="../images/plus.png" style="cursor: pointer"  title="Test Cases"/>
                                         <asp:Panel ID="pnlTestCase2" runat="server" Style="display: none">
@@ -79,7 +79,7 @@
                                         </asp:Panel>
                                         TestCases
                                     </ItemTemplate>
-                                </asp:TemplateField>--%>
+                                </asp:TemplateField>
             <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true"></asp:BoundField>
             <asp:BoundField DataField="Title" HeaderText="TITLE"></asp:BoundField>
             <asp:BoundField DataField="Description" HeaderText="DESCRIPTION"></asp:BoundField>
