@@ -20,8 +20,14 @@ namespace ManTestAppWebForms.Views
             stepController = new ControllerBase<Step>();
             stepId = Request.QueryString["stepId"];
             int stepid;
-            Int32.TryParse(stepId, out stepid);
-            Step = stepController.FindById(stepid);
+            if (Int32.TryParse(stepId, out stepid))
+            {
+                Step = stepController.FindById(stepid);
+            }
+            else
+            {
+                Step = new Step();
+            }
             Page.DataBind();
         }
 
@@ -35,8 +41,13 @@ namespace ManTestAppWebForms.Views
         {
             int stepid;
             Int32.TryParse(stepId, out stepid);
-            // return stepController.uof.GetRepository<Attachment>().All().Where(a => a.StepId == stepid).AsQueryable();
-            return (new List<Attachment>() { new Attachment() { Id = 5, Url = "bla" }, new Attachment() { Id = 7, Url = "bla y" } }).AsQueryable();
+             return stepController.uof.GetRepository<Attachment>().All().Where(a => a.StepId == stepid).AsQueryable();
+        }
+
+        protected void btn_AddAttachment(object sender, EventArgs e)
+        {
+            Response.Redirect(string.Format("~/Views/AttechmentCreate.aspx?stepId={0}", Step.Id));
+            
         }
     }
 }
