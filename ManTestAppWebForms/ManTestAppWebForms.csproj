@@ -216,6 +216,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Child.master" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -252,6 +253,7 @@
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Views\ModuleCreate.aspx" />
+    <Content Include="Views\ModuleDetails.aspx" />
     <Content Include="Views\ModuleIndex.aspx" />
     <Content Include="Views\ProjectCreate.aspx" />
     <Content Include="Views\ProjectDetails.aspx" />
@@ -389,6 +391,13 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Child.master.cs">
+      <DependentUpon>Child.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Child.master.designer.cs">
+      <DependentUpon>Child.master</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Migrations\201702281024566_Initial.cs" />
     <Compile Include="Migrations\201702281024566_Initial.Designer.cs">
@@ -494,6 +503,13 @@
     </Compile>
     <Compile Include="Views\ModuleCreate.aspx.designer.cs">
       <DependentUpon>ModuleCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModuleDetails.aspx.cs">
+      <DependentUpon>ModuleDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ModuleDetails.aspx.designer.cs">
+      <DependentUpon>ModuleDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\ModuleIndex.aspx.cs">
       <DependentUpon>ModuleIndex.aspx</DependentUpon>

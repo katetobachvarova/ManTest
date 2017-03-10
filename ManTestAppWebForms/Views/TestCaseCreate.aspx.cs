@@ -89,7 +89,7 @@ namespace ManTestAppWebForms.Views
             Response.Redirect("~/Views/TestCaseIndex.aspx");
         }
 
-        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+        protected void DropDownListProjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             Session["projectIdDropDown"] = (sender as DropDownList).SelectedValue;
             int projectid;

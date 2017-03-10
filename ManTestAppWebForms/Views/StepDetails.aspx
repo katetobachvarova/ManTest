@@ -1,6 +1,21 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="StepDetails.aspx.cs" Inherits="ManTestAppWebForms.Views.StepDetails" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:Label ID="Label2" runat="server" Text='<%# Step.Title %>'  Font-Bold="true" Font-Size="Larger"></asp:Label>
     <div class="form-group">
+    <asp:Label ID="lblProject" runat="server" Text="Related Project" class="col-lg-2 control-label"></asp:Label>
+    <asp:TextBox ID="TextBoxProject" runat="server" Text='<%# Step.TestCase.Project.Description %>' class="form-control" ReadOnly="true"></asp:TextBox>
+    </div>
+   <%-- <div class="form-group">
+    <asp:Label ID="lblModule" runat="server" Text="Module" class="col-lg-2 control-label"></asp:Label>
+    <asp:TextBox ID="TextBoxModule" runat="server" Text='<%# Eval("Step.TestCase.Module.Title") == DBNull.Value ? "" : Eval("Step.TestCase.Module.Title") %>' class="form-control"></asp:TextBox>
+    </div>--%>
+    <div class="form-group">
+    <asp:Label ID="lblTestCase" runat="server" Text="Related TestCase" class="col-lg-2 control-label"></asp:Label>
+    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Step.TestCase.Title%>' class="form-control" ReadOnly="true"></asp:TextBox>
+    </div>
+    
+    <div class="form-group">
+        <br></br>
     <asp:Label ID="lblTitle" runat="server" Text="Title" class="col-lg-2 control-label"></asp:Label>
     <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# Step.Title %>' class="form-control"></asp:TextBox>
     </div>
@@ -9,30 +24,8 @@
     <asp:Label ID="lblDescription" runat="server" Text="Description" class="col-lg-2 control-label"></asp:Label>
     <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# Step.Description %>' class="form-control"></asp:TextBox>
     </div>
-
-<%-- 
-    <div class="form-group">
-      <label for="textArea" class="col-lg-2 control-label">Textarea</label>
-      <div class="col-lg-10">
-        <textarea class="form-control" rows="3" id="textArea"></textarea>
-        <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
-      </div>
-     </div>
-    <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-      <div class="col-lg-10">
-        <input class="form-control" id="inputEmail" placeholder="Email" type="text">
-      </div>
-    </div>--%>
     <div class="form-group">
     <asp:Label ID="Label1" runat="server" Text="Attachments" class="col-lg-2 control-label"></asp:Label>
-    <%--<asp:ListView ID="ListViewAttachments" runat="server" SelectMethod="ListViewAttachments_GetData"
-         ItemType="ManTestAppWebForms.Models.Attachment">
-        <ItemTemplate>
-            <li title='<%# Eval("Url") %>'></li>
-            <asp:Label ID="Label2" runat="server" Text='<%# Eval("Url") %>'></asp:Label>
-        </ItemTemplate>
-    </asp:ListView>--%>
     <asp:GridView ID="gvAttachments" runat="server"
                   ItemType="ManTestAppWebForms.Models.Attachment"
                   DataKeyNames="Id"
@@ -42,14 +35,14 @@
                   SelectMethod="gvAttachments_GetData"
                   DeleteMethod="gvAttachments_DeleteItem"
                   UpdateMethod="gvAttachments_UpdateItem"
-                  CssClass="table">
+                  CssClass="table tablegridview">
         <Columns>
             <asp:BoundField DataField="Id" ReadOnly="true" HeaderText="ID">
                 </asp:BoundField>
             <asp:BoundField DataField="FileName" HeaderText="FileName">
                 </asp:BoundField>
-            <asp:BoundField DataField="Url" HeaderText="Url">
-                </asp:BoundField>
+            <%--<asp:BoundField DataField="Url" HeaderText="Url">
+                </asp:BoundField>--%>
             <asp:hyperlinkfield 
                             datanavigateurlfields="Id" 
                             datanavigateurlformatstring="AttachmentOpen.aspx?attachmentId={0}"
@@ -62,5 +55,5 @@
     
     <asp:Button ID="btnAddAttachment" runat="server" Text="Add Attachment"   OnClick="btn_AddAttachment" class="btn btn-default" />
         </div>
-    
-    </asp:Content>
+</asp:Content>
+

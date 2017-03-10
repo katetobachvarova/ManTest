@@ -75,9 +75,16 @@
             </div>
         </div>
         <div class="container body-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+           <%--<div class="col-md-4">
+            <asp:ContentPlaceHolder ID="TreeContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>--%>
+           <div class="col-md-12">
+
+             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
-            <hr />
+            </div>
+            
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> - ManTest Application</p>
             </footer>

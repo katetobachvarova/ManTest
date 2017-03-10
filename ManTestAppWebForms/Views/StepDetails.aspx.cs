@@ -14,6 +14,8 @@ namespace ManTestAppWebForms.Views
         private ControllerBase<Step> stepController;
         private string stepId;
         public Step Step;
+        TreeView currentTreeView;
+        ContentPlaceHolder content;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,11 +30,44 @@ namespace ManTestAppWebForms.Views
             {
                 Step = new Step();
             }
+            
+
             if (!IsPostBack)
             {
-               Page.DataBind();
+                content = (ContentPlaceHolder)this.Master.FindControl("TreeContent");
+                TreeView prtrv = (TreeView)Session["tree"];
+                if (prtrv != null)
+                {
+                    content.Controls.Add(prtrv);
+
+                }
+                currentTreeView = prtrv;
+                Page.DataBind();
             }
-           
+            else
+            {
+                ContentPlaceHolder content = (ContentPlaceHolder)this.Master.FindControl("TreeContent");
+                TreeView prtrv = (TreeView)Session["tree"];
+                content.Controls.Clear();
+                if (prtrv != null && !content.Controls.Contains(prtrv))
+                {
+                    content.Controls.Add(prtrv);
+
+                }
+                Page.DataBind();
+
+            }
+            //if (currentTreeView != null)
+            //{
+            //    ContentPlaceHolder content = (ContentPlaceHolder)this.Master.FindControl("TreeContent");
+            //    TreeView prtrv = (TreeView)Session["tree"];
+            //    if (prtrv != null)
+            //    {
+            //        content.Controls.Add(prtrv);
+
+            //    }
+            //}
+
         }
 
         // The return type can be changed to IEnumerable, however to support

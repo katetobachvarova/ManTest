@@ -13,6 +13,7 @@ namespace ManTestAppWebForms.Views
     {
         public string testCaseId;
         private ControllerBase<TestCase> testCaseController;
+        public Step currentStep;
         protected void Page_Load(object sender, EventArgs e)
         {
             testCaseController = new ControllerBase<TestCase>();
@@ -46,6 +47,11 @@ namespace ManTestAppWebForms.Views
                 }
 
             }
+        }
+
+        protected void TreeViewTestCase_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            currentStep = new Step();
         }
     }
 }
