@@ -1,14 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ProjectDetails.aspx.cs" Inherits="ManTestAppWebForms.Views.ProjectDetails" %>
-<asp:Content ID="ContentTreeView" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:TreeView ID="TreeViewModules" runat="server"  CssClass="TreeView"  
-                  OnSelectedNodeChanged="TreeViewModules_SelectedNodeChanged" 
-                  OnTreeNodeCheckChanged="TreeViewModules_TreeNodeCheckChanged"
-                  SelectedNodeStyle-BackColor="#33cccc">
-
-    </asp:TreeView>
-    </asp:Content>
-<%--<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="Label1" runat="server" Text='<%# "Project " + currentProject.Title %>'  CssClass="legend titlemantest"></asp:Label>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <div>
+    <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
+    </div>
+    <asp:Label ID="Label1" runat="server"  CssClass="legend titlemantest"></asp:Label>
     <br/>
     <asp:Label ID="Label2" runat="server" Text="Related Modules"  CssClass="labelmantest"></asp:Label>
     <asp:GridView ID="GridViewModules" runat="server"
@@ -28,7 +23,7 @@
             <asp:hyperlinkfield 
                             datanavigateurlfields="Id" 
                             datanavigateurlformatstring="ModuleDetails.aspx?moduleId={0}"
-                            Text="Details"/>
+                            Text="Details >"/>
             <asp:CommandField ShowEditButton="True"/>
             <asp:CommandField ShowDeleteButton="True"/>
         </Columns>
@@ -53,9 +48,9 @@
             <asp:hyperlinkfield 
                             datanavigateurlfields="Id" 
                             datanavigateurlformatstring="TestCaseDetails.aspx?testCaseId={0}"
-                            Text="Details"/>
+                            Text="Details >"/>
             <asp:CommandField ShowEditButton="True"/>
             <asp:CommandField ShowDeleteButton="True"/>
         </Columns>
     </asp:GridView>
-</asp:Content>--%>
+</asp:Content>

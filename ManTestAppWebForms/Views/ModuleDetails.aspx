@@ -1,7 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ModuleDetails.aspx.cs" Inherits="ManTestAppWebForms.Views.ModuleDetails" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="Label1" runat="server" Text='<%# "Module " + currentModule.Title %>'  CssClass="legend titlemantest"></asp:Label>
-      <asp:Label ID="Label2" runat="server" Text='<%# "Project " + currentModule.Project.Title %>'  CssClass="legend titlemantest"></asp:Label>
+    <div>
+    <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
+     </div>
+    <asp:Label ID="LabelProjectTitle" runat="server"  CssClass="legend titlemantest"></asp:Label>
+    <asp:Label ID="LabelModuleTitle" runat="server"  CssClass="legend titlemantest"></asp:Label>
     <br/>
     <asp:GridView ID="GridViewTestCases" runat="server"
                      ItemType="ManTestAppWebForms.Models.TestCase"
@@ -20,7 +23,7 @@
             <asp:hyperlinkfield 
                             datanavigateurlfields="Id" 
                             datanavigateurlformatstring="TestCaseDetails.aspx?testCaseId={0}"
-                            Text="Details"/>
+                            Text="Details >"/>
             <asp:CommandField ShowEditButton="True"/>
             <asp:CommandField ShowDeleteButton="True"/>
         </Columns>

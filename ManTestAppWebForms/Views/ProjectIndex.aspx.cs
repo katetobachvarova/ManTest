@@ -21,6 +21,7 @@ namespace ManTestAppWebForms.Views
             projectController = new ControllerBase<Project>();
             moduleController = new ControllerBase<Module>();
             testCaseController = new ControllerBase<TestCase>();
+
         }
 
         // The return type can be changed to IEnumerable, however to support

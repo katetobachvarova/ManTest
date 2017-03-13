@@ -1,9 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="StepDetails.aspx.cs" Inherits="ManTestAppWebForms.Views.StepDetails" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="Label2" runat="server" Text='<%# Step.Title %>'  Font-Bold="true" Font-Size="Larger"></asp:Label>
+    <div>
+    <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
+    </div>
+    <asp:Label ID="Label2" runat="server" Text='<%# currentStep.Title %>'  Font-Bold="true" Font-Size="Larger"></asp:Label>
     <div class="form-group">
     <asp:Label ID="lblProject" runat="server" Text="Related Project" class="col-lg-2 control-label"></asp:Label>
-    <asp:TextBox ID="TextBoxProject" runat="server" Text='<%# Step.TestCase.Project.Description %>' class="form-control" ReadOnly="true"></asp:TextBox>
+    <asp:TextBox ID="TextBoxProject" runat="server" Text='<%# currentStep.TestCase.Project.Description %>' class="form-control" ReadOnly="true"></asp:TextBox>
     </div>
    <%-- <div class="form-group">
     <asp:Label ID="lblModule" runat="server" Text="Module" class="col-lg-2 control-label"></asp:Label>
@@ -11,18 +14,18 @@
     </div>--%>
     <div class="form-group">
     <asp:Label ID="lblTestCase" runat="server" Text="Related TestCase" class="col-lg-2 control-label"></asp:Label>
-    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Step.TestCase.Title%>' class="form-control" ReadOnly="true"></asp:TextBox>
+    <asp:TextBox ID="TextBox1" runat="server" Text='<%# currentStep.TestCase.Title%>' class="form-control" ReadOnly="true"></asp:TextBox>
     </div>
     
     <div class="form-group">
         <br></br>
     <asp:Label ID="lblTitle" runat="server" Text="Title" class="col-lg-2 control-label"></asp:Label>
-    <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# Step.Title %>' class="form-control"></asp:TextBox>
+    <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# currentStep.Title %>' class="form-control"></asp:TextBox>
     </div>
 
     <div class="form-group">
     <asp:Label ID="lblDescription" runat="server" Text="Description" class="col-lg-2 control-label"></asp:Label>
-    <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# Step.Description %>' class="form-control"></asp:TextBox>
+    <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# currentStep.Description %>' class="form-control"></asp:TextBox>
     </div>
     <div class="form-group">
     <asp:Label ID="Label1" runat="server" Text="Attachments" class="col-lg-2 control-label"></asp:Label>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+    <siteMapNode url="~/Views/ProjectIndex" title="projectIndex"  description="">
+        <siteMapNode url="~/Views/ProjectDetails" title="projectDetails"  description="" >
+                  <siteMapNode url="~/Views/ModuleDetails" title="moduleDetails"  description="" >
+                      <siteMapNode url="~/Views/TestCaseDetails" title="testCaseDetails"  description="" >
+                        <siteMapNode url="~/Views/StepDetails" title="stepDetails"  description="" >
+                          <siteMapNode url="~/Views/AttachmentDetails" title="attachmentDetails"  description="" >
+                          </siteMapNode>
+                        </siteMapNode>
+                      </siteMapNode>
+                  </siteMapNode>
+        </siteMapNode>
+    </siteMapNode>
+</siteMap>

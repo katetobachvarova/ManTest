@@ -29,11 +29,38 @@ namespace ManTestAppWebForms.Views
             {
                 currentModule = new Module();
             }
-            if (!IsPostBack)
+            LabelModuleTitle.Text = currentModule.Title;
+
+            if (!IsPostBack && !string.IsNullOrEmpty(Request.QueryString["moduleId"]))
             {
-                Page.DataBind();
+                SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
+
             }
+            //if (!IsPostBack)
+            //{
+            //    Page.DataBind();
+            //}
         }
+
+        SiteMapNode SiteMap_SiteMapResolve(object sender, SiteMapResolveEventArgs e)
+        {
+            // Only need one execution in one request.
+            SiteMap.SiteMapResolve -= new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
+
+            if (SiteMap.CurrentNode != null)
+            {
+                // SiteMap.CurrentNode is readonly, so we need to clone one to operate.
+                SiteMapNode currentNode = SiteMap.CurrentNode.Clone(true);
+                currentNode.Title = "ModuleId" + moduleId;
+                currentNode.ParentNode.Title = "Project" + moduleController.uof.GetRepository<Project>().FindByKey(currentModule.ProjectId).Id.ToString();
+                currentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", moduleController.uof.GetRepository<Project>().FindByKey(currentModule.ProjectId).Id.ToString());
+
+                // Use the changed one in the breadcrumb.
+                return currentNode;
+            }
+            return null;
+        }
+
 
         // The return type can be changed to IEnumerable, however to support
         // paging and sorting, the following parameters must be added:

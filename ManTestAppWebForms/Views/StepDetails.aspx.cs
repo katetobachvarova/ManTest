@@ -13,7 +13,7 @@ namespace ManTestAppWebForms.Views
     {
         private ControllerBase<Step> stepController;
         private string stepId;
-        public Step Step;
+        public Step currentStep;
         TreeView currentTreeView;
         ContentPlaceHolder content;
 
@@ -24,39 +24,44 @@ namespace ManTestAppWebForms.Views
             int stepid;
             if (Int32.TryParse(stepId, out stepid))
             {
-                Step = stepController.FindById(stepid);
+                currentStep = stepController.FindById(stepid);
             }
             else
             {
-                Step = new Step();
+                currentStep = new Step();
             }
-            
-
-            if (!IsPostBack)
+            if (!IsPostBack && !string.IsNullOrEmpty(Request.QueryString["stepId"]))
             {
-                content = (ContentPlaceHolder)this.Master.FindControl("TreeContent");
-                TreeView prtrv = (TreeView)Session["tree"];
-                if (prtrv != null)
-                {
-                    content.Controls.Add(prtrv);
-
-                }
-                currentTreeView = prtrv;
-                Page.DataBind();
-            }
-            else
-            {
-                ContentPlaceHolder content = (ContentPlaceHolder)this.Master.FindControl("TreeContent");
-                TreeView prtrv = (TreeView)Session["tree"];
-                content.Controls.Clear();
-                if (prtrv != null && !content.Controls.Contains(prtrv))
-                {
-                    content.Controls.Add(prtrv);
-
-                }
-                Page.DataBind();
+                SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
 
             }
+
+
+            //if (!IsPostBack)
+            //{
+            //    content = (ContentPlaceHolder)this.Master.FindControl("TreeContent");
+            //    TreeView prtrv = (TreeView)Session["tree"];
+            //    if (prtrv != null)
+            //    {
+            //        content.Controls.Add(prtrv);
+
+            //    }
+            //    currentTreeView = prtrv;
+            //    Page.DataBind();
+            //}
+            //else
+            //{
+            //    ContentPlaceHolder content = (ContentPlaceHolder)this.Master.FindControl("TreeContent");
+            //    TreeView prtrv = (TreeView)Session["tree"];
+            //    content.Controls.Clear();
+            //    if (prtrv != null && !content.Controls.Contains(prtrv))
+            //    {
+            //        content.Controls.Add(prtrv);
+
+            //    }
+            //    Page.DataBind();
+
+            //}
             //if (currentTreeView != null)
             //{
             //    ContentPlaceHolder content = (ContentPlaceHolder)this.Master.FindControl("TreeContent");
@@ -70,22 +75,41 @@ namespace ManTestAppWebForms.Views
 
         }
 
-        // The return type can be changed to IEnumerable, however to support
-        // paging and sorting, the following parameters must be added:
-        //     int maximumRows
-        //     int startRowIndex
-        //     out int totalRowCount
-        //     string sortByExpression
-        public IQueryable ListViewAttachments_GetData()
+        SiteMapNode SiteMap_SiteMapResolve(object sender, SiteMapResolveEventArgs e)
         {
-            int stepid;
-            Int32.TryParse(stepId, out stepid);
-             return stepController.uof.GetRepository<Attachment>().All().Where(a => a.StepId == stepid).AsQueryable();
+            // Only need one execution in one request.
+            SiteMap.SiteMapResolve -= new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
+
+            if (SiteMap.CurrentNode != null)
+            {
+                // SiteMap.CurrentNode is readonly, so we need to clone one to operate.
+                SiteMapNode currentNode = SiteMap.CurrentNode.Clone(true);
+                currentNode.Title = "StepId" + stepId;
+                currentNode.ParentNode.Title = "TestCaseId" + currentStep.TestCaseId;
+                
+                currentNode.ParentNode.Url = string.Format("TestCaseDetails.aspx?testCaseId={0}", stepController.uof.GetRepository<TestCase>().FindByKey(currentStep.TestCaseId).Id);
+
+                if (currentStep.TestCase.ModuleId.HasValue)
+                {
+                    currentNode.ParentNode.ParentNode.Title = "ModuleId" + stepController.uof.GetRepository<Module>().FindByKey(currentStep.TestCase.ModuleId.Value).Id.ToString();
+                    currentNode.ParentNode.ParentNode.Url = string.Format("ModuleDetails.aspx?moduleId={0}", stepController.uof.GetRepository<Module>().FindByKey(currentStep.TestCase.ModuleId.Value).Id);
+                }
+                else
+                {
+                    currentNode.ParentNode.ParentNode.Title = "No related Module";
+                }
+               
+                currentNode.ParentNode.ParentNode.ParentNode.Title = "ProjectId" + currentStep.TestCase.ProjectId;
+                currentNode.ParentNode.ParentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentStep.TestCase.ProjectId);
+                // Use the changed one in the breadcrumb.
+                return currentNode;
+            }
+            return null;
         }
 
         protected void btn_AddAttachment(object sender, EventArgs e)
         {
-            Response.Redirect(string.Format("~/Views/AttachmentCreate.aspx?stepId={0}", Step.Id));
+            Response.Redirect(string.Format("~/Views/AttachmentCreate.aspx?stepId={0}", currentStep.Id));
             
         }
 

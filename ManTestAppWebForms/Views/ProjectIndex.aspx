@@ -12,7 +12,12 @@
         $(this).closest("tr").next().remove();
     });
 </script>
-    <h2>Projects</h2>
+    <div>
+    <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
+    </div>
+    <div>
+    <asp:Label ID="lblProjects" runat="server" Text="Projects" CssClass="legend titlemantest"></asp:Label>
+    </div>
     <asp:HyperLink NavigateUrl="~/Views/ProjectCreate" Text="Add New Project" runat="server" />
     <asp:GridView runat="server" ID="gv_ProjectIndex"
         DataKeyNames="Id"
@@ -91,13 +96,17 @@
                                 DataNavigateUrlFields="Id"
                                 DataNavigateUrlFormatString="AttachTestCase.aspx?projectId={0}"
                                 Text="Add TestCase"/>
-             <asp:hyperlinkfield 
+             <%--<asp:hyperlinkfield 
                                 DataNavigateUrlFields="Id"
                                 DataNavigateUrlFormatString="ProjectDetails.aspx?projectId={0}"
-                                Text="Details"/>
+                                Text="Details"/>--%>
+            <asp:TemplateField >
+                <ItemTemplate>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# String.Format("ProjectDetails.aspx?projectId={0}",   Item.Id) %>'> Details ></asp:HyperLink>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:CommandField ShowEditButton="True"/>
             <asp:CommandField ShowDeleteButton="True"/>
-           
         </Columns>
     </asp:GridView>
 </asp:Content>
