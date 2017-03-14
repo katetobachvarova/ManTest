@@ -2,23 +2,16 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript">
-    $("[src*=plus]").live("click", function () {
-        $(this).closest("tr").after("<tr><td></td><td colspan = \'999\'>" + $(this).next().html() + "</td></tr>")
-        $(this).attr("src", "../images/minus.png");
-    });
-    $("[src*=minus]").live("click", function () {
-        $(this).attr("src", "../images/plus.png");
-        $(this).closest("tr").next().remove();
-    });
-</script>
     <div>
     <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
     </div>
     <div>
     <asp:Label ID="lblProjects" runat="server" Text="Projects" CssClass="legend titlemantest"></asp:Label>
     </div>
+    <br/>
+    <div>
     <asp:HyperLink NavigateUrl="~/Views/ProjectCreate" Text="Add New Project" runat="server" />
+    </div>
     <asp:GridView runat="server" ID="gv_ProjectIndex"
         DataKeyNames="Id"
         SelectMethod="GetData_ProjectIndex"
@@ -30,63 +23,10 @@
         CssClass="table tablegridview"
         AllowSorting="true" AllowPaging="true" PageSize="5"
         AutoGenerateColumns="false"
-        OnSelectedIndexChanged="gv_ProjectIndex_SelectedIndexChanged"
-        OnRowDataBound="parent_OnRowDataBound"
         EditRowStyle-CssClass="SelectedRowStyle">
         <Columns>
-           <%-- <asp:TemplateField>
-                <ItemTemplate>
-                    <img alt="Modules"  src="../images/plus.png" style="cursor: pointer"  title="Modules" />
-                    <asp:Panel ID="pnlOrders" runat="server" Style="display: none">
-                    <asp:GridView runat="server" 
-                        AutoGenerateColumns="false"  ID="Module" EmptyDataText="No related Modules" Visible="true"
-                         OnRowDataBound="child_OnRowDataBound"
-                         CssClass="table table-hover table-striped">
-                        <Columns>
-                                <asp:TemplateField>
-                                    <ItemTemplate>
-                                        <img alt="" src="../images/plus.png" style="cursor: pointer"  />
-                                        <asp:Panel ID="pnlTestCase" runat="server" Style="display: none">
-                                        <asp:GridView runat="server" 
-                                                      AutoGenerateColumns="false"  ID="TestCase" EmptyDataText="No related TestCases" Visible="true"
-                                                      OnRowDataBound="grandchild_OnRowDataBound">
-                                            <Columns>
-                                                <asp:BoundField DataField="Id" HeaderText="ID"></asp:BoundField>
-                                                <asp:BoundField DataField="Title" HeaderText="TITLE"></asp:BoundField>
-                                                <asp:BoundField DataField="Description" HeaderText="DESCRIPTION"></asp:BoundField>
-                                            </Columns>
-                                        </asp:GridView>
-                                        </asp:Panel>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true"></asp:BoundField>
-                            <asp:BoundField DataField="Title" HeaderText="TITLE"></asp:BoundField>
-                            <asp:BoundField DataField="Description" HeaderText="DESCRIPTION"></asp:BoundField>
-                        </Columns>
-                    </asp:GridView>
-                    </asp:Panel>
-                    Modules
-                </ItemTemplate>
-            </asp:TemplateField>--%>
-           <%-- <asp:TemplateField>
-                                    <ItemTemplate>
-                                        <img alt="Test Cases" src="../images/plus.png" style="cursor: pointer"  title="Test Cases"/>
-                                        <asp:Panel ID="pnlTestCase2" runat="server" Style="display: none">
-                                        <asp:GridView runat="server" 
-                                                      AutoGenerateColumns="false"  ID="TestCase2" EmptyDataText="No related TestCases" Visible="true"
-                                                      OnRowDataBound="NoModuleDataBound">
-                                            <Columns>
-                                                <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true"></asp:BoundField>
-                                                <asp:BoundField DataField="Title" HeaderText="TITLE"></asp:BoundField>
-                                                <asp:BoundField DataField="Description" HeaderText="DESCRIPTION"></asp:BoundField>
-                                            </Columns>
-                                        </asp:GridView>
-                                        </asp:Panel>
-                                        TestCases
-                                    </ItemTemplate>
-                                </asp:TemplateField>--%>
-            <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true"></asp:BoundField>
-            <asp:BoundField DataField="Title" HeaderText="TITLE"></asp:BoundField>
+            <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true"  ControlStyle-BackColor="#ff0066"></asp:BoundField>
+            <asp:BoundField DataField="Title" HeaderText="TITLE" ></asp:BoundField>
             <asp:BoundField DataField="Description" HeaderText="DESCRIPTION"></asp:BoundField>
             <asp:hyperlinkfield 
                             datanavigateurlfields="Id" 
@@ -96,13 +36,9 @@
                                 DataNavigateUrlFields="Id"
                                 DataNavigateUrlFormatString="AttachTestCase.aspx?projectId={0}"
                                 Text="Add TestCase"/>
-             <%--<asp:hyperlinkfield 
-                                DataNavigateUrlFields="Id"
-                                DataNavigateUrlFormatString="ProjectDetails.aspx?projectId={0}"
-                                Text="Details"/>--%>
             <asp:TemplateField >
                 <ItemTemplate>
-                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# String.Format("ProjectDetails.aspx?projectId={0}",   Item.Id) %>'> Details ></asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# String.Format("ProjectDetails.aspx?projectId={0}", Item.Id) %>'> Details ></asp:HyperLink>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:CommandField ShowEditButton="True"/>

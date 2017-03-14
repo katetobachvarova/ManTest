@@ -12,16 +12,11 @@ namespace ManTestAppWebForms.Views
     public partial class ProjectIndex : System.Web.UI.Page
     {
         private ControllerBase<Project> projectController;
-        private ControllerBase<Module> moduleController;
-        private ControllerBase<TestCase> testCaseController;
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             projectController = new ControllerBase<Project>();
-            moduleController = new ControllerBase<Module>();
-            testCaseController = new ControllerBase<TestCase>();
-
         }
 
         // The return type can be changed to IEnumerable, however to support
@@ -65,90 +60,6 @@ namespace ManTestAppWebForms.Views
             }
         }
 
-        protected void gv_ProjectIndex_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var id = 1;
-           
-        }
-
-        protected void parent_OnRowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                GridView childgv = (GridView)e.Row.FindControl("Module");
-                if (childgv != null)
-                {
-                    childgv.DataSource = moduleController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Project).Id);
-                    childgv.DataBind();
-                }
-                GridView childgv2 = (GridView)e.Row.FindControl("TestCase2");
-                if (childgv2 != null)
-                {
-                    childgv2.DataSource = testCaseController.GetAll().Where(i => i.ModuleId == null &&  i.ProjectId == (e.Row.DataItem as Project).Id);
-                    childgv2.DataBind();
-                }
-                //GridView grandchildgv = (GridView)((GridView)e.Row.FindControl("Kat")).SelectedRow?.FindControl("TestCase");
-                ////GridView grandchildgv = (GridView)e.Row.FindControl("TestCase");
-                //if (grandchildgv != null)
-                //{
-                //    grandchildgv.DataSource = moduleController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Project).Id);
-                //    grandchildgv.DataBind();
-                //}
-            }
-            
-        }
-        protected void child_OnRowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                GridView childgv = (GridView)e.Row.FindControl("TestCase");
-                if (childgv != null)
-                {
-                    
-                    childgv.DataSource = (testCaseController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Module).ProjectId && i.ModuleId != null && i.ModuleId == (e.Row.DataItem as Module).Id));
-                    childgv.DataBind();
-                }
-
-            }
-            //if (e.Row.RowType == DataControlRowType.EmptyDataRow)
-            //{
-            //    GridView childgv = (GridView)e.Row.FindControl("Kat");
-            //    if (childgv != null)
-            //    {
-            //        childgv.DataSource = moduleController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Project).Id);
-            //        childgv.DataBind();
-            //    }
-            //    GridView grandchildgv = (GridView)e.Row.FindControl("TestCase");
-            //    if (grandchildgv != null)
-            //    {
-            //        grandchildgv.DataSource = moduleController.GetAll().Where(i => i.ProjectId == (e.Row.DataItem as Project).Id);
-            //        grandchildgv.DataBind();
-            //    }
-            //}
-
-        }
-        protected void grandchild_OnRowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-
-            }
-        }
-
-        protected void NoModuleDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                GridView childgv = (GridView)e.Row.FindControl("TestCase");
-                if (childgv != null)
-                {
-                    childgv.DataSource = testCaseController.GetAll().Where(i => i.ModuleId == null);
-                    childgv.DataBind();
-                }
-            }
-        }
-
-        
 
         //public override void Dispose()
         //{

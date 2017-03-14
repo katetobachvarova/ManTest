@@ -24,12 +24,12 @@ namespace ManTestAppWebForms.Views
             if (Int32.TryParse(moduleId, out moduleid))
             {
                 currentModule = moduleController.FindById(moduleid);
+                if (currentModule != null)
+                {
+                    LabelProjectTitle.Text = "Project : " + currentModule.Project.Title;
+                    LabelModuleTitle.Text = "Module : " + currentModule.Title;
+                }
             }
-            else
-            {
-                currentModule = new Module();
-            }
-            LabelModuleTitle.Text = currentModule.Title;
 
             if (!IsPostBack && !string.IsNullOrEmpty(Request.QueryString["moduleId"]))
             {

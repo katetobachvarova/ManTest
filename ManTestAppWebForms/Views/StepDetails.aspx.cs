@@ -14,8 +14,8 @@ namespace ManTestAppWebForms.Views
         private ControllerBase<Step> stepController;
         private string stepId;
         public Step currentStep;
-        TreeView currentTreeView;
-        ContentPlaceHolder content;
+        //TreeView currentTreeView;
+        //ContentPlaceHolder content;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,11 +25,18 @@ namespace ManTestAppWebForms.Views
             if (Int32.TryParse(stepId, out stepid))
             {
                 currentStep = stepController.FindById(stepid);
+                if (currentStep != null)
+                {
+                    LabelProjectTitle.Text = "Project : " + currentStep.TestCase.Project.Title;
+                    LabelModuleTitle.Text = (currentStep.TestCase.Module == null) ? LabelModuleTitle.Text = "No Related Module" : LabelModuleTitle.Text = "Module : " + currentStep.TestCase.Module.Title;
+                    LabelTestCaseTitle.Text = "Test Case : " + currentStep.TestCase.Title;
+                    LabelStepTitle.Text = "Step : " + currentStep.Title;
+                }
             }
-            else
-            {
-                currentStep = new Step();
-            }
+            //else
+            //{
+            //    currentStep = new Step();
+            //}
             if (!IsPostBack && !string.IsNullOrEmpty(Request.QueryString["stepId"]))
             {
                 SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);

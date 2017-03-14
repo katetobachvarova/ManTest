@@ -29,6 +29,14 @@ namespace ManTestAppWebForms.Views
 
         protected void TestCase_Inserted(object sender, FormViewInsertedEventArgs e)
         {
+            if (!string.IsNullOrEmpty(moduleId) && ModelState.IsValid)
+            {
+                Response.Redirect(String.Format("ModuleDetails.aspx?moduleId={0}", moduleId));
+            }
+            else if (!string.IsNullOrEmpty(projectId) && ModelState.IsValid)
+            {
+                Response.Redirect(String.Format("ProjectDetails.aspx?projectId={0}", projectId));
+            }
 
         }
 

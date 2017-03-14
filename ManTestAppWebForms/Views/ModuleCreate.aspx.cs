@@ -46,13 +46,13 @@ namespace ManTestAppWebForms.Views
         {
             if (ModelState.IsValid)
             {
-                Response.Redirect("~/Views/ModuleIndex.aspx");
+                Response.Redirect(String.Format("ProjectDetails.aspx?projectId={0}", projectId));
             }
         }
 
         protected void Cancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Views/ModuleIndex.aspx");
+            Response.Redirect(String.Format("ProjectDetails.aspx?projectId={0}", projectId));
         }
     }
 }

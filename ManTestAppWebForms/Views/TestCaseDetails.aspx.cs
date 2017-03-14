@@ -13,7 +13,6 @@ namespace ManTestAppWebForms.Views
     {
         public string testCaseId;
         private ControllerBase<TestCase> testCaseController;
-        //public Step currentStep;
         public TestCase currentTestCase;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -24,13 +23,13 @@ namespace ManTestAppWebForms.Views
             if (Int32.TryParse(testCaseId, out testCaseid))
             {
                 currentTestCase = testCaseController.FindById(testCaseid);
+                if (currentTestCase != null)
+                {
+                    LabelProjectTitle.Text = "Project : " + currentTestCase.Project.Title;
+                    LabelModuleTitle.Text = (currentTestCase.Module == null) ? LabelModuleTitle.Text = "No Related Module" : LabelModuleTitle.Text = "Module : " + currentTestCase.Module.Title;
+                    LabelTestCaseTitle.Text = "Test Case : " + currentTestCase.Title;
+                }
             }
-            else
-            {
-                currentTestCase = new TestCase();
-            }
-            LabelTestCase.Text = currentTestCase.Title;
-
             if (!IsPostBack && !string.IsNullOrEmpty(Request.QueryString["testCaseId"]))
             {
                 SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
@@ -44,30 +43,32 @@ namespace ManTestAppWebForms.Views
 
         SiteMapNode SiteMap_SiteMapResolve(object sender, SiteMapResolveEventArgs e)
         {
-            // Only need one execution in one request.
             SiteMap.SiteMapResolve -= new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
 
             if (SiteMap.CurrentNode != null)
             {
-                // SiteMap.CurrentNode is readonly, so we need to clone one to operate.
                 SiteMapNode currentNode = SiteMap.CurrentNode.Clone(true);
                 currentNode.Title = "TestCaseId" + testCaseId;
                 if (currentTestCase.ModuleId.HasValue)
                 {
                     currentNode.ParentNode.Title = "ModuleId" + testCaseController.uof.GetRepository<Module>().FindByKey(currentTestCase.ModuleId.Value).Id.ToString();
                     currentNode.ParentNode.Url = string.Format("ModuleDetails.aspx?moduleId={0}", testCaseController.uof.GetRepository<Module>().FindByKey(currentTestCase.ModuleId.Value).Id.ToString());
-
-                    currentNode.ParentNode.ParentNode.Title = "ProjectId" + currentTestCase.ProjectId.ToString();
-                    currentNode.ParentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentTestCase.ProjectId.ToString());
                 }
                 else
                 {
                     currentNode.ParentNode.Title = "No related Module";
-                    //currentNode.ParentNode.Url = string.Format("ModuleDetails.aspx?moduleId={0}", testCaseController.uof.GetRepository<Module>().FindByKey(currentTestCase.ModuleId.Value).Id.ToString());
-
-                    currentNode.ParentNode.ParentNode.Title = "ProjectId" + currentTestCase.ProjectId.ToString();
-                    currentNode.ParentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentTestCase.ProjectId.ToString());
                 }
+                currentNode.ParentNode.ParentNode.Title = "ProjectId" + currentTestCase.ProjectId.ToString();
+                currentNode.ParentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentTestCase.ProjectId.ToString());
+                
+                //else
+                //{
+                //    currentNode.ParentNode.Title = "No related Module";
+                //    //currentNode.ParentNode.Url = string.Format("ModuleDetails.aspx?moduleId={0}", testCaseController.uof.GetRepository<Module>().FindByKey(currentTestCase.ModuleId.Value).Id.ToString());
+
+                //    currentNode.ParentNode.ParentNode.Title = "ProjectId" + currentTestCase.ProjectId.ToString();
+                //    currentNode.ParentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentTestCase.ProjectId.ToString());
+                //}
               
                 // Use the changed one in the breadcrumb.
                 return currentNode;
@@ -108,14 +109,16 @@ namespace ManTestAppWebForms.Views
         // The id parameter name should match the DataKeyNames value set on the control
         public void GridViewSteps_DeleteItem(int id)
         {
-
+            testCaseController.uof.GetRepository<Step>().Delete(id);
+            testCaseController.uof.Save();
         }
 
         // The id parameter name should match the DataKeyNames value set on the control
         public void GridViewSteps_UpdateItem(int id)
         {
-            ManTestAppWebForms.Models.TestCase item = null;
+            ManTestAppWebForms.Models.Step item = null;
             // Load the item here, e.g. item = MyDataLayer.Find(id);
+            item = testCaseController.uof.GetRepository<Step>().FindByKey(id);
             if (item == null)
             {
                 // The item wasn't found
@@ -126,7 +129,8 @@ namespace ManTestAppWebForms.Views
             if (ModelState.IsValid)
             {
                 // Save changes here, e.g. MyDataLayer.SaveChanges();
-
+                testCaseController.uof.GetRepository<Step>().Update(item);
+                testCaseController.uof.Save();
             }
         }
 

@@ -3,15 +3,13 @@
     <div>
     <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
     </div>
-    <asp:Label ID="Label2" runat="server" Text='<%# currentStep.Title %>'  Font-Bold="true" Font-Size="Larger"></asp:Label>
+
+   <%-- <asp:Label ID="Label2" runat="server" Text='<%# currentStep.Title %>'  Font-Bold="true" Font-Size="Larger"></asp:Label>
     <div class="form-group">
     <asp:Label ID="lblProject" runat="server" Text="Related Project" class="col-lg-2 control-label"></asp:Label>
     <asp:TextBox ID="TextBoxProject" runat="server" Text='<%# currentStep.TestCase.Project.Description %>' class="form-control" ReadOnly="true"></asp:TextBox>
     </div>
-   <%-- <div class="form-group">
-    <asp:Label ID="lblModule" runat="server" Text="Module" class="col-lg-2 control-label"></asp:Label>
-    <asp:TextBox ID="TextBoxModule" runat="server" Text='<%# Eval("Step.TestCase.Module.Title") == DBNull.Value ? "" : Eval("Step.TestCase.Module.Title") %>' class="form-control"></asp:TextBox>
-    </div>--%>
+  
     <div class="form-group">
     <asp:Label ID="lblTestCase" runat="server" Text="Related TestCase" class="col-lg-2 control-label"></asp:Label>
     <asp:TextBox ID="TextBox1" runat="server" Text='<%# currentStep.TestCase.Title%>' class="form-control" ReadOnly="true"></asp:TextBox>
@@ -28,7 +26,22 @@
     <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# currentStep.Description %>' class="form-control"></asp:TextBox>
     </div>
     <div class="form-group">
-    <asp:Label ID="Label1" runat="server" Text="Attachments" class="col-lg-2 control-label"></asp:Label>
+    <asp:Label ID="Label1" runat="server" Text="Attachments" class="col-lg-2 control-label"></asp:Label>--%>
+
+    <div>
+    <asp:Label ID="LabelProjectTitle" runat="server"  CssClass="legend titlemantest"></asp:Label>
+    </div>
+    <div>
+    <asp:Label ID="LabelModuleTitle" runat="server"  CssClass="legend titlemantest"></asp:Label>
+    </div>
+    <div>
+    <asp:Label ID="LabelTestCaseTitle" runat="server"  CssClass="legend titlemantest"></asp:Label>
+    </div>
+    <div>
+    <asp:Label ID="LabelStepTitle" runat="server"  CssClass="legend titlemantest"></asp:Label>
+    </div>
+    <br/>
+    <asp:Label ID="LabelRelatedAttachments" runat="server" Text="Related Attachments" CssClass="labelmantest"></asp:Label>
     <asp:GridView ID="gvAttachments" runat="server"
                   ItemType="ManTestAppWebForms.Models.Attachment"
                   DataKeyNames="Id"
@@ -39,6 +52,9 @@
                   DeleteMethod="gvAttachments_DeleteItem"
                   UpdateMethod="gvAttachments_UpdateItem"
                   CssClass="table tablegridview">
+         <EmptyDataTemplate>
+            No data found
+        </EmptyDataTemplate>
         <Columns>
             <asp:BoundField DataField="Id" ReadOnly="true" HeaderText="ID">
                 </asp:BoundField>
@@ -51,12 +67,10 @@
                             datanavigateurlformatstring="AttachmentOpen.aspx?attachmentId={0}"
                             Text="Open"
                              />
-            <asp:CommandField ShowEditButton="True"/>
+            <%--<asp:CommandField ShowEditButton="True"/>--%>
             <asp:CommandField ShowDeleteButton="True"/>
         </Columns>
     </asp:GridView>
-    
     <asp:Button ID="btnAddAttachment" runat="server" Text="Add Attachment"   OnClick="btn_AddAttachment" class="btn btn-default" />
-        </div>
 </asp:Content>
 
