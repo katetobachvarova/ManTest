@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace ManTestAppWebForms.Controllers
 {
-    public class ProjectController : ControllerBase<Project>
+    public class UserController 
     {
         
     }

@@ -2,6 +2,7 @@
 using ManTestAppWebForms.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -162,6 +163,15 @@ namespace ManTestAppWebForms.Views
                 stepController.uof.GetRepository<Attachment>().Update(item);
                 stepController.uof.Save();
             }
+        }
+
+        protected void gvAttachments_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var fullFileName = (int)gvAttachments.SelectedValue;
+            var filename = stepController.uof.GetRepository<Attachment>().FindByKey(fullFileName).FileName;
+            string completeUrl = Server.MapPath("~/Data/") + filename;
+            string contents = File.ReadAllText(completeUrl);
+            FileContents.Text = contents;
         }
     }
 }

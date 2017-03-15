@@ -23,5 +23,8 @@ namespace ManTestAppWebForms.Models
         {
             return Task.FromResult(GenerateUserIdentity(manager));
         }
+
+        public string Role { get; set; }
+
     }
 }

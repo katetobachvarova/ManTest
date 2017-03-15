@@ -3,6 +3,7 @@ using ManTestAppWebForms.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -30,17 +31,23 @@ namespace ManTestAppWebForms.Views
             return projectController.GetAll();
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+        [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
         // The id parameter name should match the DataKeyNames value set on the control
         public void gv_ProjectIndex_DeleteItem(int id)
         {
             projectController.Delete(id);
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+        [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
         protected void gv_ProjectIndex_RowDeleted(object sender, GridViewDeletedEventArgs e)
         {
             gv_ProjectIndex.DataBind();
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+        [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
         // The id parameter name should match the DataKeyNames value set on the control
         public void gv_ProjectIndex_UpdateItem(int id)
         {
@@ -57,6 +64,22 @@ namespace ManTestAppWebForms.Views
             {
                 projectController.Update(item);
 
+            }
+        }
+
+        protected void gv_ProjectIndex_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex != gv_ProjectIndex.EditIndex)
+            {
+                // Programmatically reference the Edit and Delete LinkButtons
+                LinkButton EditButton = e.Row.FindControl("LinkButtonEdit") as LinkButton;
+
+                LinkButton DeleteButton = e.Row.FindControl("LinkButtonDelete") as LinkButton;
+                gv_ProjectIndex.Columns[6].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+                gv_ProjectIndex.Columns[7].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+
+                //EditButton.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+               // DeleteButton.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
             }
         }
 
