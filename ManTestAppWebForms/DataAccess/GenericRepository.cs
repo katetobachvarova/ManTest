@@ -51,7 +51,10 @@ namespace ManTestAppWebForms.DataAccess
         public void Delete(int id)
         {
             var entity = FindByKey(id);
-            _dbSet.Remove(entity);
+            if (entity != null)
+            {
+                _dbSet.Remove(entity);
+            }
         }
     }
 }

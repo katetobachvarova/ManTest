@@ -197,12 +197,26 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
-    <Content Include="images\minus.gif" />
-    <Content Include="images\minus.png" />
-    <Content Include="images\plus.gif" />
-    <Content Include="images\plus.png" />
+    <Content Include="Content\custom.css" />
+    <Content Include="Content\images\ajax_small.gif" />
+    <Content Include="Content\images\custom-lr.png" />
+    <Content Include="Content\images\custom.png" />
+    <Content Include="Content\images\shadow-c.png" />
+    <Content Include="Content\images\shadow-lr.png" />
+    <Content Include="Content\images\shadow.png" />
+    <Content Include="Content\images\zoomimage_next.gif" />
+    <Content Include="Content\images\zoomimage_prev.gif" />
+    <Content Include="Content\images\zoomin.cur" />
+    <Content Include="Content\images\zoomout.cur" />
+    <Content Include="Content\zoomimage.css" />
+    <Content Include="Data\Katerina_Petrova.jpg" />
     <Content Include="Roles\ManageRoles.aspx" />
     <Content Include="Roles\UserRoles.aspx" />
+    <Content Include="Scripts\Zoom\eye.js" />
+    <Content Include="Scripts\Zoom\jquery.js" />
+    <Content Include="Scripts\Zoom\layout.js" />
+    <Content Include="Scripts\Zoom\utils.js" />
+    <Content Include="Scripts\Zoom\zoomimage.js" />
     <Content Include="Views\AttachmentOpen.aspx" />
     <Content Include="Views\AttachTestCase.aspx" />
     <Content Include="Views\AttachmentCreate.aspx" />
@@ -599,7 +613,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Data\" />
+    <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ApplicationUserDataMigration\201702281002564_Initial.resx">

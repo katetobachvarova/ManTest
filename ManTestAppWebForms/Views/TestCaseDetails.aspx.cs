@@ -2,6 +2,7 @@
 using ManTestAppWebForms.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -148,5 +149,22 @@ namespace ManTestAppWebForms.Views
             }
             return null;
         }
+
+        //protected void GridViewSteps_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    var stepid = (int)GridViewSteps.SelectedValue;
+        //    var step = testCaseController.uof.GetRepository<Step>().FindByKey(stepid);
+        //    var att = step.Attachments;
+        //    List<string> filenames = new List<string>();
+        //    foreach (var item in att)
+        //    {
+        //        filenames.Add(item.FileName);
+        //    }
+        //    ImageToStep.ImageUrl = Server.MapPath("~/Data/") + filenames.ElementAtOrDefault(0);
+        //    ImageToStep.DataBind();
+        //    //string completeUrl = Server.MapPath("~/Data/") + filenames.ElementAtOrDefault(0);
+        //    //byte[] contents = File.ReadAllText(completeUrl);
+        //    //FileContents.Text = contents;
+        //}
     }
 }

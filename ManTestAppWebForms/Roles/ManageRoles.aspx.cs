@@ -16,19 +16,24 @@ namespace ManTestAppWebForms.Roles
     public partial class ManageRoles : System.Web.UI.Page
     {
         private ApplicationDbContext applicationDbContext;
+        private RoleStore<IdentityRole> roleStore;
+        private RoleManager<IdentityRole> roleMgr;
+        private UserManager<ApplicationUser> userMgr;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
             applicationDbContext = new ApplicationDbContext();
+            roleStore = new RoleStore<IdentityRole>(applicationDbContext);
+            roleMgr = new RoleManager<IdentityRole>(roleStore);
+            userMgr = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(applicationDbContext));
             if (!Page.IsPostBack)
                 DisplayRolesInGrid();
         }
 
         private void DisplayRolesInGrid()
         {
-            //RoleList.DataSource = System.Web.Security.Roles.GetAllRoles();
             RoleList.DataSource = applicationDbContext.Roles.ToList();
-
             RoleList.DataBind();
         }
 
@@ -36,57 +41,32 @@ namespace ManTestAppWebForms.Roles
         protected void CreateRoleButton_Click(object sender, EventArgs e)
         {
             string newRoleName = RoleName.Text.Trim();
-
-            //if (!System.Web.Security.Roles.RoleExists(newRoleName))
-            //{
-            //    // Create the role
-            //    System.Web.Security.Roles.CreateRole(newRoleName);
-
-            //    // Refresh the RoleList Grid
-            //    DisplayRolesInGrid();
-            //}
-
-
-
-            // Access the application context and create result variables.
-           
             IdentityResult IdRoleResult;
-
-            // Create a RoleStore object by using the ApplicationDbContext object. 
-            // The RoleStore is only allowed to contain IdentityRole objects.
-            var roleStore = new RoleStore<IdentityRole>(applicationDbContext);
-
-            // Create a RoleManager object that is only allowed to contain IdentityRole objects.
-            // When creating the RoleManager object, you pass in (as a parameter) a new RoleStore object. 
-            var roleMgr = new RoleManager<IdentityRole>(roleStore);
-
-            // Then, you create the "canEdit" role if it doesn't already exist.
             if (!roleMgr.RoleExists(newRoleName))
             {
                 IdRoleResult = roleMgr.Create(new IdentityRole { Name = newRoleName });
                 applicationDbContext.SaveChangesAsync();
-                
                 DisplayRolesInGrid();
             }
             RoleName.Text = string.Empty;
-
-            
-
-         
-
-
         }
 
         protected void RoleList_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            // Get the RoleNameLabel
             Label RoleNameLabel = RoleList.Rows[e.RowIndex].FindControl("RoleNameLabel") as Label;
 
-            // Delete the role
-            System.Web.Security.Roles.DeleteRole(RoleNameLabel.Text, false);
+            if (roleMgr.RoleExists(RoleNameLabel.Text))
+            {
+                roleMgr.Delete(roleMgr.FindByName(RoleNameLabel.Text));
+                applicationDbContext.SaveChangesAsync();
+                DisplayRolesInGrid();
+            }
+            foreach (var item in userMgr.Users.Where(u => u.Role == RoleNameLabel.Text))
+            {
+                item.Role = null;
+            }
+            applicationDbContext.SaveChangesAsync();
 
-            // Rebind the data to the RoleList grid
-            DisplayRolesInGrid();
         }
     }
 }

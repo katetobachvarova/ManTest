@@ -3,50 +3,31 @@
     <div>
     <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
     </div>
-
-   <%-- <asp:Label ID="Label2" runat="server" Text='<%# currentStep.Title %>'  Font-Bold="true" Font-Size="Larger"></asp:Label>
-    <div class="form-group">
-    <asp:Label ID="lblProject" runat="server" Text="Related Project" class="col-lg-2 control-label"></asp:Label>
-    <asp:TextBox ID="TextBoxProject" runat="server" Text='<%# currentStep.TestCase.Project.Description %>' class="form-control" ReadOnly="true"></asp:TextBox>
-    </div>
-  
-    <div class="form-group">
-    <asp:Label ID="lblTestCase" runat="server" Text="Related TestCase" class="col-lg-2 control-label"></asp:Label>
-    <asp:TextBox ID="TextBox1" runat="server" Text='<%# currentStep.TestCase.Title%>' class="form-control" ReadOnly="true"></asp:TextBox>
-    </div>
-    
-    <div class="form-group">
-        <br></br>
-    <asp:Label ID="lblTitle" runat="server" Text="Title" class="col-lg-2 control-label"></asp:Label>
-    <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# currentStep.Title %>' class="form-control"></asp:TextBox>
-    </div>
-
-    <div class="form-group">
-    <asp:Label ID="lblDescription" runat="server" Text="Description" class="col-lg-2 control-label"></asp:Label>
-    <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# currentStep.Description %>' class="form-control"></asp:TextBox>
-    </div>
-    <div class="form-group">
-    <asp:Label ID="Label1" runat="server" Text="Attachments" class="col-lg-2 control-label"></asp:Label>--%>
-
+    <asp:FormView ID="FormViewStep" runat="server"  CssClass="tablegridview">
+        <ItemTemplate>
     <div>
-    <asp:Label ID="LabelProjectTitle" runat="server"  CssClass="legend titlemantest"></asp:Label>
+            <asp:Label ID="LabelStepTitle" runat="server"  CssClass="legend titlemantest"  Text='<%# Eval("Title") %>'></asp:Label>
     </div>
     <div>
-    <asp:Label ID="LabelModuleTitle" runat="server"  CssClass="legend titlemantest"></asp:Label>
-    </div>
+            <asp:TextBox ID="StepDescription" runat="server" Rows="5" ReadOnly="true" Wrap="true"
+                 TextMode="MultiLine" Text='<%# Eval("Description") %>'>
+    </asp:TextBox>
     <div>
-    <asp:Label ID="LabelTestCaseTitle" runat="server"  CssClass="legend titlemantest"></asp:Label>
-    </div>
-    <div>
-    <asp:Label ID="LabelStepTitle" runat="server"  CssClass="legend titlemantest"></asp:Label>
+            </ItemTemplate>
+    </asp:FormView>
+    <%--<div>
+    <asp:Label ID="LabelStepTitle" runat="server"  CssClass="legend titlemantest" Text='<%# Eval("currentStep.Title") %>'></asp:Label>
     </div>
     <br/>
-    <asp:Label ID="LabelRelatedAttachments" runat="server" Text="Related Attachments" CssClass="labelmantest"></asp:Label>
+     <asp:TextBox ID="StepDescription" runat="server" Rows="10"
+                 TextMode="MultiLine" Width="95%" Text='<%# Eval("currentStep.Description") %>'>
+    </asp:TextBox>--%>
+    <asp:Label ID="LabelRelatedAttachments" runat="server" Text="Related Image Attachments" CssClass="labelmantest"></asp:Label>
 
-    <asp:TextBox ID="FileContents" runat="server" Rows="10"
-                 TextMode="MultiLine" Width="95%">
-    </asp:TextBox>
-
+   
+    <div>
+        <asp:PlaceHolder ID="PlaceHolderForImages" runat="server"></asp:PlaceHolder>
+     </div>
     <asp:GridView ID="gvAttachments" runat="server"
                   ItemType="ManTestAppWebForms.Models.Attachment"
                   DataKeyNames="Id"
@@ -58,7 +39,7 @@
                   DeleteMethod="gvAttachments_DeleteItem"
                   UpdateMethod="gvAttachments_UpdateItem"
                   CssClass="table tablegridview"
-                  OnSelectedIndexChanged="gvAttachments_SelectedIndexChanged">
+                  >
          <EmptyDataTemplate>
             No data found
         </EmptyDataTemplate>
@@ -81,5 +62,11 @@
         </Columns>
     </asp:GridView>
     <asp:Button ID="btnAddAttachment" runat="server" Text="Add Attachment"   OnClick="btn_AddAttachment" class="btn btn-default" />
+    
+    <script type="text/javascript" src='<%=ResolveClientUrl("~/Scripts/Zoom/jquery.js") %>'></script>
+    <script type="text/javascript" src='<%=ResolveClientUrl("~/Scripts/Zoom/eye.js") %>'></script>
+    <script type="text/javascript" src='<%=ResolveClientUrl("~/Scripts/Zoom/utils.js") %>'></script>
+    <script type="text/javascript" src='<%=ResolveClientUrl("~/Scripts/Zoom/zoomimage.js") %>'></script>
+    <script type="text/javascript" src='<%=ResolveClientUrl("~/Scripts/Zoom/layout.js") %>'></script>
 </asp:Content>
 

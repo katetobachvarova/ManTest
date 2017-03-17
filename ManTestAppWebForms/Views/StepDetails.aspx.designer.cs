@@ -22,40 +22,13 @@ namespace ManTestAppWebForms.Views {
         protected global::System.Web.UI.WebControls.SiteMapPath SiteMapPath1;
         
         /// <summary>
-        /// LabelProjectTitle control.
+        /// FormViewStep control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelProjectTitle;
-        
-        /// <summary>
-        /// LabelModuleTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelModuleTitle;
-        
-        /// <summary>
-        /// LabelTestCaseTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelTestCaseTitle;
-        
-        /// <summary>
-        /// LabelStepTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelStepTitle;
+        protected global::System.Web.UI.WebControls.FormView FormViewStep;
         
         /// <summary>
         /// LabelRelatedAttachments control.
@@ -67,13 +40,13 @@ namespace ManTestAppWebForms.Views {
         protected global::System.Web.UI.WebControls.Label LabelRelatedAttachments;
         
         /// <summary>
-        /// FileContents control.
+        /// PlaceHolderForImages control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox FileContents;
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolderForImages;
         
         /// <summary>
         /// gvAttachments control.

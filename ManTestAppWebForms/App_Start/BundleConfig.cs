@@ -33,7 +33,12 @@ namespace ManTestAppWebForms
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                             "~/Scripts/modernizr-*"));
-
+            bundles.Add(new ScriptBundle("~/bundles/Zoom").Include(
+                            "~/Scripts/Zoom/eye.js",
+                            "~/Scripts/Zoom/layout.js",
+                            "~/Scripts/Zoom/utils.js",
+                            "~/Scripts/Zoom/zoomimage.js"
+                            ));
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "respond",
                 new ScriptResourceDefinition

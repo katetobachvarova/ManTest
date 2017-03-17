@@ -15,8 +15,6 @@ namespace ManTestAppWebForms.Views
         private ControllerBase<Step> stepController;
         private string stepId;
         public Step currentStep;
-        //TreeView currentTreeView;
-        //ContentPlaceHolder content;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,61 +24,53 @@ namespace ManTestAppWebForms.Views
             if (Int32.TryParse(stepId, out stepid))
             {
                 currentStep = stepController.FindById(stepid);
-                if (currentStep != null)
+              
+                //if (currentStep != null)
+                //{
+                //    LabelProjectTitle.Text = "Project : " + currentStep.TestCase.Project.Title;
+                //    LabelModuleTitle.Text = (currentStep.TestCase.Module == null) ? LabelModuleTitle.Text = "No Related Module" : LabelModuleTitle.Text = "Module : " + currentStep.TestCase.Module.Title;
+                //    LabelTestCaseTitle.Text = "Test Case : " + currentStep.TestCase.Title;
+                //    LabelStepTitle.Text = "Step : " + currentStep.Title;
+                //}
+            }
+            if (!IsPostBack && currentStep != null)
+            {
+                FormViewStep.DataSource = new List<Step>() { currentStep };
+                FormViewStep.DataBind();
+                ShowImageFiles();
+                SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
+            }
+        }
+
+        private void ShowImageFiles()
+        {
+            if (currentStep != null)
+            {
+                IEnumerable<Attachment> attachments = stepController.uof.GetRepository<Attachment>().All().Where(a => a.StepId == currentStep.Id);
+                foreach (var item in attachments)
                 {
-                    LabelProjectTitle.Text = "Project : " + currentStep.TestCase.Project.Title;
-                    LabelModuleTitle.Text = (currentStep.TestCase.Module == null) ? LabelModuleTitle.Text = "No Related Module" : LabelModuleTitle.Text = "Module : " + currentStep.TestCase.Module.Title;
-                    LabelTestCaseTitle.Text = "Test Case : " + currentStep.TestCase.Title;
-                    LabelStepTitle.Text = "Step : " + currentStep.Title;
+                    if (item.FileName.EndsWith(".jpg") 
+                        || item.FileName.EndsWith(".jpeg") 
+                        || item.FileName.EndsWith(".png") 
+                        || item.FileName.EndsWith(".bmp")
+                        || item.FileName.EndsWith(".gif"))
+                    {
+                        HyperLink link = new HyperLink();
+                        link.NavigateUrl = "../Data/" + item.FileName;
+                        link.ImageHeight = 100;
+                        link.ApplyStyle(new Style() { CssClass = "forselect" });
+                        Image img = new Image();
+                        img.ApplyStyle(new Style() { CssClass="images" });
+                        img.Width = 100;
+                        img.Height = 100;
+                        img.ImageUrl = "../Data/" + item.FileName;
+                        img.ID = item.Id.ToString();
+                        link.Controls.Add(img);
+                        PlaceHolderForImages.Controls.Add(link);
+                        PlaceHolderForImages.DataBind();
+                    }
                 }
             }
-            //else
-            //{
-            //    currentStep = new Step();
-            //}
-            if (!IsPostBack && !string.IsNullOrEmpty(Request.QueryString["stepId"]))
-            {
-                SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
-
-            }
-
-
-            //if (!IsPostBack)
-            //{
-            //    content = (ContentPlaceHolder)this.Master.FindControl("TreeContent");
-            //    TreeView prtrv = (TreeView)Session["tree"];
-            //    if (prtrv != null)
-            //    {
-            //        content.Controls.Add(prtrv);
-
-            //    }
-            //    currentTreeView = prtrv;
-            //    Page.DataBind();
-            //}
-            //else
-            //{
-            //    ContentPlaceHolder content = (ContentPlaceHolder)this.Master.FindControl("TreeContent");
-            //    TreeView prtrv = (TreeView)Session["tree"];
-            //    content.Controls.Clear();
-            //    if (prtrv != null && !content.Controls.Contains(prtrv))
-            //    {
-            //        content.Controls.Add(prtrv);
-
-            //    }
-            //    Page.DataBind();
-
-            //}
-            //if (currentTreeView != null)
-            //{
-            //    ContentPlaceHolder content = (ContentPlaceHolder)this.Master.FindControl("TreeContent");
-            //    TreeView prtrv = (TreeView)Session["tree"];
-            //    if (prtrv != null)
-            //    {
-            //        content.Controls.Add(prtrv);
-
-            //    }
-            //}
-
         }
 
         SiteMapNode SiteMap_SiteMapResolve(object sender, SiteMapResolveEventArgs e)
@@ -139,6 +129,7 @@ namespace ManTestAppWebForms.Views
         {
             stepController.uof.GetRepository<Attachment>().Delete(id);
             stepController.uof.Save();
+            ShowImageFiles();
         }
 
         // The id parameter name should match the DataKeyNames value set on the control
@@ -171,7 +162,7 @@ namespace ManTestAppWebForms.Views
             var filename = stepController.uof.GetRepository<Attachment>().FindByKey(fullFileName).FileName;
             string completeUrl = Server.MapPath("~/Data/") + filename;
             string contents = File.ReadAllText(completeUrl);
-            FileContents.Text = contents;
+            //FileContents.Text = contents;
         }
     }
 }

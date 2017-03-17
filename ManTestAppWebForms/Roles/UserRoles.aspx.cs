@@ -20,13 +20,8 @@ namespace ManTestAppWebForms.Roles
         
         protected void Page_Load(object sender, EventArgs e)
         {
-           
-                applicationDbContext = new ApplicationDbContext();
-                userMgr = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(applicationDbContext));
-            if (!IsPostBack)
-            {
-            }
-            
+            applicationDbContext = new ApplicationDbContext();
+            userMgr = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(applicationDbContext));
         }
 
         // The return type can be changed to IEnumerable, however to support
@@ -54,70 +49,17 @@ namespace ManTestAppWebForms.Roles
                         drop.DataSource = applicationDbContext.Roles.ToList();
                         drop.DataBind();
                         drop.SelectedValue = applicationDbContext.Roles.ToList().Where(r => r.Name == role).ElementAtOrDefault(0)?.Id;
-                        
                     }
                 }
             }
         }
 
-        protected void DropDownListRoles_SelectedIndexChanged(object sender, EventArgs e)
+        public void GridViewUsers_UpdateUser(string email)
         {
-            var role = (sender as DropDownList).SelectedItem.Text;
-
-            IdentityResult IdUserResult;
-            var t = 1;
-            // Create a UserManager object based on the UserStore object and the ApplicationDbContext
-            // object. Note that you can create new objects and use them as parameters in
-            // a single line of code, rather than using multiple lines of code, as you did
-            // for the RoleManager object.
-            
-            //var appUser = new ApplicationUser
-            //{
-            //    UserName = "canEditUser@wingtiptoys.com",
-            //    Email = "canEditUser@wingtiptoys.com"
-            //};
-            //IdUserResult = userMgr.Create(appUser, "Pa$$word1");
-
-            // If the new "canEdit" user was successfully created, 
-            // add the "canEdit" user to the "canEdit" role. 
-            //if (!userMgr.IsInRole(userMgr.FindByEmail("canEditUser@wingtiptoys.com").Id, "canEdit"))
-            //{
-            //    IdUserResult = userMgr.AddToRole(userMgr.FindByEmail("canEditUser@wingtiptoys.com").Id, "canEdit");
-            //}
-        }
-
-        // The id parameter name should match the DataKeyNames value set on the control
-        public void GridViewUsers_UpdateItem(int? id)
-        {
-            ManTestAppWebForms.Models.ApplicationUser item = null;
-            
-            item = userMgr.FindById(id.ToString());
-
-            // Load the item here, e.g. item = MyDataLayer.Find(id);
-            if (item == null)
-            {
-                // The item wasn't found
-                ModelState.AddModelError("", String.Format("Item with id {0} was not found", id));
-                return;
-            }
-            TryUpdateModel(item);
-            if (ModelState.IsValid)
-            {
-                // Save changes here, e.g. MyDataLayer.SaveChanges();
-                userMgr.Update(item);
-            }
-        }
-
-        // The id parameter name should match the DataKeyNames value set on the control
-        public void GridViewUsers_UpdateItem1(string email)
-        {
-            ManTestAppWebForms.Models.ApplicationUser item = null;
+            ApplicationUser item = null;
             item = userMgr.FindByEmail(email);
-
-            // Load the item here, e.g. item = MyDataLayer.Find(id);
             if (item == null)
             {
-                // The item wasn't found
                 ModelState.AddModelError("", String.Format("Item with id {0} was not found", email));
                 return;
             }
@@ -126,7 +68,6 @@ namespace ManTestAppWebForms.Roles
             {
                 item.Roles.Clear();
                 var IdUserResult = userMgr.AddToRole(userMgr.FindByEmail(item.Email).Id, userMgr.FindByEmail(item.Email).Role);
-                // Save changes here, e.g. MyDataLayer.SaveChanges();
                 userMgr.Update(item);
                 var test = item.Roles;
             }

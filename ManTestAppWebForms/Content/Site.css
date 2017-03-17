@@ -83,6 +83,14 @@ input[type="select"] {
   margin-left: 0px;
 }
 
+.images {
+
+    margin: 3px;
+}
+
+.forselect {
+}
+
 .table thead > tr > th,
 .table tbody > tr > th,
 .table tfoot > tr > th,
