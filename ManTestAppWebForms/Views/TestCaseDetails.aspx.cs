@@ -2,6 +2,7 @@
 using ManTestAppWebForms.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -34,13 +35,49 @@ namespace ManTestAppWebForms.Views
             if (!IsPostBack && !string.IsNullOrEmpty(Request.QueryString["testCaseId"]))
             {
                 SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
-
+                
             }
             //if (!IsPostBack)
             //{
             //    //PopulateTreeView();
             //}
         }
+
+        private void ShowImageFiles(Step currentStep, PlaceHolder PlaceHolderForImages)
+        {
+            //if (currentStep != null)
+            //{
+            int testCaseid;
+            Int32.TryParse(testCaseId, out testCaseid);
+            IEnumerable<Attachment> attachments = testCaseController.uof.GetRepository<Attachment>().All().Where(e => e.StepId == currentStep.Id).AsQueryable();
+
+            //IEnumerable<Attachment> attachments = stepController.uof.GetRepository<Attachment>().All().Where(a => a.StepId == currentStep.Id);
+                foreach (var item in attachments)
+                {
+                    if (item.FileName.EndsWith(".jpg")
+                        || item.FileName.EndsWith(".jpeg")
+                        || item.FileName.EndsWith(".png")
+                        || item.FileName.EndsWith(".bmp")
+                        || item.FileName.EndsWith(".gif"))
+                    {
+                        HyperLink link = new HyperLink();
+                        link.NavigateUrl = "../Data/" + item.FileName;
+                        link.ImageHeight = 100;
+                        link.ApplyStyle(new Style() { CssClass = "forselect" });
+                        Image img = new Image();
+                        img.ApplyStyle(new Style() { CssClass = "images" });
+                        img.Width = 100;
+                        img.Height = 100;
+                        img.ImageUrl = "../Data/" + item.FileName;
+                        img.ID = item.Id.ToString();
+                        link.Controls.Add(img);
+                        PlaceHolderForImages.Controls.Add(link);
+                        PlaceHolderForImages.DataBind();
+                    }
+                }
+            //}
+        }
+
 
         SiteMapNode SiteMap_SiteMapResolve(object sender, SiteMapResolveEventArgs e)
         {
@@ -148,6 +185,44 @@ namespace ManTestAppWebForms.Views
                 return testCaseController.uof.GetRepository<Step>().All().Where(i => i.TestCaseId == currentTestCase.Id).AsQueryable();
             }
             return null;
+        }
+
+        // The return type can be changed to IEnumerable, however to support
+        // paging and sorting, the following parameters must be added:
+        //     int maximumRows
+        //     int startRowIndex
+        //     out int totalRowCount
+        //     string sortByExpression
+        public IQueryable<ManTestAppWebForms.Models.Attachment> GridViewAttachments_GetData()
+        {
+            //var stepid = ListViewSteps.SelectedDataKey.Value;
+            int testCaseid;
+            Int32.TryParse(testCaseId, out testCaseid);
+            return testCaseController.uof.GetRepository<Attachment>().All().Where(e => e.Step.TestCaseId == testCaseid).AsQueryable();
+        }
+
+        protected void ListViewSteps_ItemDataBound(object sender, ListViewItemEventArgs e)
+        {
+            if (e.Item.ItemType != ListViewItemType.DataItem)
+            {
+                return;
+
+            }
+            ListViewDataItem dataItem = (ListViewDataItem)e.Item;
+            // Get the ID from the GridView
+            Step currentStep = (Step)dataItem.DataItem;
+            
+
+            // Bind the supporting documents to the ListView control
+            var gridView = (GridView)e.Item.FindControl("GridViewAttachments_GetData");
+            int testCaseid;
+            Int32.TryParse(testCaseId, out testCaseid);
+            gridView.DataSource = testCaseController.uof.GetRepository<Attachment>().All().Where(i => i.StepId == currentStep.Id).AsQueryable();
+            gridView.DataBind();
+
+            var placeholderforimages = (PlaceHolder)e.Item.FindControl("PlaceHolderForImages");
+
+            ShowImageFiles(currentStep, placeholderforimages);
         }
 
         //protected void GridViewSteps_SelectedIndexChanged(object sender, EventArgs e)

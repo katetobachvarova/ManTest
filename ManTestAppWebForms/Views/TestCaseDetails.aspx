@@ -14,7 +14,50 @@
     </div>
     <br/>
     <asp:Label ID="LabelRelatedSteps" runat="server" Text="Related Steps" CssClass="labelmantest"></asp:Label>
-    <%--<asp:Image ID="ImageToStep" runat="server"  ImageUrl="~/Data/KaterinaBachvarova.jpg"/>--%>
+   
+    <asp:ListView ID="ListViewSteps" runat="server"
+                  ItemType="ManTestAppWebForms.Models.Step"
+                  SelectMethod="GridViewSteps_GetData"
+                  DataKeyNames="Id"
+                  OnItemDataBound="ListViewSteps_ItemDataBound">
+        <ItemTemplate>
+            <div>
+                <asp:Label ID="LabelStepTitle" runat="server"  CssClass="legend titlemantest"  Text='<%# Eval("Title") %>'></asp:Label>
+            </div>
+            <div>
+                <asp:Label ID="Label1" runat="server"  CssClass="legend titlemantest"  Text='<%# Eval("Description") %>'></asp:Label>
+            </div>
+             <div>
+                <asp:PlaceHolder ID="PlaceHolderForImages" runat="server"></asp:PlaceHolder>
+            </div>
+            <div>
+                <asp:GridView ID="GridViewAttachments_GetData" runat="server"
+                              ItemType="ManTestAppWebForms.Models.Attachment"
+                              DataKeyNames="Id"
+                              AutoGenerateColumns="false">
+                     <EmptyDataTemplate>
+                        No data found
+                    </EmptyDataTemplate>
+                    <Columns>
+                        <asp:BoundField DataField="Id" ReadOnly="true" HeaderText="ID">
+                            </asp:BoundField>
+                        <asp:BoundField DataField="FileName" HeaderText="FileName">
+                            </asp:BoundField>
+                        <asp:hyperlinkfield 
+                                        datanavigateurlfields="Id" 
+                                        datanavigateurlformatstring="AttachmentOpen.aspx?attachmentId={0}"
+                                        Text="Open"
+                                         />
+                        <%--<asp:CommandField ShowEditButton="True"/>--%>
+                        <asp:CommandField ShowSelectButton="true"  SelectText="View"/>
+                        <asp:CommandField ShowDeleteButton="True"/>
+                    </Columns>
+                </asp:GridView>
+            </div>
+        </ItemTemplate>
+
+    </asp:ListView>
+
     <asp:GridView ID="GridViewSteps" runat="server"
                      ItemType="ManTestAppWebForms.Models.Step"
                      DataKeyNames="Id"
