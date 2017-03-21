@@ -11,10 +11,10 @@ namespace ManTestAppWebForms.Models
     {
         public int Id { get; set; }
         [Required]
-        [StringLength(5)]
+        [StringLength(50)]
         public string Title { get; set; }
         [Required]
-        [StringLength(5000)]
+        [StringLength(10000)]
         public string Description { get; set; }
         public virtual ICollection<Module> Modules { get; set; }
     }

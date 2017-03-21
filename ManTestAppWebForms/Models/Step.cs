@@ -14,8 +14,10 @@ namespace ManTestAppWebForms.Models
         [StringLength(50)]
         public string Title { get; set; }
         [Required]
-        [StringLength(5000)]
+        [StringLength(10000)]
         public string Description { get; set; }
+        [Required]
+        public int StepOrder { get; set; }
 
         public int TestCaseId { get; set; }
         public virtual TestCase TestCase { get; set; }

@@ -441,6 +441,10 @@
     <Compile Include="Migrations\201703081030339_five.Designer.cs">
       <DependentUpon>201703081030339_five.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703211327477_steporder.cs" />
+    <Compile Include="Migrations\201703211327477_steporder.Designer.cs">
+      <DependentUpon>201703211327477_steporder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Roles\ManageRoles.aspx.cs">
       <DependentUpon>ManageRoles.aspx</DependentUpon>
@@ -636,6 +640,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703081030339_five.resx">
       <DependentUpon>201703081030339_five.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703211327477_steporder.resx">
+      <DependentUpon>201703211327477_steporder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

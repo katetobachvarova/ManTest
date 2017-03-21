@@ -22,31 +22,31 @@ namespace ManTestAppWebForms.Views {
         protected global::System.Web.UI.WebControls.SiteMapPath SiteMapPath1;
         
         /// <summary>
-        /// LabelProjectTitle control.
+        /// Label3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelProjectTitle;
+        protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// LabelModuleTitle control.
+        /// ValidationSummaryTestCase control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelModuleTitle;
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummaryTestCase;
         
         /// <summary>
-        /// LabelTestCaseTitle control.
+        /// FormViewCurrentTestCase control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelTestCaseTitle;
+        protected global::System.Web.UI.WebControls.FormView FormViewCurrentTestCase;
         
         /// <summary>
         /// LabelRelatedSteps control.
@@ -65,14 +65,5 @@ namespace ManTestAppWebForms.Views {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView ListViewSteps;
-        
-        /// <summary>
-        /// GridViewSteps control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewSteps;
     }
 }

@@ -15,7 +15,7 @@ namespace ManTestAppWebForms.Models
         [StringLength(50)]
         public string Title { get; set; }
         [Required]
-        [StringLength(5000)]
+        [StringLength(10000)]
         public string Description { get; set; }
 
 

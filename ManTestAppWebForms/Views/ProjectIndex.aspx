@@ -5,10 +5,13 @@
     <div>
     <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
     </div>
-    <div>
-    <asp:Label ID="lblProjects" runat="server" Text="Projects" CssClass="legend titlemantest"></asp:Label>
-    </div>
     <br/>
+    <div>
+    <asp:Label ID="lblProjects" runat="server" Text="Projects" CssClass="titlemantest"></asp:Label>
+    </div>
+    <div>
+        <asp:ValidationSummary ID="ValidationSummaryTestCase" runat="server"  ShowModelStateErrors="true"/>
+    </div>
     <div>
     <asp:HyperLink NavigateUrl="~/Views/ProjectCreate" Text="Add New Project" runat="server" />
     </div>
@@ -23,11 +26,13 @@
         AllowSorting="true" AllowPaging="true" PageSize="5"
         AutoGenerateColumns="false"
         EditRowStyle-CssClass="SelectedRowStyle"
-        OnRowCreated="gv_ProjectIndex_RowCreated">
+        OnRowCreated="gv_ProjectIndex_RowCreated"
+        
+        >
         <Columns>
-            <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true" ControlStyle-BackColor="#ff0066"></asp:BoundField>
-            <asp:BoundField DataField="Title" HeaderText="TITLE"></asp:BoundField>
-            <asp:BoundField DataField="Description" HeaderText="DESCRIPTION"></asp:BoundField>
+            <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true"  ></asp:BoundField>
+            <asp:BoundField DataField="Title" HeaderText="TITLE" ></asp:BoundField>
+            <asp:BoundField DataField="Description" HeaderText="DESCRIPTION" ></asp:BoundField>
             <asp:HyperLinkField
                 DataNavigateUrlFields="Id"
                 DataNavigateUrlFormatString="ModuleCreate.aspx?projectId={0}"
@@ -38,7 +43,7 @@
                 Text="Add TestCase" />
             <asp:TemplateField>
                 <ItemTemplate>
-                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# String.Format("ProjectDetails.aspx?projectId={0}", Item.Id) %>'> Details ></asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# String.Format("ProjectDetails.aspx?projectId={0}", Item.Id) %>'> Details></asp:HyperLink>
                 </ItemTemplate>
             </asp:TemplateField>
 

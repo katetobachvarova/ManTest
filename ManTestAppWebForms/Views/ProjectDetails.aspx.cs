@@ -11,39 +11,26 @@ namespace ManTestAppWebForms.Views
 {
     public partial class ProjectDetails : System.Web.UI.Page
     {
-        private string projectId;
         private ControllerBase<Project> projectController;
         public Project currentProject;
 
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            projectId = Request.QueryString["projectId"];
+            string projectId = Request.QueryString["projectId"];
             this.projectController = new ControllerBase<Project>();
             int projectid;
-
             if (Int32.TryParse(projectId, out projectid))
             {
                 currentProject = projectController.FindById(projectid);
-                if (currentProject != null)
+                if (currentProject == null)
                 {
-                    lblCurrentProjectTitle.Text = "Project : " + currentProject.Title;
+                    Response.Redirect("~/Views/ProjectIndex.aspx");
                 }
             }
-            
-            if (!IsPostBack && !string.IsNullOrEmpty(Request.QueryString["projectId"]))
+            if (!IsPostBack && currentProject != null)
             {
                 SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
-
             }
-            //if (!IsPostBack)
-            //{
-            //    Page.DataBind();
-            //}
-
-
-
-
         }
         SiteMapNode SiteMap_SiteMapResolve(object sender, SiteMapResolveEventArgs e)
         {
@@ -52,9 +39,7 @@ namespace ManTestAppWebForms.Views
             if (SiteMap.CurrentNode != null)
             {
                 SiteMapNode currentNode = SiteMap.CurrentNode.Clone(true);
-                //currentNode.Title = "ProjectId"+ projectId;
-                currentNode.Title = "ProjectId" + Request.QueryString["projectId"];
-
+                currentNode.Title = "Project " + currentProject.Title;
                 return currentNode;
             }
             return null;
@@ -140,6 +125,24 @@ namespace ManTestAppWebForms.Views
                 // Save changes here, e.g. MyDataLayer.SaveChanges();
                 projectController.uof.GetRepository<TestCase>().Update(item);
                 projectController.uof.Save();
+            }
+        }
+
+        protected void GridViewModules_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex != GridViewModules.EditIndex)
+            {
+                GridViewModules.Columns[4].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+                GridViewModules.Columns[5].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+            }
+        }
+
+        protected void GridViewTestCases_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex != GridViewModules.EditIndex)
+            {
+                GridViewTestCases.Columns[4].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+                GridViewTestCases.Columns[5].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
             }
         }
     }

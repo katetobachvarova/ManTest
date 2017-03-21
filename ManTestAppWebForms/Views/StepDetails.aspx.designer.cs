@@ -22,6 +22,15 @@ namespace ManTestAppWebForms.Views {
         protected global::System.Web.UI.WebControls.SiteMapPath SiteMapPath1;
         
         /// <summary>
+        /// ValidationSummaryTestCase control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummaryTestCase;
+        
+        /// <summary>
         /// FormViewStep control.
         /// </summary>
         /// <remarks>
@@ -29,15 +38,6 @@ namespace ManTestAppWebForms.Views {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FormView FormViewStep;
-        
-        /// <summary>
-        /// LabelRelatedAttachments control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelRelatedAttachments;
         
         /// <summary>
         /// PlaceHolderForImages control.

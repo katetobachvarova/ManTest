@@ -1,40 +1,112 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="TestCaseDetails.aspx.cs" Inherits="ManTestAppWebForms.Views.TestCaseDetails" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div>
+  <div>
     <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
     </div>
-     <div>
-    <asp:Label ID="LabelProjectTitle" runat="server"  CssClass="legend titlemantest"></asp:Label>
-    </div>
+     <br/>
+    <asp:Label ID="Label3" runat="server" Text="Test Case" CssClass="titlemantest"></asp:Label>
     <div>
-    <asp:Label ID="LabelModuleTitle" runat="server"  CssClass="legend titlemantest"></asp:Label>
+        <asp:ValidationSummary ID="ValidationSummaryTestCase" runat="server"  ShowModelStateErrors="true"/>
     </div>
-    <div>
-    <asp:Label ID="LabelTestCaseTitle" runat="server"  CssClass="legend titlemantest"></asp:Label>
-    </div>
+    <asp:FormView ID="FormViewCurrentTestCase" runat="server"
+         ItemType="ManTestAppWebForms.Models.TestCase"
+         DataKeyNames="Id"
+         EnableModelValidation="true"
+         SelectMethod="FormViewCurrentTestCase_GetItem"
+         UpdateMethod="FormViewCurrentTestCase_UpdateItem"
+         OnDataBound="FormViewCurrentTestCase_DataBound"
+         DeleteMethod="FormViewCurrentTestCase_DeleteItem">
+        <ItemTemplate>
+        <div>
+        <table style="margin-left: 0px;">
+            <tr>
+                <td>
+                    <asp:Label ID="Label1" runat="server" Text="Title : "   style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# Eval("Title") %>' CssClass="form-control" Enabled="false"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                     <asp:Label ID="Label4" runat="server" Text="Description : "  style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
+                </td>
+                <td>
+                     <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# Eval("Description") %>' CssClass="form-control"  Enabled="false" TextMode="MultiLine"  Wrap="true"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                     <asp:Button ID="ButtonEdit" runat="server" Text="Edit"  CommandName="Edit" class="btn btn-default"  CausesValidation="true" />
+                </td>
+                <td>
+                    <asp:Button ID="ButtonDelete" runat="server" Text="Delete"  CommandName="Delete" class="btn btn-default" />
+                </td>
+            </tr>
+        </table>
+        </div>
+        </ItemTemplate>
+
+        <EditItemTemplate>
+            <div >
+                <asp:DropDownList ID="DropDownListProjectsEdit" runat="server"   CssClass="form-control" DataTextField="Title" DataValueField="Id" OnSelectedIndexChanged="DropDownListProjects_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="DDControl DDValidator" ControlToValidate="DropDownListProjectsEdit" Visible="true" ErrorMessage="Required"></asp:RequiredFieldValidator>
+            </div>
+            <div>
+                <asp:DropDownList ID="DropDownListModulesEdit" runat="server"   CssClass="form-control" DataTextField="Title" DataValueField="Id" OnSelectedIndexChanged="DropDownListModules_SelectedIndexChanged" Enabled="false" AutoPostBack="true"></asp:DropDownList>
+            </div>
+            <div>
+                <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# Bind("Title") %>' CssClass="form-control"></asp:TextBox>
+                 <asp:DynamicValidator runat="server" ID="DynamicValidator2" 
+                            CssClass="DDControl DDValidator" ControlToValidate="TextBoxTitle" Display="Static" />
+                            <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" 
+                            CssClass="DDControl DDValidator" ControlToValidate="TextBoxTitle" Display="Static" Enabled="false" />
+            </div>
+            <div>
+                <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# Bind("Description") %>' CssClass="form-control"  TextMode="MultiLine" Rows="3" Wrap="true"></asp:TextBox>
+              <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" 
+                                CssClass="DDControl DDValidator" ControlToValidate="TextBoxDescription" Display="Static" Enabled="false" />
+            </div>
+            
+                <div>
+                    <asp:Button ID="ButtonUpdate" runat="server" Text="Update"  CommandName="Update" class="btn btn-default" CausesValidation="true" />
+                    <asp:Button ID="ButtonCancel" runat="server" Text="Cancel"  OnClick="btn_TestCaseCancel_Click" class="btn btn-default"/>
+                </div>
+          
+        </EditItemTemplate>
+    </asp:FormView>
     <br/>
-    <asp:Label ID="LabelRelatedSteps" runat="server" Text="Related Steps" CssClass="labelmantest"></asp:Label>
-   
+    <div class="col-lg-12">
+    <asp:Label ID="LabelRelatedSteps" runat="server" Text="Related Steps" CssClass="titlemantest"></asp:Label>
+   </div>
     <asp:ListView ID="ListViewSteps" runat="server"
                   ItemType="ManTestAppWebForms.Models.Step"
                   SelectMethod="GridViewSteps_GetData"
                   DataKeyNames="Id"
-                  OnItemDataBound="ListViewSteps_ItemDataBound">
+                  OnItemDataBound="ListViewSteps_ItemDataBound"
+         >
         <ItemTemplate>
-            <div>
-                <asp:Label ID="LabelStepTitle" runat="server"  CssClass="legend titlemantest"  Text='<%# Eval("Title") %>'></asp:Label>
+            <asp:Label ID="LabelStepTitle" runat="server" Text="Title :"  CssClass="col-lg-3 control-label " ></asp:Label>
+
+            <div class="col-lg-9">
+                <asp:Label ID="LabelStepTitleContent" runat="server"    Text='<%# Eval("Title") %>'></asp:Label>
             </div>
-            <div>
-                <asp:Label ID="Label1" runat="server"  CssClass="legend titlemantest"  Text='<%# Eval("Description") %>'></asp:Label>
+            <asp:Label ID="LabelStepDescription" runat="server" Text="Description :"  CssClass="col-lg-3 control-label" ></asp:Label>
+
+            <div class="col-lg-9">
+                <asp:Label ID="LabelStepDescriptionContent" runat="server"   Text='<%# Eval("Description") %>'></asp:Label>
             </div>
-             <div>
+             <div class="col-lg-12">
                 <asp:PlaceHolder ID="PlaceHolderForImages" runat="server"></asp:PlaceHolder>
             </div>
-            <div>
+            <br/>
+            <div class="col-lg-12">
                 <asp:GridView ID="GridViewAttachments_GetData" runat="server"
                               ItemType="ManTestAppWebForms.Models.Attachment"
                               DataKeyNames="Id"
-                              AutoGenerateColumns="false">
+                              AutoGenerateColumns="false"
+                              CssClass="table tablegridview table-hover"
+                     >
                      <EmptyDataTemplate>
                         No data found
                     </EmptyDataTemplate>
@@ -48,44 +120,20 @@
                                         datanavigateurlformatstring="AttachmentOpen.aspx?attachmentId={0}"
                                         Text="Open"
                                          />
-                        <%--<asp:CommandField ShowEditButton="True"/>--%>
-                        <asp:CommandField ShowSelectButton="true"  SelectText="View"/>
-                        <asp:CommandField ShowDeleteButton="True"/>
                     </Columns>
                 </asp:GridView>
             </div>
+            <div>
+            <asp:Button ID="btn_StepDetails" runat="server" Text="Step Details"  OnClick="btn_StepDetails_Click" CommandArgument='<%# Eval("Id") %>' class="btn btn-default" style="margin-left: 15px;"/>
+            </div>
+                <br/>
         </ItemTemplate>
-
     </asp:ListView>
 
-    <asp:GridView ID="GridViewSteps" runat="server"
-                     ItemType="ManTestAppWebForms.Models.Step"
-                     DataKeyNames="Id"
-                     DeleteMethod="GridViewSteps_DeleteItem"
-                     UpdateMethod="GridViewSteps_UpdateItem"
-                     SelectMethod="GridViewSteps_GetData"
-                     AutoGenerateColumns="false"
-                     AutoGenerateDeleteButton="false"
-                     AutoGenerateEditButton="false"
-                     AutoGenerateSelectButton="false"
-                     
-                     CssClass="table tablegridview">
-         <EmptyDataTemplate>
-            No data found
-        </EmptyDataTemplate>
-        <Columns>
-            <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true"></asp:BoundField>
-            <asp:BoundField DataField="Title" HeaderText="TITLE"></asp:BoundField>
-            <asp:BoundField DataField="Description" HeaderText="DESCRIPTION"></asp:BoundField>
-            <asp:hyperlinkfield 
-                            datanavigateurlfields="Id" 
-                            datanavigateurlformatstring="StepDetails.aspx?stepId={0}"
-                            Text="Details >"/>
-            <asp:CommandField ShowSelectButton="true" SelectText="View"/>
-            <asp:CommandField ShowEditButton="True"/>
-            <asp:CommandField ShowDeleteButton="True"/>
-        </Columns>
-
-    </asp:GridView>
+    <script type="text/javascript" src='<%=ResolveClientUrl("~/Scripts/Zoom/jquery.js") %>'></script>
+    <script type="text/javascript" src='<%=ResolveClientUrl("~/Scripts/Zoom/eye.js") %>'></script>
+    <script type="text/javascript" src='<%=ResolveClientUrl("~/Scripts/Zoom/utils.js") %>'></script>
+    <script type="text/javascript" src='<%=ResolveClientUrl("~/Scripts/Zoom/zoomimage.js") %>'></script>
+    <script type="text/javascript" src='<%=ResolveClientUrl("~/Scripts/Zoom/layout.js") %>'></script>
 </asp:Content>
 

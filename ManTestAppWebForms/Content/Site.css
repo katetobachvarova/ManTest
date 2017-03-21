@@ -24,7 +24,7 @@ input[type="password"],
 input[type="email"],
 input[type="tel"],
 input[type="select"] {
-    max-width: 280px;
+    /*max-width: 280px;*/
 }
 
 .jumbotron {
@@ -79,8 +79,23 @@ input[type="select"] {
     width: 1170px;
 }
 
+.formviewnomargin {
+margin:0px;
+}
+
 .tablegridview {
   margin-left: 0px;
+  table-layout:fixed;
+ 
+  word-wrap:break-word;
+
+}
+
+.col
+{
+  width:100px;
+  word-wrap:hyphenate;
+  text-wrap:normal;
 }
 
 .images {
@@ -109,12 +124,12 @@ input[type="select"] {
     width:100%;
 }
 .titlemantest {
-    font-size: 28px;
+    font-size: 22px;
     margin-top: 20px;
     margin-bottom : 20px;
 }
 .labelmantest {
-    font-size: 18px;
+    font-size: 22px;
     margin-top: 20px;
     margin-bottom : 10px;
 }

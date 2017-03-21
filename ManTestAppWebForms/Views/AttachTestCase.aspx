@@ -39,6 +39,8 @@
                 <asp:Button runat="server" Text="Insert" CommandName="Insert" class="btn btn-default"  CausesValidation="true"/>
                 <asp:Button runat="server" Text="Cancel" CausesValidation="false"   OnClick="Cancel_Click" class="btn btn-default" />
             </InsertItemTemplate>
+            <EditItemTemplate>
+                </EditItemTemplate>
 
         </asp:FormView>
 

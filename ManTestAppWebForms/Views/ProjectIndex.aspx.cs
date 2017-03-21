@@ -20,12 +20,6 @@ namespace ManTestAppWebForms.Views
             projectController = new ControllerBase<Project>();
         }
 
-        // The return type can be changed to IEnumerable, however to support
-        // paging and sorting, the following parameters must be added:
-        //     int maximumRows
-        //     int startRowIndex
-        //     out int totalRowCount
-        //     string sortByExpression
         public IQueryable<Project> GetData_ProjectIndex()
         {
             return projectController.GetAll();
@@ -33,7 +27,6 @@ namespace ManTestAppWebForms.Views
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
         [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
-        // The id parameter name should match the DataKeyNames value set on the control
         public void gv_ProjectIndex_DeleteItem(int id)
         {
             projectController.Delete(id);
@@ -48,14 +41,12 @@ namespace ManTestAppWebForms.Views
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
         [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
-        // The id parameter name should match the DataKeyNames value set on the control
         public void gv_ProjectIndex_UpdateItem(int id)
         {
             ManTestAppWebForms.Models.Project item = null;
             item = projectController.FindById(id);
             if (item == null)
             {
-                // The item wasn't found
                 ModelState.AddModelError("", String.Format("Item with id {0} was not found", id));
                 return;
             }
@@ -73,13 +64,13 @@ namespace ManTestAppWebForms.Views
             {
                 // Programmatically reference the Edit and Delete LinkButtons
                 LinkButton EditButton = e.Row.FindControl("LinkButtonEdit") as LinkButton;
-
                 LinkButton DeleteButton = e.Row.FindControl("LinkButtonDelete") as LinkButton;
                 gv_ProjectIndex.Columns[6].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
                 gv_ProjectIndex.Columns[7].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
-
+                gv_ProjectIndex.Columns[3].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+                gv_ProjectIndex.Columns[4].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
                 //EditButton.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
-               // DeleteButton.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+                // DeleteButton.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
             }
         }
 

@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Permissions;
 using System.Web;
+using System.Web.ModelBinding;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -24,19 +26,11 @@ namespace ManTestAppWebForms.Views
             if (Int32.TryParse(stepId, out stepid))
             {
                 currentStep = stepController.FindById(stepid);
-              
-                //if (currentStep != null)
-                //{
-                //    LabelProjectTitle.Text = "Project : " + currentStep.TestCase.Project.Title;
-                //    LabelModuleTitle.Text = (currentStep.TestCase.Module == null) ? LabelModuleTitle.Text = "No Related Module" : LabelModuleTitle.Text = "Module : " + currentStep.TestCase.Module.Title;
-                //    LabelTestCaseTitle.Text = "Test Case : " + currentStep.TestCase.Title;
-                //    LabelStepTitle.Text = "Step : " + currentStep.Title;
-                //}
             }
             if (!IsPostBack && currentStep != null)
             {
-                FormViewStep.DataSource = new List<Step>() { currentStep };
-                FormViewStep.DataBind();
+                //FormViewStep.DataSource = new List<Step>() { currentStep };
+                //FormViewStep.DataBind();
                 ShowImageFiles();
                 SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
             }
@@ -75,94 +69,127 @@ namespace ManTestAppWebForms.Views
 
         SiteMapNode SiteMap_SiteMapResolve(object sender, SiteMapResolveEventArgs e)
         {
-            // Only need one execution in one request.
-            SiteMap.SiteMapResolve -= new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
+             SiteMap.SiteMapResolve -= new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
 
             if (SiteMap.CurrentNode != null)
             {
-                // SiteMap.CurrentNode is readonly, so we need to clone one to operate.
                 SiteMapNode currentNode = SiteMap.CurrentNode.Clone(true);
-                currentNode.Title = "StepId" + stepId;
-                currentNode.ParentNode.Title = "TestCaseId" + currentStep.TestCaseId;
-                
-                currentNode.ParentNode.Url = string.Format("TestCaseDetails.aspx?testCaseId={0}", stepController.uof.GetRepository<TestCase>().FindByKey(currentStep.TestCaseId).Id);
+                currentNode.Title = "Step " + currentStep.Title;
+                currentNode.ParentNode.Title = "TestCase " + currentStep.TestCase.Title;
+                currentNode.ParentNode.Url = string.Format("TestCaseDetails.aspx?testCaseId={0}", currentStep.TestCaseId);
 
                 if (currentStep.TestCase.ModuleId.HasValue)
                 {
-                    currentNode.ParentNode.ParentNode.Title = "ModuleId" + stepController.uof.GetRepository<Module>().FindByKey(currentStep.TestCase.ModuleId.Value).Id.ToString();
-                    currentNode.ParentNode.ParentNode.Url = string.Format("ModuleDetails.aspx?moduleId={0}", stepController.uof.GetRepository<Module>().FindByKey(currentStep.TestCase.ModuleId.Value).Id);
+                    currentNode.ParentNode.ParentNode.Title = "Module " + currentStep.TestCase.Module.Title;
+                    currentNode.ParentNode.ParentNode.Url = string.Format("ModuleDetails.aspx?moduleId={0}", currentStep.TestCase.ModuleId);
                 }
                 else
                 {
                     currentNode.ParentNode.ParentNode.Title = "No related Module";
                 }
-               
-                currentNode.ParentNode.ParentNode.ParentNode.Title = "ProjectId" + currentStep.TestCase.ProjectId;
+                currentNode.ParentNode.ParentNode.ParentNode.Title = "Project " + currentStep.TestCase.Project.Title;
                 currentNode.ParentNode.ParentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentStep.TestCase.ProjectId);
-                // Use the changed one in the breadcrumb.
                 return currentNode;
             }
             return null;
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+        [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
         protected void btn_AddAttachment(object sender, EventArgs e)
         {
             Response.Redirect(string.Format("~/Views/AttachmentCreate.aspx?stepId={0}", currentStep.Id));
-            
         }
 
-        // The return type can be changed to IEnumerable, however to support
-        // paging and sorting, the following parameters must be added:
-        //     int maximumRows
-        //     int startRowIndex
-        //     out int totalRowCount
-        //     string sortByExpression
         public IQueryable<ManTestAppWebForms.Models.Attachment> gvAttachments_GetData()
         {
-            int stepid;
-            Int32.TryParse(stepId, out stepid);
-            return stepController.uof.GetRepository<Attachment>().All().Where(a => a.StepId == stepid).AsQueryable();
+            if (currentStep != null)
+            {
+                return stepController.uof.GetRepository<Attachment>().All().Where(a => a.StepId == currentStep.Id).AsQueryable();
+            }
+            return null;
         }
 
-        // The id parameter name should match the DataKeyNames value set on the control
+        [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+        [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
         public void gvAttachments_DeleteItem(int id)
         {
             stepController.uof.GetRepository<Attachment>().Delete(id);
             stepController.uof.Save();
-            ShowImageFiles();
+            Response.Redirect(string.Format("~/Views/StepDetails.aspx?stepId={0}", currentStep.Id));
         }
 
-        // The id parameter name should match the DataKeyNames value set on the control
-        public void gvAttachments_UpdateItem(int id)
+        [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+        [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
+        public void FormViewStep_DeleteItem(int id)
         {
-            ManTestAppWebForms.Models.Attachment item = null;
-            item = stepController.uof.GetRepository<Attachment>().FindByKey(id);
-            // Load the item here, e.g. item = MyDataLayer.Find(id);
+            stepController.Delete(id);
+            Step deleted = currentStep;
+            if (deleted != null)
+            {
+                Response.Redirect(String.Format("TestCaseDetails.aspx?testCaseId={0}", currentStep.TestCaseId));
+            }
+        }
+
+        public ManTestAppWebForms.Models.Step FormViewStep_GetItem([QueryString]int? stepId)
+        {
+            if (stepId.HasValue)
+            {
+                gvAttachments.DataBind();
+                return stepController.FindById(stepId.Value);
+            }
+            return null;
+        }
+
+        [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+        [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
+        public void FormViewStep_UpdateItem(int id)
+        {
+            ManTestAppWebForms.Models.Step item = null;
+            item = stepController.FindById(id);
             if (item == null)
             {
-                // The item wasn't found
                 ModelState.AddModelError("", String.Format("Item with id {0} was not found", id));
                 return;
             }
             TryUpdateModel(item);
-            if (TryUpdateModel(item))
-            {
-                
-            }
             if (ModelState.IsValid)
             {
-                stepController.uof.GetRepository<Attachment>().Update(item);
-                stepController.uof.Save();
+                stepController.Update(item);
+            }
+            Response.Redirect(String.Format("StepDetails.aspx?stepId={0}", item.Id));
+        }
+
+        protected void btn_StepCancel_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(String.Format("StepDetails.aspx?stepId={0}", currentStep.Id));
+        }
+
+        protected void FormViewStep_DataBound(object sender, EventArgs e)
+        {
+            var formView = (FormViewStep as FormView);
+            if (formView != null)
+            {
+                Button edit = (Button)FormViewStep.FindControl("ButtonEdit");
+                if (edit != null)
+                {
+                    edit.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+                }
+                Button delete = (Button)FormViewStep.FindControl("ButtonDelete");
+                if (edit != null)
+                {
+                    delete.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+                }
+                btnAddAttachment.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
             }
         }
 
-        protected void gvAttachments_SelectedIndexChanged(object sender, EventArgs e)
+        protected void gvAttachments_RowCreated(object sender, GridViewRowEventArgs e)
         {
-            var fullFileName = (int)gvAttachments.SelectedValue;
-            var filename = stepController.uof.GetRepository<Attachment>().FindByKey(fullFileName).FileName;
-            string completeUrl = Server.MapPath("~/Data/") + filename;
-            string contents = File.ReadAllText(completeUrl);
-            //FileContents.Text = contents;
+            if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex != gvAttachments.EditIndex)
+            {
+                gvAttachments.Columns[3].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+            }
         }
     }
 }
