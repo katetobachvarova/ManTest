@@ -49,13 +49,13 @@ namespace ManTestAppWebForms.Views
         {
             if (ModelState.IsValid)
             {
-                Response.Redirect("~/Views/TestCaseIndex.aspx");
+                Response.Redirect(String.Format("~/Views/TestCaseDetails.aspx?testCaseId={0}", Request.QueryString["testCaseId"]));
             }
         }
 
         protected void Cancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Views/TestCaseIndex.aspx");
+            Response.Redirect(String.Format("~/Views/TestCaseDetails.aspx?testCaseId={0}", Request.QueryString["testCaseId"]));
         }
     }
 }

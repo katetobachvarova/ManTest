@@ -21,7 +21,14 @@ namespace ManTestAppWebForms.Views
             if (Int32.TryParse(moduleId, out moduleid))
             {
                 currentModule = moduleController.FindById(moduleid);
-                if (currentModule == null)
+                if (currentModule != null)
+                {
+                    if (moduleController.uof.GetRepository<TestCase>().All().Where(i => i.ModuleId == currentModule.Id).Any())
+                    {
+                        LabelRelatedTestCases.Text = "Related Test Cases";
+                    }
+                }
+                else
                 {
                     Response.Redirect("~/Views/ModuleIndex.aspx");
                 }

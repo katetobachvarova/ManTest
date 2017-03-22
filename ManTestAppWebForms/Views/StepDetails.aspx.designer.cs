@@ -40,6 +40,15 @@ namespace ManTestAppWebForms.Views {
         protected global::System.Web.UI.WebControls.FormView FormViewStep;
         
         /// <summary>
+        /// btnAddAttachment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddAttachment;
+        
+        /// <summary>
         /// PlaceHolderForImages control.
         /// </summary>
         /// <remarks>
@@ -56,14 +65,5 @@ namespace ManTestAppWebForms.Views {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvAttachments;
-        
-        /// <summary>
-        /// btnAddAttachment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddAttachment;
     }
 }

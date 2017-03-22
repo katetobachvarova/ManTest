@@ -1,78 +1,90 @@
 ﻿using ManTestAppWebForms.Controllers;
 using ManTestAppWebForms.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace ManTestAppWebForms.Views
 {
-    public partial class AttachTestCaseToModule : System.Web.UI.Page
+    public partial class AttachTestCase : System.Web.UI.Page
     {
         private ControllerBase<TestCase> testCaseController;
-        private string projectId;
-        private string moduleId;
+        public Project currentProject;
+        public Module currentModule;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
             this.testCaseController = new ControllerBase<TestCase>();
-            moduleId = Request.QueryString["moduleId"];
-            projectId = Request.QueryString["projectId"];
+            string moduleId = Request.QueryString["moduleId"];
+            string projectId = Request.QueryString["projectId"];
+
+           
+            int projectid;
+            if (Int32.TryParse(projectId, out projectid))
+            {
+                currentProject = testCaseController.uof.GetRepository<Project>().FindByKey(projectid);
+                //if (currentProject != null)
+                //{
+                //}
+                //else
+                //{
+                //    Response.Redirect("~/Views/ProjectIndex.aspx");
+                //}
+            }
+            int moduleid;
+            if (Int32.TryParse(moduleId, out moduleid))
+            {
+                currentModule = testCaseController.uof.GetRepository<Module>().FindByKey(moduleid);
+                //if (currentModule != null)
+                //{
+                //}
+                //else
+                //{
+                //    Response.Redirect("~/Views/ModuleIndex.aspx");
+                //}
+            }
         }
 
         protected void Cancel_Click(object sender, EventArgs e)
         {
-
+            if (currentModule != null)
+            {
+                Response.Redirect(String.Format("ModuleDetails.aspx?moduleId={0}", currentModule.Id));
+            }
+            else if (currentProject != null)
+            {
+                Response.Redirect(String.Format("ProjectDetails.aspx?projectId={0}", currentProject.Id));
+            }
         }
 
         protected void TestCase_Inserted(object sender, FormViewInsertedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(moduleId) && ModelState.IsValid)
+            if (currentModule != null && ModelState.IsValid)
             {
-                Response.Redirect(String.Format("ModuleDetails.aspx?moduleId={0}", moduleId));
+                Response.Redirect(String.Format("ModuleDetails.aspx?moduleId={0}", currentModule.Id));
             }
-            else if (!string.IsNullOrEmpty(projectId) && ModelState.IsValid)
+            else if (currentProject != null && ModelState.IsValid)
             {
-                Response.Redirect(String.Format("ProjectDetails.aspx?projectId={0}", projectId));
+                Response.Redirect(String.Format("ProjectDetails.aspx?projectId={0}", currentProject.Id));
             }
-
         }
 
         public void InsertItem_TestCase()
         {
             var item = new ManTestAppWebForms.Models.TestCase();
-            if (!string.IsNullOrEmpty(moduleId))
+            if (currentModule != null)
             {
-                int moduleid;
-                Int32.TryParse(moduleId, out moduleid);
-                Module existingModule = this.testCaseController.uof.GetRepository<Module>().FindByKey(moduleid);
-                if (existingModule != null)
-                {
-                    item.ModuleId = moduleid;
-                    item.ProjectId = this.testCaseController.uof.GetRepository<Module>().FindByKey(moduleid).ProjectId;
-                }
-                else
-                {
-                    ModelState.AddModelError("ModuleId", "Module not found!");
-                }
-
+                item.ModuleId = currentModule.Id;
+                item.ProjectId = currentModule.ProjectId;
             }
-            else if (!string.IsNullOrEmpty(projectId))
+            else if (currentProject != null)
             {
-                int projectid;
-                Int32.TryParse(projectId, out projectid);
-                Project existingProject = this.testCaseController.uof.GetRepository<Project>().FindByKey(projectid);
-                if (existingProject != null)
-                {
-                    item.ProjectId = projectid;
-                }
-                else
-                {
-                    ModelState.AddModelError("ProjectId", "Project not found!");
-                }
-                item.ProjectId = projectid;
+                item.ProjectId = currentProject.Id;
+            }
+            else
+            {
+                ModelState.AddModelError("ProjectId", "Project not found!");
+                ModelState.AddModelError("ModuleId", "Module not found!");
             }
             TryUpdateModel(item);
             if (ModelState.IsValid)

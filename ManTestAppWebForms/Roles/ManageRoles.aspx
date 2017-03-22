@@ -3,17 +3,19 @@
      <h2>Manage Roles</h2>
     <p>
         <b>Create a New Role: </b>
-        <asp:TextBox ID="RoleName" runat="server"></asp:TextBox>
+        <asp:TextBox ID="RoleName" runat="server" CssClass="form-control formcontrol2"></asp:TextBox>
         <asp:RequiredFieldValidator ID="RoleNameReqField" runat="server" 
             ControlToValidate="RoleName" Display="Dynamic" 
             ErrorMessage="You must enter a role name."></asp:RequiredFieldValidator>
         <br />
         <asp:Button ID="CreateRoleButton" runat="server" Text="Create Role" 
-            onclick="CreateRoleButton_Click"/>
+                    onclick="CreateRoleButton_Click"
+                    class="btn btn-default"/>
     </p>
     <p>
         <asp:GridView ID="RoleList" runat="server" AutoGenerateColumns="False" 
-            onrowdeleting="RoleList_RowDeleting">
+                      onrowdeleting="RoleList_RowDeleting"
+                      CssClass="table tablegridview">
             <Columns>
                 <asp:TemplateField HeaderText="Role">
                     <ItemTemplate>

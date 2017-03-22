@@ -10,7 +10,7 @@
 namespace ManTestAppWebForms.Views {
     
     
-    public partial class AttachTestCaseToModule {
+    public partial class AttachTestCase {
         
         /// <summary>
         /// Form control.

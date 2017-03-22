@@ -16,85 +16,104 @@
          UpdateMethod="FormViewCurrentTestCase_UpdateItem"
          OnDataBound="FormViewCurrentTestCase_DataBound"
          DeleteMethod="FormViewCurrentTestCase_DeleteItem">
-        <ItemTemplate>
-        <div>
-        <table style="margin-left: 0px;">
-            <tr>
-                <td>
-                    <asp:Label ID="Label1" runat="server" Text="Title : "   style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# Eval("Title") %>' CssClass="form-control" Enabled="false"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                     <asp:Label ID="Label4" runat="server" Text="Description : "  style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
-                </td>
-                <td>
-                     <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# Eval("Description") %>' CssClass="form-control"  Enabled="false" TextMode="MultiLine"  Wrap="true"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                     <asp:Button ID="ButtonEdit" runat="server" Text="Edit"  CommandName="Edit" class="btn btn-default"  CausesValidation="true" />
-                </td>
-                <td>
-                    <asp:Button ID="ButtonDelete" runat="server" Text="Delete"  CommandName="Delete" class="btn btn-default" />
-                </td>
-            </tr>
-        </table>
-        </div>
-        </ItemTemplate>
-
-        <EditItemTemplate>
-            <div >
-                <asp:DropDownList ID="DropDownListProjectsEdit" runat="server"   CssClass="form-control" DataTextField="Title" DataValueField="Id" OnSelectedIndexChanged="DropDownListProjects_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="DDControl DDValidator" ControlToValidate="DropDownListProjectsEdit" Visible="true" ErrorMessage="Required"></asp:RequiredFieldValidator>
-            </div>
-            <div>
-                <asp:DropDownList ID="DropDownListModulesEdit" runat="server"   CssClass="form-control" DataTextField="Title" DataValueField="Id" OnSelectedIndexChanged="DropDownListModules_SelectedIndexChanged" Enabled="false" AutoPostBack="true"></asp:DropDownList>
-            </div>
-            <div>
-                <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# Bind("Title") %>' CssClass="form-control"></asp:TextBox>
-                 <asp:DynamicValidator runat="server" ID="DynamicValidator2" 
-                            CssClass="DDControl DDValidator" ControlToValidate="TextBoxTitle" Display="Static" />
-                            <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" 
-                            CssClass="DDControl DDValidator" ControlToValidate="TextBoxTitle" Display="Static" Enabled="false" />
-            </div>
-            <div>
-                <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# Bind("Description") %>' CssClass="form-control"  TextMode="MultiLine" Rows="3" Wrap="true"></asp:TextBox>
-              <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" 
-                                CssClass="DDControl DDValidator" ControlToValidate="TextBoxDescription" Display="Static" Enabled="false" />
-            </div>
-            
+            <ItemTemplate>
                 <div>
-                    <asp:Button ID="ButtonUpdate" runat="server" Text="Update"  CommandName="Update" class="btn btn-default" CausesValidation="true" />
-                    <asp:Button ID="ButtonCancel" runat="server" Text="Cancel"  OnClick="btn_TestCaseCancel_Click" class="btn btn-default"/>
+                    <table style="margin-left: 0px;">
+                        <tr>
+                            <td>
+                                <asp:Label ID="Label1" runat="server" Text="Title : "   style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# Eval("Title") %>' CssClass="form-control" Enabled="false"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                 <asp:Label ID="Label4" runat="server" Text="Description : "  style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
+                            </td>
+                            <td>
+                                 <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# Eval("Description") %>' CssClass="form-control"  Enabled="false" TextMode="MultiLine"  Wrap="true"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                 <asp:Button ID="ButtonEdit" runat="server" Text="Edit"  CommandName="Edit" class="btn btn-default"  style="margin-bottom:5px" CausesValidation="true" />
+                                 <asp:Button ID="ButtonDelete" runat="server" Text="Delete"  CommandName="Delete" class="btn btn-default" style="margin-bottom:5px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                 <asp:Button ID="ButtonAddStep" runat="server" Text="Add Step"  OnClick="AddAttachmentToTestCase" class="btn btn-default"  CausesValidation="true" />
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-          
-        </EditItemTemplate>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <div >
+                    <asp:DropDownList ID="DropDownListProjectsEdit" runat="server"   CssClass="form-control" DataTextField="Title" DataValueField="Id" OnSelectedIndexChanged="DropDownListProjects_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="DDControl DDValidator" ControlToValidate="DropDownListProjectsEdit" Visible="true" ErrorMessage="Required"></asp:RequiredFieldValidator>
+                </div>
+                <div>
+                    <asp:DropDownList ID="DropDownListModulesEdit" runat="server"   CssClass="form-control" DataTextField="Title" DataValueField="Id" OnSelectedIndexChanged="DropDownListModules_SelectedIndexChanged" Enabled="false" AutoPostBack="true"></asp:DropDownList>
+                </div>
+                <div>
+                    <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# Bind("Title") %>' CssClass="form-control"></asp:TextBox>
+                     <asp:DynamicValidator runat="server" ID="DynamicValidator2" 
+                                CssClass="DDControl DDValidator" ControlToValidate="TextBoxTitle" Display="Static" />
+                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" 
+                                CssClass="DDControl DDValidator" ControlToValidate="TextBoxTitle" Display="Static" Enabled="false" />
+                </div>
+                <div>
+                    <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# Bind("Description") %>' CssClass="form-control"  TextMode="MultiLine" Rows="3" Wrap="true"></asp:TextBox>
+                  <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" 
+                                    CssClass="DDControl DDValidator" ControlToValidate="TextBoxDescription" Display="Static" Enabled="false" />
+                </div>
+            
+                    <div>
+                        <asp:Button ID="ButtonUpdate" runat="server" Text="Update"  CommandName="Update" class="btn btn-default" CausesValidation="true" />
+                        <asp:Button ID="ButtonCancel" runat="server" Text="Cancel"  OnClick="btn_TestCaseCancel_Click" class="btn btn-default"/>
+                    </div>
+            </EditItemTemplate>
     </asp:FormView>
     <br/>
     <div class="col-lg-12">
-    <asp:Label ID="LabelRelatedSteps" runat="server" Text="Related Steps" CssClass="titlemantest"></asp:Label>
+    <asp:Label ID="LabelRelatedSteps" runat="server" CssClass="titlemantest"></asp:Label>
    </div>
     <asp:ListView ID="ListViewSteps" runat="server"
                   ItemType="ManTestAppWebForms.Models.Step"
-                  SelectMethod="GridViewSteps_GetData"
+                  SelectMethod="ListViewSteps_GetData"
                   DataKeyNames="Id"
                   OnItemDataBound="ListViewSteps_ItemDataBound"
          >
         <ItemTemplate>
-            <asp:Label ID="LabelStepTitle" runat="server" Text="Title :"  CssClass="col-lg-3 control-label " ></asp:Label>
-
-            <div class="col-lg-9">
-                <asp:Label ID="LabelStepTitleContent" runat="server"    Text='<%# Eval("Title") %>'></asp:Label>
-            </div>
-            <asp:Label ID="LabelStepDescription" runat="server" Text="Description :"  CssClass="col-lg-3 control-label" ></asp:Label>
-
-            <div class="col-lg-9">
-                <asp:Label ID="LabelStepDescriptionContent" runat="server"   Text='<%# Eval("Description") %>'></asp:Label>
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <asp:Label ID="Label2" runat="server" Text="Step Order : "   style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="TextBox1" runat="server" Text='<%# Eval("StepOrder") %>' CssClass="form-control" Enabled="false"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="Label1" runat="server" Text="Title : "   style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# Eval("Title") %>' CssClass="form-control" Enabled="false"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                             <asp:Label ID="Label4" runat="server" Text="Description : "  style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
+                        </td>
+                        <td>
+                             <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# Eval("Description") %>' CssClass="form-control"  Enabled="false" TextMode="MultiLine"  Wrap="true"></asp:TextBox>
+                        </td>
+                    </tr>
+                </table>
             </div>
              <div class="col-lg-12">
                 <asp:PlaceHolder ID="PlaceHolderForImages" runat="server"></asp:PlaceHolder>
@@ -107,9 +126,9 @@
                               AutoGenerateColumns="false"
                               CssClass="table tablegridview table-hover"
                      >
-                     <EmptyDataTemplate>
+                     <%--<EmptyDataTemplate>
                         No data found
-                    </EmptyDataTemplate>
+                    </EmptyDataTemplate>--%>
                     <Columns>
                         <asp:BoundField DataField="Id" ReadOnly="true" HeaderText="ID">
                             </asp:BoundField>
@@ -127,6 +146,7 @@
             <asp:Button ID="btn_StepDetails" runat="server" Text="Step Details"  OnClick="btn_StepDetails_Click" CommandArgument='<%# Eval("Id") %>' class="btn btn-default" style="margin-left: 15px;"/>
             </div>
                 <br/>
+            <hr class="hr">
         </ItemTemplate>
     </asp:ListView>
 

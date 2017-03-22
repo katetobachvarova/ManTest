@@ -22,13 +22,13 @@ namespace ManTestAppWebForms.Views {
         protected global::System.Web.UI.WebControls.SiteMapPath SiteMapPath1;
         
         /// <summary>
-        /// Label2 control.
+        /// LabelRelatedModules control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label LabelRelatedModules;
         
         /// <summary>
         /// GridViewModules control.
@@ -40,13 +40,13 @@ namespace ManTestAppWebForms.Views {
         protected global::System.Web.UI.WebControls.GridView GridViewModules;
         
         /// <summary>
-        /// Label3 control.
+        /// LabelRelatedTestCases control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Label LabelRelatedTestCases;
         
         /// <summary>
         /// GridViewTestCases control.

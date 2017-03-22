@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AttachTestCase.aspx.cs" Inherits="ManTestAppWebForms.Views.AttachTestCaseToModule" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AttachTestCase.aspx.cs" Inherits="ManTestAppWebForms.Views.AttachTestCase" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:ValidationSummary ShowModelStateErrors="true" runat="server" />
         <asp:FormView runat="server"  CssClass="FormView" ID="Form"

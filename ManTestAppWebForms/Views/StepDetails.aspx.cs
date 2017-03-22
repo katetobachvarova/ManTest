@@ -156,8 +156,8 @@ namespace ManTestAppWebForms.Views
             if (ModelState.IsValid)
             {
                 stepController.Update(item);
+                Response.Redirect(String.Format("StepDetails.aspx?stepId={0}", item.Id));
             }
-            Response.Redirect(String.Format("StepDetails.aspx?stepId={0}", item.Id));
         }
 
         protected void btn_StepCancel_Click(object sender, EventArgs e)

@@ -57,5 +57,14 @@ namespace ManTestAppWebForms.Views
                 testCaseController.Update(item);
             }
         }
+
+        protected void gvTestCases_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex != gvTestCases.EditIndex)
+            {
+                gvTestCases.Columns[6].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+                gvTestCases.Columns[5].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+            }
+        }
     }
 }

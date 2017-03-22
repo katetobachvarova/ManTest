@@ -15,37 +15,39 @@ namespace ManTestAppWebForms.Views
 {
     public partial class TestCaseDetails : System.Web.UI.Page
     {
-        public string testCaseId;
         private ControllerBase<TestCase> testCaseController;
         public TestCase currentTestCase;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             testCaseController = new ControllerBase<TestCase>();
-            this.testCaseId = Request.QueryString["testCaseId"];
+            string testCaseId = Request.QueryString["testCaseId"];
             int testCaseid;
             if (Int32.TryParse(testCaseId, out testCaseid))
             {
                 currentTestCase = testCaseController.FindById(testCaseid);
-                if (currentTestCase != null)
+                if (currentTestCase != null && currentTestCase.Steps != null && currentTestCase.Steps.Any())
                 {
-                    
+                    LabelRelatedSteps.Text = "Related Steps";
                 }
             }
+            if (!IsPostBack && currentTestCase != null)
+            {
+                SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
+            }
+        }
 
-                if (!IsPostBack && !string.IsNullOrEmpty(Request.QueryString["testCaseId"]))
-                {
-                    SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
-                }
-            }
-           
+        protected void AddAttachmentToTestCase(object sender, EventArgs e)
+        {
+            Response.Redirect(String.Format("StepCreate.aspx?testCaseId={0}", currentTestCase.Id));
+        }
+
+
         private void ShowImageFiles(Step currentStep, PlaceHolder PlaceHolderForImages)
         {
             if (currentStep != null)
             {
-                int testCaseid;
-            Int32.TryParse(testCaseId, out testCaseid);
-            IEnumerable<Attachment> attachments = testCaseController.uof.GetRepository<Attachment>().All().Where(e => e.StepId == currentStep.Id).AsQueryable();
+                IEnumerable<Attachment> attachments = testCaseController.uof.GetRepository<Attachment>().All().Where(e => e.StepId == currentStep.Id).AsQueryable();
                 foreach (var item in attachments)
                 {
                     if (item.FileName.EndsWith(".jpg")
@@ -96,11 +98,11 @@ namespace ManTestAppWebForms.Views
             return null;
         }
 
-        public IQueryable<ManTestAppWebForms.Models.Step> GridViewSteps_GetData()
+        public IQueryable<ManTestAppWebForms.Models.Step> ListViewSteps_GetData()
         {
             if (currentTestCase != null)
             {
-                return testCaseController.uof.GetRepository<Step>().All().Where(i => i.TestCaseId == currentTestCase.Id).AsQueryable();
+                return testCaseController.uof.GetRepository<Step>().All().Where(i => i.TestCaseId == currentTestCase.Id).OrderBy(e => e.StepOrder).AsQueryable();
             }
             return null;
         }
@@ -110,22 +112,13 @@ namespace ManTestAppWebForms.Views
             if (e.Item.ItemType != ListViewItemType.DataItem)
             {
                 return;
-
             }
             ListViewDataItem dataItem = (ListViewDataItem)e.Item;
-            // Get the ID from the GridView
             Step currentStep = (Step)dataItem.DataItem;
-            
-
-            // Bind the supporting documents to the ListView control
-            var gridView = (GridView)e.Item.FindControl("GridViewAttachments_GetData");
-            int testCaseid;
-            Int32.TryParse(testCaseId, out testCaseid);
+            GridView gridView = (GridView)e.Item.FindControl("GridViewAttachments_GetData");
             gridView.DataSource = testCaseController.uof.GetRepository<Attachment>().All().Where(i => i.StepId == currentStep.Id).AsQueryable();
             gridView.DataBind();
-
-            var placeholderforimages = (PlaceHolder)e.Item.FindControl("PlaceHolderForImages");
-
+            PlaceHolder placeholderforimages = (PlaceHolder)e.Item.FindControl("PlaceHolderForImages");
             ShowImageFiles(currentStep, placeholderforimages);
         }
 

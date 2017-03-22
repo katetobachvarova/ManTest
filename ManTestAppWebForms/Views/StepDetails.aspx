@@ -19,6 +19,14 @@
         <ItemTemplate>
         <div>
         <table style="margin-left: 0px;">
+             <tr>
+                <td>
+                    <asp:Label ID="Label2" runat="server" Text="Step Order : "   style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Eval("StepOrder") %>' CssClass="form-control" Enabled="false"></asp:TextBox>
+                </td>
+            </tr>
             <tr>
                 <td>
                     <asp:Label ID="Label1" runat="server" Text="Title : "   style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
@@ -37,10 +45,10 @@
             </tr>
             <tr>
                 <td>
-                     <asp:Button ID="ButtonEdit" runat="server" Text="Edit"  CommandName="Edit" class="btn btn-default"  CausesValidation="true" />
+                     <asp:Button ID="ButtonEdit" runat="server" Text="Edit"  CommandName="Edit" class="btn btn-default"  style="margin-bottom:5px"  CausesValidation="true" />
                 </td>
                 <td>
-                    <asp:Button ID="ButtonDelete" runat="server" Text="Delete"  CommandName="Delete" class="btn btn-default" />
+                    <asp:Button ID="ButtonDelete" runat="server" Text="Delete"  CommandName="Delete" style="margin-bottom:5px"  class="btn btn-default" />
                 </td>
             </tr>
         </table>
@@ -49,6 +57,18 @@
         <EditItemTemplate>
         <div>
             <table style="margin-left: 0px;">
+                <tr>
+                    <td>
+                        <asp:Label ID="Label3" runat="server" Text="Step Order : "   style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
+                    </td>
+                    <td>
+                            <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("StepOrder") %>' CssClass="form-control"></asp:TextBox>
+                            <asp:DynamicValidator runat="server" ID="DynamicValidator2" 
+                            CssClass="DDControl DDValidator" ControlToValidate="TextBoxTitle" Display="Static" />
+                            <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" 
+                            CssClass="DDControl DDValidator" ControlToValidate="TextBoxTitle" Display="Static" Enabled="false" />
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <asp:Label ID="Label1" runat="server" Text="Title : "   style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
@@ -73,18 +93,19 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:Button ID="Button3" runat="server" Text="Update"  CommandName="Update" class="btn btn-default" CausesValidation="true" />
+                        <asp:Button ID="Button3" runat="server" Text="Update"  CommandName="Update" class="btn btn-default"  style="margin-bottom:5px" CausesValidation="true" />
                     </td>
                     <td>
-                        <asp:Button ID="Button4" runat="server" Text="Cancel"  OnClick="btn_StepCancel_Click" class="btn btn-default"/>
+                        <asp:Button ID="Button4" runat="server" Text="Cancel"  OnClick="btn_StepCancel_Click"   class="btn btn-default" style="margin-bottom:5px"/>
                     </td>
                 </tr>
             </table>
         </div>
-
         </EditItemTemplate>
     </asp:FormView>
-    <br/>
+    <div>
+    <asp:Button ID="btnAddAttachment" runat="server" Text="Add Attachment"   OnClick="btn_AddAttachment" class="btn btn-default" style="margin-bottom:5px" />
+    </div>
     <div>
         <asp:PlaceHolder ID="PlaceHolderForImages" runat="server"></asp:PlaceHolder>
      </div>
@@ -117,7 +138,6 @@
             <asp:CommandField ShowDeleteButton="True" />
         </Columns>
     </asp:GridView>
-    <asp:Button ID="btnAddAttachment" runat="server" Text="Add Attachment"   OnClick="btn_AddAttachment" class="btn btn-default" />
     
     <script type="text/javascript" src='<%=ResolveClientUrl("~/Scripts/Zoom/jquery.js") %>'></script>
     <script type="text/javascript" src='<%=ResolveClientUrl("~/Scripts/Zoom/eye.js") %>'></script>

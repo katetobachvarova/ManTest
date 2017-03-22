@@ -19,25 +19,43 @@ body {
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
-input[type="text"],
+input[type="text"] {
+    /*max-width: 280px;*/
+}
+
 input[type="password"],
 input[type="email"],
 input[type="tel"],
 input[type="select"] {
-    /*max-width: 280px;*/
+    max-width: 280px;
 }
+
+
+.hr {
+    color: #300848;
+    border-width: 1px;
+    border-color: #300848;
+}
+
 
 .jumbotron {
     background-color: #25c2c7;
 }
 
+.navbar-inverse {
+  background-color: #300848;
+  border-color: #300848;
+}
 
 
 .SelectedRowStyle {
     background-color: #25c2c7;
 }
 
-
+.a  {
+    color:#0b5392;
+     
+}
 
 
 /* Responsive: Portrait tablets and up */
@@ -122,6 +140,11 @@ margin:0px;
 .form-control {
     margin-bottom:6px;
     width:100%;
+}
+
+.formcontrol2 {
+    margin-bottom:2px;
+    width:25%;
 }
 .titlemantest {
     font-size: 22px;

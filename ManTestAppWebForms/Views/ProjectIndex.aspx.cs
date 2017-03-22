@@ -66,7 +66,7 @@ namespace ManTestAppWebForms.Views
                 LinkButton EditButton = e.Row.FindControl("LinkButtonEdit") as LinkButton;
                 LinkButton DeleteButton = e.Row.FindControl("LinkButtonDelete") as LinkButton;
                 gv_ProjectIndex.Columns[6].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
-                gv_ProjectIndex.Columns[7].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+                gv_ProjectIndex.Columns[5].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
                 gv_ProjectIndex.Columns[3].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
                 gv_ProjectIndex.Columns[4].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
                 //EditButton.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));

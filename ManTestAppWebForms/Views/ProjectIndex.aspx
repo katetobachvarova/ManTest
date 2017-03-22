@@ -5,9 +5,8 @@
     <div>
     <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
     </div>
-    <br/>
     <div>
-    <asp:Label ID="lblProjects" runat="server" Text="Projects" CssClass="titlemantest"></asp:Label>
+    <h2>Projects</h2>
     </div>
     <div>
         <asp:ValidationSummary ID="ValidationSummaryTestCase" runat="server"  ShowModelStateErrors="true"/>
@@ -26,13 +25,25 @@
         AllowSorting="true" AllowPaging="true" PageSize="5"
         AutoGenerateColumns="false"
         EditRowStyle-CssClass="SelectedRowStyle"
-        OnRowCreated="gv_ProjectIndex_RowCreated"
-        
-        >
+        OnRowCreated="gv_ProjectIndex_RowCreated">
         <Columns>
-            <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true"  ></asp:BoundField>
-            <asp:BoundField DataField="Title" HeaderText="TITLE" ></asp:BoundField>
-            <asp:BoundField DataField="Description" HeaderText="DESCRIPTION" ></asp:BoundField>
+            <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true"></asp:BoundField>
+            <asp:TemplateField HeaderText="TITLE">
+                <EditItemTemplate>
+                    <asp:TextBox runat="server" Text='<%# Bind("Title") %>' ID="TextBox1" CssClass="form-control"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("Title") %>' ID="Label1"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="DESCRIPTION">
+                <EditItemTemplate>
+                    <asp:TextBox runat="server" Text='<%# Bind("Description") %>' ID="TextBox2" CssClass="form-control"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("Description") %>' ID="Label2"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:HyperLinkField
                 DataNavigateUrlFields="Id"
                 DataNavigateUrlFormatString="ModuleCreate.aspx?projectId={0}"
@@ -41,12 +52,6 @@
                 DataNavigateUrlFields="Id"
                 DataNavigateUrlFormatString="AttachTestCase.aspx?projectId={0}"
                 Text="Add TestCase" />
-            <asp:TemplateField>
-                <ItemTemplate>
-                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# String.Format("ProjectDetails.aspx?projectId={0}", Item.Id) %>'> Details></asp:HyperLink>
-                </ItemTemplate>
-            </asp:TemplateField>
-
             <asp:TemplateField ShowHeader="False">
                 <EditItemTemplate>
                     <asp:LinkButton runat="server" Text="Update" CommandName="Update" CausesValidation="True" ID="LinkButtonEdit"></asp:LinkButton>&nbsp;<asp:LinkButton runat="server" Text="Cancel" CommandName="Cancel" CausesValidation="False" ID="LinkButton2"></asp:LinkButton>
@@ -60,7 +65,11 @@
                     <asp:LinkButton runat="server" Text="Delete" CommandName="Delete" CausesValidation="False" ID="LinkButtonDelete"></asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
-
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# String.Format("ProjectDetails.aspx?projectId={0}", Item.Id) %>'> Details></asp:HyperLink>
+                </ItemTemplate>
+            </asp:TemplateField>
         </Columns>
     </asp:GridView>
 </asp:Content>

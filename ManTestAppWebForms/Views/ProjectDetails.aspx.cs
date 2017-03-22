@@ -22,7 +22,18 @@ namespace ManTestAppWebForms.Views
             if (Int32.TryParse(projectId, out projectid))
             {
                 currentProject = projectController.FindById(projectid);
-                if (currentProject == null)
+                if (currentProject != null)
+                {
+                    if (currentProject.Modules != null && currentProject.Modules.Any())
+                    {
+                        LabelRelatedModules.Text = "Related Modules";
+                    }
+                    if (projectController.uof.GetRepository<TestCase>().All().Where(i => i.ProjectId == currentProject.Id && i.ModuleId == null).Any())
+                    {
+                        LabelRelatedTestCases.Text = "Related Test Cases";
+                    }
+                }
+                else
                 {
                     Response.Redirect("~/Views/ProjectIndex.aspx");
                 }
@@ -142,7 +153,7 @@ namespace ManTestAppWebForms.Views
             if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex != GridViewModules.EditIndex)
             {
                 GridViewTestCases.Columns[4].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
-                GridViewTestCases.Columns[5].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+                GridViewTestCases.Columns[3].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
             }
         }
     }

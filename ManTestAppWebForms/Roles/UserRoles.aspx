@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="UserRoles.aspx.cs" Inherits="ManTestAppWebForms.Roles.UserRoles" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <h2>User Roles</h2>
+    <br/>
     <asp:GridView ID="GridViewUsers" runat="server"
          ItemType="ManTestAppWebForms.Models.ApplicationUser"
          SelectMethod="GridViewUsers_GetData"
@@ -8,7 +10,8 @@
          UpdateMethod="GridViewUsers_UpdateUser"
          AutoGenerateEditButton="false"
          DataKeyNames="Email"
-         OnRowUpdating="GridViewUsers_RowUpdating">
+         OnRowUpdating="GridViewUsers_RowUpdating"
+         CssClass="table tablegridview">
         <Columns>
             <asp:BoundField DataField="UserName" HeaderText="UserName" ></asp:BoundField>
             <asp:TemplateField HeaderText="Role">
