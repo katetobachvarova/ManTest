@@ -37,7 +37,9 @@ namespace ManTestAppWebForms.Views
             }
         }
 
-        protected void AddAttachmentToTestCase(object sender, EventArgs e)
+        [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+        [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
+        protected void AddStepToTestCase(object sender, EventArgs e)
         {
             Response.Redirect(String.Format("StepCreate.aspx?testCaseId={0}", currentTestCase.Id));
         }
@@ -232,7 +234,11 @@ namespace ManTestAppWebForms.Views
                 {
                     delete.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
                 }
-
+                Button addStep = (Button)FormViewCurrentTestCase.FindControl("ButtonAddStep");
+                if (addStep != null)
+                {
+                    addStep.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+                }
             }
         }
 

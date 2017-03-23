@@ -31,6 +31,15 @@ namespace ManTestAppWebForms.Views {
         protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummaryTestCase;
         
         /// <summary>
+        /// AddNewProjectLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink AddNewProjectLink;
+        
+        /// <summary>
         /// gv_ProjectIndex control.
         /// </summary>
         /// <remarks>

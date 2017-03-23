@@ -14,10 +14,10 @@ namespace ManTestAppWebForms.Views
     {
         private ControllerBase<Project> projectController;
 
-
         protected void Page_Load(object sender, EventArgs e)
         {
             projectController = new ControllerBase<Project>();
+            AddNewProjectLink.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
         }
 
         public IQueryable<Project> GetData_ProjectIndex()
@@ -54,7 +54,6 @@ namespace ManTestAppWebForms.Views
             if (ModelState.IsValid)
             {
                 projectController.Update(item);
-
             }
         }
 
@@ -62,16 +61,16 @@ namespace ManTestAppWebForms.Views
         {
             if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex != gv_ProjectIndex.EditIndex)
             {
-                // Programmatically reference the Edit and Delete LinkButtons
-                LinkButton EditButton = e.Row.FindControl("LinkButtonEdit") as LinkButton;
-                LinkButton DeleteButton = e.Row.FindControl("LinkButtonDelete") as LinkButton;
-                gv_ProjectIndex.Columns[6].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
-                gv_ProjectIndex.Columns[5].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
                 gv_ProjectIndex.Columns[3].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
                 gv_ProjectIndex.Columns[4].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
-                //EditButton.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
-                // DeleteButton.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+                gv_ProjectIndex.Columns[6].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+                gv_ProjectIndex.Columns[5].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
             }
+        }
+
+        protected void gv_ProjectIndex_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
         }
 
 

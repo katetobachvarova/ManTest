@@ -43,7 +43,7 @@
                         </tr>
                         <tr>
                             <td>
-                                 <asp:Button ID="ButtonAddStep" runat="server" Text="Add Step"  OnClick="AddAttachmentToTestCase" class="btn btn-default"  CausesValidation="true" />
+                                 <asp:Button ID="ButtonAddStep" runat="server" Text="Add Step"  OnClick="AddStepToTestCase" class="btn btn-default"  CausesValidation="true" />
                             </td>
                         </tr>
                     </table>
@@ -79,7 +79,8 @@
     <br/>
     <div class="col-lg-12">
     <asp:Label ID="LabelRelatedSteps" runat="server" CssClass="titlemantest"></asp:Label>
-   </div>
+    </div>
+    <br/>
     <asp:ListView ID="ListViewSteps" runat="server"
                   ItemType="ManTestAppWebForms.Models.Step"
                   SelectMethod="ListViewSteps_GetData"

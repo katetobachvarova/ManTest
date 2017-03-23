@@ -30,7 +30,7 @@ namespace ManTestAppWebForms.Views
                 }
                 else
                 {
-                    Response.Redirect("~/Views/ModuleIndex.aspx");
+                    Response.Redirect("~/Views/ProjectIndex.aspx");
                 }
             }
             if (!IsPostBack && currentModule != null)

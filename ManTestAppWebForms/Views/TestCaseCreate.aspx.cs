@@ -12,16 +12,16 @@ namespace ManTestAppWebForms.Views
     public partial class TestCaseCreate : System.Web.UI.Page
     {
         private ControllerBase<TestCase> testCaseController;
-        private string projectId;
-        private string moduleId;
+        //private string projectId;
+        //private string moduleId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             this.testCaseController = new ControllerBase<TestCase>();
             if (!IsPostBack)
             {
-                moduleId = Request.QueryString["moduleId"];
-                projectId = Request.QueryString["projectId"];
+                //moduleId = Request.QueryString["moduleId"];
+                //projectId = Request.QueryString["projectId"];
                 IEnumerable<Project>  projects = this.testCaseController.uof.GetRepository<Project>().All();
                 DropDownListProjects.Items.Clear();
                 DropDownListProjects.Items.Add(new ListItem() { Text = "Select Project", Value = "", Selected = false });
@@ -36,23 +36,23 @@ namespace ManTestAppWebForms.Views
         public void InsertItem_TestCase()
         {
             var item = new ManTestAppWebForms.Models.TestCase();
-            if (!string.IsNullOrEmpty(moduleId) || !string.IsNullOrEmpty(projectId))
-            {
-                int moduleid;
-                Int32.TryParse(moduleId, out moduleid);
-                item.ModuleId = moduleid;
-                item.ProjectId = this.testCaseController.uof.GetRepository<Module>().FindByKey(moduleid).ProjectId;
+            //if (!string.IsNullOrEmpty(moduleId) || !string.IsNullOrEmpty(projectId))
+            //{
+            //    int moduleid;
+            //    Int32.TryParse(moduleId, out moduleid);
+            //    item.ModuleId = moduleid;
+            //    item.ProjectId = this.testCaseController.uof.GetRepository<Module>().FindByKey(moduleid).ProjectId;
 
-                if (!string.IsNullOrEmpty(projectId))
-                {
-                    int projectid;
-                    Int32.TryParse(projectId, out projectid);
-                    item.ProjectId = projectid;
-                }
-            }
-            else
-            {
-                if (Session["projectIdDropDown"] !=null)
+            //    if (!string.IsNullOrEmpty(projectId))
+            //    {
+            //        int projectid;
+            //        Int32.TryParse(projectId, out projectid);
+            //        item.ProjectId = projectid;
+            //    }
+            //}
+            //else
+            //{
+               if (Session["projectIdDropDown"] !=null)
                 {
                     int projectid;
                     Int32.TryParse(Session["projectIdDropDown"].ToString(), out projectid);
@@ -62,9 +62,16 @@ namespace ManTestAppWebForms.Views
                 {
                     int moduleid;
                     Int32.TryParse(Session["moduleIdDropDown"].ToString(), out moduleid);
-                    item.ModuleId = moduleid;
+                    if (moduleid != 0)
+                    {
+                        item.ModuleId = moduleid;
+                    }
+                    else
+                    {
+                        item.ModuleId = null;
+                    }
                 }
-            }
+            //}
             TryUpdateModel(item);
             if (item.ProjectId == 0)
             {

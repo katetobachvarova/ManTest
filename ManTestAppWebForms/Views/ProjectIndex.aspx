@@ -12,7 +12,7 @@
         <asp:ValidationSummary ID="ValidationSummaryTestCase" runat="server"  ShowModelStateErrors="true"/>
     </div>
     <div>
-    <asp:HyperLink NavigateUrl="~/Views/ProjectCreate" Text="Add New Project" runat="server" />
+    <asp:HyperLink NavigateUrl="~/Views/ProjectCreate" Text="Add New Project" runat="server"  ID="AddNewProjectLink"/>
     </div>
     <asp:GridView runat="server" ID="gv_ProjectIndex"
         DataKeyNames="Id"
@@ -25,7 +25,8 @@
         AllowSorting="true" AllowPaging="true" PageSize="5"
         AutoGenerateColumns="false"
         EditRowStyle-CssClass="SelectedRowStyle"
-        OnRowCreated="gv_ProjectIndex_RowCreated">
+        OnRowCreated="gv_ProjectIndex_RowCreated"
+         OnRowDataBound="gv_ProjectIndex_RowDataBound">
         <Columns>
             <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true"></asp:BoundField>
             <asp:TemplateField HeaderText="TITLE">

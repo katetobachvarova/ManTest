@@ -24,12 +24,6 @@ namespace ManTestAppWebForms.Roles
             userMgr = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(applicationDbContext));
         }
 
-        // The return type can be changed to IEnumerable, however to support
-        // paging and sorting, the following parameters must be added:
-        //     int maximumRows
-        //     int startRowIndex
-        //     out int totalRowCount
-        //     string sortByExpression
         public IQueryable<ManTestAppWebForms.Models.ApplicationUser> GridViewUsers_GetData()
         {
             return applicationDbContext.Users.AsQueryable();

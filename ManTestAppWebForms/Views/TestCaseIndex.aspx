@@ -4,7 +4,7 @@
     <div>
         <asp:ValidationSummary ID="ValidationSummaryTestCase" runat="server"  ShowModelStateErrors="true"/>
     </div>
-    <asp:HyperLink NavigateUrl="~/Views/TestCaseCreate" Text="Add New TestCase" runat="server" />
+    <asp:HyperLink NavigateUrl="~/Views/TestCaseCreate" Text="Add New TestCase" runat="server" ID="AddNewTestCaseLink"/>
     <asp:GridView ID="gvTestCases" runat="server"
         AutoGenerateColumns="false"
         ItemType="ManTestAppWebForms.Models.TestCase"
@@ -15,7 +15,9 @@
         UpdateMethod="gvTestCases_UpdateItem"
         AllowSorting="true" AllowPaging="true" PageSize="5"
         EditRowStyle-CssClass="SelectedRowStyle"
-        OnRowCreated="gvTestCases_RowCreated">
+        OnRowCreated="gvTestCases_RowCreated"
+        OnRowDataBound="gvTestCases_RowDataBound"
+        >
         <Columns>
             <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true"></asp:BoundField>
             <asp:TemplateField HeaderText="TITLE">
@@ -34,20 +36,32 @@
                     <asp:Label runat="server" Text='<%# Bind("Description") %>' ID="Label2"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Related Project Id">
+            <asp:TemplateField HeaderText="Related Project">
                 <EditItemTemplate>
-                    <asp:TextBox runat="server" Text='<%# Bind("ProjectId") %>' ID="TextBox3" CssClass="form-control"></asp:TextBox>
+                    <asp:DropDownList ID="DropDownListProject" runat="server" CssClass="form-control"  
+                         OnSelectedIndexChanged="DropDownListProject_SelectedIndexChanged" 
+                         AutoPostBack="true"
+                         ItemType="ManTestAppWebForms.Models.Project"
+                         DataValueField="Id"
+                         DataTextField="Title">
+                    </asp:DropDownList>
                 </EditItemTemplate>
                 <ItemTemplate>
-                    <asp:Label runat="server" Text='<%# Bind("ProjectId") %>' ID="Label3"></asp:Label>
+                    <asp:Label runat="server" Text='<%# Bind("Project.Title") %>' ID="Label3"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Related Module Id">
+            <asp:TemplateField HeaderText="Related Module">
                 <EditItemTemplate>
-                    <asp:TextBox runat="server" Text='<%# Bind("ModuleId") %>' ID="TextBox4" CssClass="form-control"></asp:TextBox>
+                    <asp:DropDownList ID="DropDownListModule" runat="server" CssClass="form-control" 
+                        OnSelectedIndexChanged="DropDownListModule_SelectedIndexChanged"
+                         AutoPostBack="true"
+                         ItemType="ManTestAppWebForms.Models.Module"
+                         DataValueField="Id"
+                         DataTextField="Title">
+                    </asp:DropDownList>
                 </EditItemTemplate>
                 <ItemTemplate>
-                    <asp:Label runat="server" Text='<%# Bind("ModuleId") %>' ID="Label4"></asp:Label>
+                    <asp:Label runat="server" Text='<%# Bind("Module.Title") %>' ID="Label4"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
 
@@ -64,8 +78,7 @@
                     <asp:LinkButton runat="server" Text="Delete" CommandName="Delete" CausesValidation="False" ID="LinkButton3"></asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
-
-            <asp:hyperlinkfield 
+            <asp:hyperlinkfield  
                                 DataNavigateUrlFields="Id"
                                 DataNavigateUrlFormatString="StepCreate.aspx?testCaseId={0}"
                                 Text="Add Step"/>
@@ -73,19 +86,6 @@
                                 DataNavigateUrlFields="Id"
                                 DataNavigateUrlFormatString="TestCaseDetails.aspx?testCaseId={0}"
                                 Text="Details>"/>
-          
-          <%--<asp:TemplateField>
-              <ItemTemplate>
-                  <asp:HyperLink ID="EditHyperLink" runat="server"  Text="Edit" NavigateUrl="~/Views/ProjectIndex.aspx"></asp:HyperLink>
-                  <asp:Literal ID="Literal1" runat="server"> / </asp:Literal>
-                  <asp:HyperLink ID="DeleteHyperLink" runat="server" Text="Delete" NavigateUrl="~/Views/ProjectIndex.aspx"></asp:HyperLink>
-                  <asp:Literal ID="Literal2" runat="server"> / </asp:Literal>
-                  <asp:HyperLink ID="DetailsHyperLink" runat="server" Text="Details" NavigateUrl="~/Views/ProjectIndex.aspx"></asp:HyperLink>
-               </ItemTemplate>
-              <EditItemTemplate>
-                  <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
-                  </EditItemTemplate>
-          </asp:TemplateField>--%>
         </Columns>
     </asp:GridView>
 </asp:Content>
