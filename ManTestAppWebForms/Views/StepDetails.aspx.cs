@@ -29,8 +29,6 @@ namespace ManTestAppWebForms.Views
             }
             if (!IsPostBack && currentStep != null)
             {
-                //FormViewStep.DataSource = new List<Step>() { currentStep };
-                //FormViewStep.DataBind();
                 ShowImageFiles();
                 SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
             }

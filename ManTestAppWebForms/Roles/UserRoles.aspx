@@ -11,7 +11,7 @@
          AutoGenerateEditButton="false"
          DataKeyNames="Email"
          OnRowUpdating="GridViewUsers_RowUpdating"
-         CssClass="table tablegridview">
+         CssClass="table tablegridview table-hover">
         <Columns>
             <asp:BoundField DataField="UserName" HeaderText="UserName" ></asp:BoundField>
             <asp:TemplateField HeaderText="Role">

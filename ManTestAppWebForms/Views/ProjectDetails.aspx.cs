@@ -56,7 +56,6 @@ namespace ManTestAppWebForms.Views
             return null;
         }
 
-
         public IQueryable<Module> GetModules()
         {
             if (currentProject != null)

@@ -9,18 +9,17 @@
         AutoGenerateColumns="false"
         ItemType="ManTestAppWebForms.Models.TestCase"
         DataKeyNames="Id"
-        CssClass="table tablegridview"
+        CssClass="table tablegridview table-hover"
         SelectMethod="gvTestCases_GetData"
         DeleteMethod="gvTestCases_DeleteItem"
         UpdateMethod="gvTestCases_UpdateItem"
         AllowSorting="true" AllowPaging="true" PageSize="5"
         EditRowStyle-CssClass="SelectedRowStyle"
         OnRowCreated="gvTestCases_RowCreated"
-        OnRowDataBound="gvTestCases_RowDataBound"
-        >
+        OnRowDataBound="gvTestCases_RowDataBound">
         <Columns>
-            <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true"></asp:BoundField>
-            <asp:TemplateField HeaderText="TITLE">
+            <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true" SortExpression="ID"></asp:BoundField>
+            <asp:TemplateField HeaderText="TITLE" SortExpression="TITLE">
                 <EditItemTemplate>
                     <asp:TextBox runat="server" Text='<%# Bind("Title") %>' ID="TextBox1" CssClass="form-control"></asp:TextBox>
                 </EditItemTemplate>
@@ -28,7 +27,7 @@
                     <asp:Label runat="server" Text='<%# Bind("Title") %>' ID="Label1"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="DESCRIPTION">
+            <asp:TemplateField HeaderText="DESCRIPTION" SortExpression="DESCRIPTION">
                 <EditItemTemplate>
                     <asp:TextBox runat="server" Text='<%# Bind("Description") %>' ID="TextBox2" CssClass="form-control"></asp:TextBox>
                 </EditItemTemplate>
@@ -36,7 +35,7 @@
                     <asp:Label runat="server" Text='<%# Bind("Description") %>' ID="Label2"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Related Project">
+            <asp:TemplateField HeaderText="Related Project" SortExpression="Project.Title">
                 <EditItemTemplate>
                     <asp:DropDownList ID="DropDownListProject" runat="server" CssClass="form-control"  
                          OnSelectedIndexChanged="DropDownListProject_SelectedIndexChanged" 
@@ -50,7 +49,7 @@
                     <asp:Label runat="server" Text='<%# Bind("Project.Title") %>' ID="Label3"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Related Module">
+            <asp:TemplateField HeaderText="Related Module" SortExpression="Module">
                 <EditItemTemplate>
                     <asp:DropDownList ID="DropDownListModule" runat="server" CssClass="form-control" 
                         OnSelectedIndexChanged="DropDownListModule_SelectedIndexChanged"
@@ -64,7 +63,6 @@
                     <asp:Label runat="server" Text='<%# Bind("Module.Title") %>' ID="Label4"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-
             <asp:TemplateField ShowHeader="False">
                 <EditItemTemplate>
                     <asp:LinkButton runat="server" Text="Update" CommandName="Update" CausesValidation="True" ID="LinkButton1"></asp:LinkButton>&nbsp;<asp:LinkButton runat="server" Text="Cancel" CommandName="Cancel" CausesValidation="False" ID="LinkButton2"></asp:LinkButton>
