@@ -12,12 +12,12 @@ namespace ManTestAppWebForms.Views
 {
     public partial class ModuleCreate : System.Web.UI.Page
     {
-        private ControllerBase<Module> moduleController;
+        private ModuleController moduleController;
         private string projectId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.moduleController = new ControllerBase<Module>();
+            this.moduleController = new ModuleController();
             projectId = Request.QueryString["projectId"];
         }
 
@@ -26,7 +26,7 @@ namespace ManTestAppWebForms.Views
             var item = new ManTestAppWebForms.Models.Module();
             int id;
             Int32.TryParse(projectId, out id);
-            Project existingProject = moduleController.uof.GetRepository<Project>().FindByKey(id);
+            Project existingProject = moduleController.FindProject(id);
             if (existingProject != null)
             {
                 item.ProjectId = id;

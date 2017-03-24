@@ -11,13 +11,13 @@ namespace ManTestAppWebForms.Views
 {
     public partial class ProjectDetails : System.Web.UI.Page
     {
-        private ControllerBase<Project> projectController;
+        private ProjectController projectController;
         public Project currentProject;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             string projectId = Request.QueryString["projectId"];
-            this.projectController = new ControllerBase<Project>();
+            this.projectController = new ProjectController();
             int projectid;
             if (Int32.TryParse(projectId, out projectid))
             {
@@ -28,7 +28,7 @@ namespace ManTestAppWebForms.Views
                     {
                         LabelRelatedModules.Text = "Related Modules";
                     }
-                    if (projectController.uof.GetRepository<TestCase>().All().Where(i => i.ProjectId == currentProject.Id && i.ModuleId == null).Any())
+                    if (projectController.GetRelatedTestCases(currentProject.Id).Any())
                     {
                         LabelRelatedTestCases.Text = "Related Test Cases";
                     }
@@ -43,6 +43,7 @@ namespace ManTestAppWebForms.Views
                 SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
             }
         }
+
         SiteMapNode SiteMap_SiteMapResolve(object sender, SiteMapResolveEventArgs e)
         {
             SiteMap.SiteMapResolve -= new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
@@ -60,30 +61,29 @@ namespace ManTestAppWebForms.Views
         {
             if (currentProject != null)
             {
-                return projectController.uof.GetRepository<Module>().All().Where(i => i.ProjectId == currentProject.Id).AsQueryable();
+                return projectController.GetRelatedModules(currentProject.Id);
             }
             return null;
         }
 
-        public IQueryable<ManTestAppWebForms.Models.TestCase> GetTestCases()
+        public IQueryable<TestCase> GetTestCases()
         {
             if (currentProject != null)
             {
-                return projectController.uof.GetRepository<TestCase>().All().Where(i => i.ProjectId == currentProject.Id && i.ModuleId == null).AsQueryable();
+                return projectController.GetRelatedTestCases(currentProject.Id);
             }
             return null;
         }
 
         public void GridViewModules_DeleteItem(int id)
         {
-            projectController.uof.GetRepository<Module>().Delete(id);
-            projectController.uof.Save();
+            projectController.DeleteModule(id);
         }
 
         public void GridViewModules_UpdateItem(int id)
         {
             ManTestAppWebForms.Models.Module item = null;
-            item = projectController.uof.GetRepository<Module>().FindByKey(id);
+            item = projectController.FindModule(id);
             if (item == null)
             {
                 ModelState.AddModelError("", String.Format("Item with id {0} was not found", id));
@@ -92,23 +92,19 @@ namespace ManTestAppWebForms.Views
             TryUpdateModel(item);
             if (ModelState.IsValid)
             {
-                projectController.uof.GetRepository<Module>().Update(item);
-                projectController.uof.Save();
+                projectController.UpdateModule(item);
             }
         }
 
         public void GridViewTestCases_DeleteItem(int id)
         {
-            projectController.uof.GetRepository<TestCase>().Delete(id);
-            projectController.uof.Save();
-
+            projectController.DeleteTestCase(id);
         }
 
         public void GridViewTestCases_UpdateItem(int id)
         {
             ManTestAppWebForms.Models.TestCase item = null;
-            item = projectController.uof.GetRepository<TestCase>().FindByKey(id);
-
+            item = projectController.FindTestCase(id);
             if (item == null)
             {
                 ModelState.AddModelError("", String.Format("Item with id {0} was not found", id));
@@ -117,8 +113,7 @@ namespace ManTestAppWebForms.Views
             TryUpdateModel(item);
             if (ModelState.IsValid)
             {
-                projectController.uof.GetRepository<TestCase>().Update(item);
-                projectController.uof.Save();
+                projectController.UpdateTestCase(item);
             }
         }
 

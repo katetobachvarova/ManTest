@@ -10,12 +10,12 @@ namespace ManTestAppWebForms.Views
 {
     public partial class ModuleDetails : System.Web.UI.Page
     {
-        private ControllerBase<Module> moduleController;
+        private ModuleController moduleController;
         public Module currentModule;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            moduleController = new ControllerBase<Module>();
+            moduleController = new ModuleController();
             string moduleId = Request.QueryString["moduleId"];
             int moduleid;
             if (Int32.TryParse(moduleId, out moduleid))
@@ -23,7 +23,7 @@ namespace ManTestAppWebForms.Views
                 currentModule = moduleController.FindById(moduleid);
                 if (currentModule != null)
                 {
-                    if (moduleController.uof.GetRepository<TestCase>().All().Where(i => i.ModuleId == currentModule.Id).Any())
+                    if (moduleController.GetRelatedTestCases(currentModule.Id).Any())
                     {
                         LabelRelatedTestCases.Text = "Related Test Cases";
                     }
@@ -57,7 +57,7 @@ namespace ManTestAppWebForms.Views
         {
             if (currentModule != null)
             {
-                return moduleController.uof.GetRepository<TestCase>().All().Where(i => i.ModuleId == currentModule.Id).AsQueryable();
+                return moduleController.GetRelatedTestCases(currentModule.Id);
             }
             return null;
         }
@@ -67,7 +67,7 @@ namespace ManTestAppWebForms.Views
         public void GridViewTestCases_UpdateItem(int id)
         {
             ManTestAppWebForms.Models.TestCase item = null;
-            item = moduleController.uof.GetRepository<TestCase>().FindByKey(id);
+            item = moduleController.FindTestCase(id);
             if (item == null)
             {
                 ModelState.AddModelError("", String.Format("Item with id {0} was not found", id));
@@ -76,8 +76,7 @@ namespace ManTestAppWebForms.Views
             TryUpdateModel(item);
             if (ModelState.IsValid)
             {
-                moduleController.uof.GetRepository<TestCase>().Update(item);
-                moduleController.uof.Save();
+                moduleController.UpdateTestCase(item);
             }
         }
 
@@ -85,8 +84,7 @@ namespace ManTestAppWebForms.Views
         [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
         public void GridViewTestCases_DeleteItem(int id)
         {
-            moduleController.uof.GetRepository<TestCase>().Delete(id);
-            moduleController.uof.Save();
+            moduleController.DeleteTestCase(id);
         }
 
         protected void GridViewTestCases_RowCreated(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)

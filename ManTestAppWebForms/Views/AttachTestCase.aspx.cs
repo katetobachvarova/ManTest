@@ -7,41 +7,24 @@ namespace ManTestAppWebForms.Views
 {
     public partial class AttachTestCase : System.Web.UI.Page
     {
-        private ControllerBase<TestCase> testCaseController;
+        private TestCaseController testCaseController;
         public Project currentProject;
         public Module currentModule;
 
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.testCaseController = new ControllerBase<TestCase>();
+            this.testCaseController = new TestCaseController();
             string moduleId = Request.QueryString["moduleId"];
             string projectId = Request.QueryString["projectId"];
-
-           
             int projectid;
             if (Int32.TryParse(projectId, out projectid))
             {
-                currentProject = testCaseController.uof.GetRepository<Project>().FindByKey(projectid);
-                //if (currentProject != null)
-                //{
-                //}
-                //else
-                //{
-                //    Response.Redirect("~/Views/ProjectIndex.aspx");
-                //}
+                currentProject = testCaseController.FindProject(projectid);
             }
             int moduleid;
             if (Int32.TryParse(moduleId, out moduleid))
             {
-                currentModule = testCaseController.uof.GetRepository<Module>().FindByKey(moduleid);
-                //if (currentModule != null)
-                //{
-                //}
-                //else
-                //{
-                //    Response.Redirect("~/Views/ModuleIndex.aspx");
-                //}
+                currentModule = testCaseController.FindModule(moduleid);
             }
         }
 

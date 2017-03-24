@@ -13,11 +13,11 @@ namespace ManTestAppWebForms.Views
     {
         private string testCaseId;
         
-        private ControllerBase<Step> stepCaseController;
+        private StepController stepController;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            stepCaseController = new ControllerBase<Step>();
+            stepController = new StepController();
             testCaseId = Request.QueryString["testCaseId"];
         }
 
@@ -29,7 +29,7 @@ namespace ManTestAppWebForms.Views
             {
                 int testCaseid;
                 Int32.TryParse(testCaseId, out testCaseid);
-                TestCase existingTestCase = stepCaseController.uof.GetRepository<TestCase>().FindByKey(testCaseid);
+                TestCase existingTestCase = stepController.FindTestCase(testCaseid);
                 if (existingTestCase != null)
                 {
                     item.TestCaseId = testCaseid;
@@ -41,7 +41,7 @@ namespace ManTestAppWebForms.Views
             }
             if (ModelState.IsValid)
             {
-                stepCaseController.Insert(item);
+                stepController.Insert(item);
             }
         }
 

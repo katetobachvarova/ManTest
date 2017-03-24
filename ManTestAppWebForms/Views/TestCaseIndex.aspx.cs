@@ -11,11 +11,11 @@ namespace ManTestAppWebForms.Views
 {
     public partial class TestCaseIndex : System.Web.UI.Page
     {
-        private ControllerBase<TestCase> testCaseController;
+        private TestCaseController testCaseController;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            testCaseController = new ControllerBase<TestCase>();
+            testCaseController = new TestCaseController();
             AddNewTestCaseLink.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
         }
 
@@ -88,7 +88,7 @@ namespace ManTestAppWebForms.Views
                     DropDownList dropModule = (DropDownList)e.Row.FindControl("DropDownListModule");
                     Project project = (e.Row.DataItem as TestCase).Project;
                     Module module = (e.Row.DataItem as TestCase).Module;
-                    IEnumerable<Project> projects = testCaseController.uof.GetRepository<Project>().All().ToList();
+                    IEnumerable<Project> projects = testCaseController.GetAllProjects();
                     foreach (var item in projects)
                     {
                         if (item.Id == project.Id)
@@ -98,7 +98,7 @@ namespace ManTestAppWebForms.Views
                         }
                         dropProject.Items.Add(new ListItem() { Text = item.Title, Value = item.Id.ToString(), Selected = false });
                     }
-                    IEnumerable<Module> modules = testCaseController.uof.GetRepository<Module>().All().Where(m => m.ProjectId == project.Id).ToList();
+                    IEnumerable<Module> modules = testCaseController.GetRelatedModules(project.Id).ToList();
                     if (modules != null && modules.Any())
                     {
                         dropModule.Items.Add(new ListItem() { Text = "Select Module", Value = "", Selected = false });
@@ -128,7 +128,7 @@ namespace ManTestAppWebForms.Views
             Int32.TryParse(Session["projectIdDropDown"].ToString(), out projectid);
             DropDownList DropDownListModules = (DropDownList)(sender as DropDownList).Parent.Parent.FindControl("DropDownListModule");
             DropDownListModules.Items.Clear();
-            IEnumerable<Module> modules = this.testCaseController.uof.GetRepository<Module>().All().Where(m => m.ProjectId == projectid);
+            IEnumerable<Module> modules = testCaseController.GetRelatedModules(projectid).ToList();
             if (modules != null && modules.Any())
             {
                 DropDownListModules.Items.Add(new ListItem() { Text = "Select Module", Value = "", Selected = false });

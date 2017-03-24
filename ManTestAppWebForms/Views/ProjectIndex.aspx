@@ -22,8 +22,7 @@
         AllowSorting="true" AllowPaging="true" PageSize="5"
         AutoGenerateColumns="false"
         EditRowStyle-CssClass="SelectedRowStyle"
-        OnRowCreated="gv_ProjectIndex_RowCreated"
-         OnRowDataBound="gv_ProjectIndex_RowDataBound">
+        OnRowCreated="gv_ProjectIndex_RowCreated">
         <Columns>
             <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true" SortExpression="Id"></asp:BoundField>
             <asp:TemplateField HeaderText="TITLE" SortExpression="TITLE">

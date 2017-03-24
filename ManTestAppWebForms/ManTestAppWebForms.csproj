@@ -271,7 +271,6 @@
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Views\ModuleCreate.aspx" />
     <Content Include="Views\ModuleDetails.aspx" />
-    <Content Include="Views\ModuleIndex.aspx" />
     <Content Include="Views\ProjectCreate.aspx" />
     <Content Include="Views\ProjectDetails.aspx" />
     <Content Include="Views\ProjectIndex.aspx" />
@@ -421,6 +420,14 @@
       <DependentUpon>Child.master</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\Interfaces\IModuleController.cs" />
+    <Compile Include="Controllers\Interfaces\IProjectController.cs" />
+    <Compile Include="Controllers\Interfaces\IStepController.cs" />
+    <Compile Include="Controllers\Interfaces\ITestCaseController.cs" />
+    <Compile Include="Controllers\ModuleController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\StepController.cs" />
+    <Compile Include="Controllers\TestCaseController.cs" />
     <Compile Include="Migrations\201702281024566_Initial.cs" />
     <Compile Include="Migrations\201702281024566_Initial.Designer.cs">
       <DependentUpon>201702281024566_Initial.cs</DependentUpon>
@@ -488,7 +495,6 @@
     <Compile Include="Views\Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataAccess\ApplicationDbContext.cs" />
     <Compile Include="DataAccess\GenericRepository.cs" />
     <Compile Include="DataAccess\IDataRepository.cs" />
@@ -550,13 +556,6 @@
     </Compile>
     <Compile Include="Views\ModuleDetails.aspx.designer.cs">
       <DependentUpon>ModuleDetails.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ModuleIndex.aspx.cs">
-      <DependentUpon>ModuleIndex.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\ModuleIndex.aspx.designer.cs">
-      <DependentUpon>ModuleIndex.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\ProjectCreate.aspx.cs">
       <DependentUpon>ProjectCreate.aspx</DependentUpon>

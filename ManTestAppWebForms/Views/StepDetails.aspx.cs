@@ -14,13 +14,13 @@ namespace ManTestAppWebForms.Views
 {
     public partial class StepDetails : System.Web.UI.Page
     {
-        private ControllerBase<Step> stepController;
+        private StepController stepController;
         private string stepId;
         public Step currentStep;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            stepController = new ControllerBase<Step>();
+            stepController = new StepController();
             stepId = Request.QueryString["stepId"];
             int stepid;
             if (Int32.TryParse(stepId, out stepid))
@@ -38,7 +38,7 @@ namespace ManTestAppWebForms.Views
         {
             if (currentStep != null)
             {
-                IEnumerable<Attachment> attachments = stepController.uof.GetRepository<Attachment>().All().Where(a => a.StepId == currentStep.Id);
+                IEnumerable<Attachment> attachments = stepController.GetRelatedAttachments(currentStep.Id);
                 foreach (var item in attachments)
                 {
                     if (item.FileName.EndsWith(".jpg") 
@@ -103,7 +103,7 @@ namespace ManTestAppWebForms.Views
         {
             if (currentStep != null)
             {
-                return stepController.uof.GetRepository<Attachment>().All().Where(a => a.StepId == currentStep.Id).AsQueryable();
+                return stepController.GetRelatedAttachments(currentStep.Id).AsQueryable();
             }
             return null;
         }
@@ -112,8 +112,7 @@ namespace ManTestAppWebForms.Views
         [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
         public void gvAttachments_DeleteItem(int id)
         {
-            stepController.uof.GetRepository<Attachment>().Delete(id);
-            stepController.uof.Save();
+            stepController.DeleteAttachment(id);
             Response.Redirect(string.Format("~/Views/StepDetails.aspx?stepId={0}", currentStep.Id));
         }
 

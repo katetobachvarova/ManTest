@@ -15,12 +15,12 @@ namespace ManTestAppWebForms.Views
 {
     public partial class TestCaseDetails : System.Web.UI.Page
     {
-        private ControllerBase<TestCase> testCaseController;
+        private TestCaseController testCaseController;
         public TestCase currentTestCase;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            testCaseController = new ControllerBase<TestCase>();
+            testCaseController = new TestCaseController();
             string testCaseId = Request.QueryString["testCaseId"];
             int testCaseid;
             if (Int32.TryParse(testCaseId, out testCaseid))
@@ -49,7 +49,7 @@ namespace ManTestAppWebForms.Views
         {
             if (currentStep != null)
             {
-                IEnumerable<Attachment> attachments = testCaseController.uof.GetRepository<Attachment>().All().Where(e => e.StepId == currentStep.Id).AsQueryable();
+                IEnumerable<Attachment> attachments = testCaseController.GetRelatedAttachments(currentStep.Id);
                 foreach (var item in attachments)
                 {
                     if (item.FileName.EndsWith(".jpg")
@@ -86,15 +86,15 @@ namespace ManTestAppWebForms.Views
                 currentNode.Title = "TestCase " + currentTestCase?.Title;
                 if (currentTestCase.ModuleId.HasValue)
                 {
-                    currentNode.ParentNode.Title = "Module " + testCaseController.uof.GetRepository<Module>().FindByKey(currentTestCase.ModuleId.Value).Title;
-                    currentNode.ParentNode.Url = string.Format("ModuleDetails.aspx?moduleId={0}", testCaseController.uof.GetRepository<Module>().FindByKey(currentTestCase.ModuleId.Value).Id.ToString());
+                    currentNode.ParentNode.Title = "Module " + currentTestCase.Module.Title;
+                    currentNode.ParentNode.Url = string.Format("ModuleDetails.aspx?moduleId={0}", currentTestCase.ModuleId);
                 }
                 else
                 {
                     currentNode.ParentNode.Title = "No related Module";
                 }
-                currentNode.ParentNode.ParentNode.Title = "Project " + currentTestCase?.Project?.Title;
-                currentNode.ParentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentTestCase.ProjectId.ToString());
+                currentNode.ParentNode.ParentNode.Title = "Project " + currentTestCase.Project.Title;
+                currentNode.ParentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentTestCase.ProjectId);
                 return currentNode;
             }
             return null;
@@ -104,7 +104,7 @@ namespace ManTestAppWebForms.Views
         {
             if (currentTestCase != null)
             {
-                return testCaseController.uof.GetRepository<Step>().All().Where(i => i.TestCaseId == currentTestCase.Id).OrderBy(e => e.StepOrder).AsQueryable();
+                return testCaseController.GetRelatedSteps(currentTestCase.Id);
             }
             return null;
         }
@@ -118,7 +118,7 @@ namespace ManTestAppWebForms.Views
             ListViewDataItem dataItem = (ListViewDataItem)e.Item;
             Step currentStep = (Step)dataItem.DataItem;
             GridView gridView = (GridView)e.Item.FindControl("GridViewAttachments_GetData");
-            gridView.DataSource = testCaseController.uof.GetRepository<Attachment>().All().Where(i => i.StepId == currentStep.Id).AsQueryable();
+            gridView.DataSource = testCaseController.GetRelatedAttachments(currentStep.Id);
             gridView.DataBind();
             PlaceHolder placeholderforimages = (PlaceHolder)e.Item.FindControl("PlaceHolderForImages");
             ShowImageFiles(currentStep, placeholderforimages);
@@ -186,42 +186,42 @@ namespace ManTestAppWebForms.Views
             var formView = (FormViewCurrentTestCase as FormView);
             if (formView != null)
             {
-                DropDownList droplistprojects = FormViewCurrentTestCase.FindControl("DropDownListProjectsEdit") as DropDownList;
-                if (droplistprojects != null)
+                DropDownList dropListProjects = FormViewCurrentTestCase.FindControl("DropDownListProjectsEdit") as DropDownList;
+                if (dropListProjects != null)
                 {
-                    IEnumerable<Project> projects = this.testCaseController.uof.GetRepository<Project>().All();
+                    IEnumerable<Project> projects = this.testCaseController.GetAllProjects();
                     foreach (var item in projects)
                     {
                         if (item.Id == currentTestCase.ProjectId)
                         {
-                            droplistprojects.Items.Add(new ListItem() { Text = item.Title, Value = item.Id.ToString(), Selected = true });
+                            dropListProjects.Items.Add(new ListItem() { Text = item.Title, Value = item.Id.ToString(), Selected = true });
                             continue;
                         }
-                        droplistprojects.Items.Add(new ListItem() { Text = item.Title, Value = item.Id.ToString(), Selected = false });
+                        dropListProjects.Items.Add(new ListItem() { Text = item.Title, Value = item.Id.ToString(), Selected = false });
                     }
                 }
 
-                DropDownList currentstatusModule = (DropDownList)FormViewCurrentTestCase.FindControl("DropDownListModulesEdit");
+                DropDownList dropListsModules = (DropDownList)FormViewCurrentTestCase.FindControl("DropDownListModulesEdit");
 
-                if (currentstatusModule != null)
+                if (dropListsModules != null)
                 {
-                    IEnumerable<Module> modules = this.testCaseController.uof.GetRepository<Module>().All().Where(m => m.ProjectId == currentTestCase.ProjectId);
+                    IEnumerable<Module> modules = this.testCaseController.GetRelatedModules(currentTestCase.ProjectId);
                     foreach (var item in modules)
                     {
                         if (item.Id == currentTestCase.ModuleId)
                         {
-                            currentstatusModule.Items.Add(new ListItem() { Text = item.Title, Value = item.Id.ToString(), Selected = true });
+                            dropListsModules.Items.Add(new ListItem() { Text = item.Title, Value = item.Id.ToString(), Selected = true });
                             continue;
                         }
-                        currentstatusModule.Items.Add(new ListItem() { Text = item.Title, Value = item.Id.ToString(), Selected = false });
+                        dropListsModules.Items.Add(new ListItem() { Text = item.Title, Value = item.Id.ToString(), Selected = false });
                     }
                     if (currentTestCase.ModuleId == null)
                     {
-                        currentstatusModule.Items.Add(new ListItem() { Text = "No related Module", Value = null, Selected = true });
+                        dropListsModules.Items.Add(new ListItem() { Text = "No related Module", Value = null, Selected = true });
                     }
                     else
                     {
-                        currentstatusModule.Items.Add(new ListItem() { Text = "No related Module", Value = null, Selected = false });
+                        dropListsModules.Items.Add(new ListItem() { Text = "No related Module", Value = null, Selected = false });
                     }
                 }
                 Button edit = (Button)FormViewCurrentTestCase.FindControl("ButtonEdit");

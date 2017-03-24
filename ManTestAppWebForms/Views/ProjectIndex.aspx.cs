@@ -12,11 +12,11 @@ namespace ManTestAppWebForms.Views
 {
     public partial class ProjectIndex : System.Web.UI.Page
     {
-        private ControllerBase<Project> projectController;
+        private ProjectController projectController;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            projectController = new ControllerBase<Project>();
+            projectController = new ProjectController();
             AddNewProjectLink.Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
         }
 
@@ -63,24 +63,9 @@ namespace ManTestAppWebForms.Views
             {
                 gv_ProjectIndex.Columns[3].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
                 gv_ProjectIndex.Columns[4].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
-                gv_ProjectIndex.Columns[6].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
                 gv_ProjectIndex.Columns[5].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
+                gv_ProjectIndex.Columns[6].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
             }
         }
-
-        protected void gv_ProjectIndex_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-
-        }
-
-
-        //public override void Dispose()
-        //{
-        //    if (projectController != null)
-        //    {
-        //        projectController.Dispose();
-        //    }
-        //    base.Dispose();
-        //}
     }
 }
