@@ -17,6 +17,7 @@ namespace ManTestAppWebForms.Models
         [StringLength(10000)]
         public string Description { get; set; }
         [Required]
+        [Range(1, 100, ErrorMessage = "Please provide integer value between 1 and 100 for Step Order Field")]
         public int StepOrder { get; set; }
 
         public int TestCaseId { get; set; }
