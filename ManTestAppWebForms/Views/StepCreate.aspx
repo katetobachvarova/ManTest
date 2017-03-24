@@ -16,12 +16,12 @@
                     Step Order:
                   </td>
                   <td>
-                    <asp:TextBox ID="TextBox1" runat="server"  CssClass="form-control"
+                    <asp:TextBox ID="StepOrder" runat="server"  CssClass="form-control"
                          Text='<%# Bind("StepOrder") %>'></asp:TextBox>
                       <asp:DynamicValidator runat="server" ID="DynamicValidator3" 
-                        CssClass="DDControl DDValidator" ControlToValidate="StepTitle" Display="Static" />
+                        CssClass="DDControl DDValidator" ControlToValidate="StepOrder" Display="Static" />
                     <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator3" 
-                        CssClass="DDControl DDValidator" ControlToValidate="StepTitle" Display="Static" Enabled="false" />
+                        CssClass="DDControl DDValidator" ControlToValidate="StepOrder" Display="Static" Enabled="false" />
                   </td>
                 </tr>
                 <tr>

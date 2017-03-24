@@ -62,11 +62,11 @@
                         <asp:Label ID="Label3" runat="server" Text="Step Order : "   style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
                     </td>
                     <td>
-                            <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("StepOrder") %>' CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="StepOrder" runat="server" Text='<%# Bind("StepOrder") %>' CssClass="form-control"></asp:TextBox>
                             <asp:DynamicValidator runat="server" ID="DynamicValidator2" 
-                            CssClass="DDControl DDValidator" ControlToValidate="TextBoxTitle" Display="Static" />
+                            CssClass="DDControl DDValidator" ControlToValidate="StepOrder" Display="Static" />
                             <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" 
-                            CssClass="DDControl DDValidator" ControlToValidate="TextBoxTitle" Display="Static" Enabled="false" />
+                            CssClass="DDControl DDValidator" ControlToValidate="StepOrder" Display="Static" Enabled="false" />
                     </td>
                 </tr>
                 <tr>
