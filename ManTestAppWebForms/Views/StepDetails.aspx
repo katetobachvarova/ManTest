@@ -6,6 +6,7 @@
     <div>
         <asp:ValidationSummary ID="ValidationSummaryTestCase" runat="server"  ShowModelStateErrors="true"/>
     </div>
+    <br/>
     <asp:FormView ID="FormViewStep" runat="server" 
          ItemType="ManTestAppWebForms.Models.Step"
          DataKeyNames="Id"
@@ -24,7 +25,7 @@
                     <asp:Label ID="Label2" runat="server" Text="Step Order : "   style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Eval("StepOrder") %>' CssClass="form-control" Enabled="false"></asp:TextBox>
+                    <asp:Literal ID="Literal1" runat="server" Text='<%# Eval("StepOrder") %>'></asp:Literal>
                 </td>
             </tr>
             <tr>
@@ -32,7 +33,7 @@
                     <asp:Label ID="Label1" runat="server" Text="Title : "   style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# Eval("Title") %>' CssClass="form-control" Enabled="false"></asp:TextBox>
+                    <asp:Literal ID="Literal2" runat="server" Text='<%# Eval("Title") %>'></asp:Literal>
                 </td>
             </tr>
             <tr>
@@ -40,15 +41,15 @@
                      <asp:Label ID="Label4" runat="server" Text="Description : "  style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
                 </td>
                 <td>
-                     <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# Eval("Description") %>' CssClass="form-control"  Enabled="false" TextMode="MultiLine"  Wrap="true"></asp:TextBox>
+                     <asp:Literal ID="Literal3" runat="server" Text='<%# Eval("Description") %>'></asp:Literal>
                 </td>
             </tr>
             <tr>
                 <td>
-                     <asp:Button ID="ButtonEdit" runat="server" Text="Edit"  CommandName="Edit" class="btn btn-default"  style="margin-bottom:5px"  CausesValidation="true" />
+                     <asp:Button ID="ButtonEdit" runat="server" Text="Edit"  CommandName="Edit" class="btn btn-default btnmargintopandbottom" CausesValidation="true" />
                 </td>
                 <td>
-                    <asp:Button ID="ButtonDelete" runat="server" Text="Delete"  CommandName="Delete" style="margin-bottom:5px"  class="btn btn-default" />
+                    <asp:Button ID="ButtonDelete" runat="server" Text="Delete"  CommandName="Delete" class="btn btn-default btnmargintopandbottom" />
                 </td>
             </tr>
         </table>

@@ -3,8 +3,11 @@
   <div>
     <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
     </div>
+    <div >
      <br/>
-    <asp:Label ID="Label3" runat="server" Text="Test Case" CssClass="titlemantest"></asp:Label>
+    <asp:Label ID="Label3" runat="server" Text="Test Case" CssClass="titlemantest" style="margin-bottom:25px;" ></asp:Label>
+    <br/>
+    </div>
     <div>
         <asp:ValidationSummary ID="ValidationSummaryTestCase" runat="server"  ShowModelStateErrors="true"/>
     </div>
@@ -15,30 +18,31 @@
          SelectMethod="FormViewCurrentTestCase_GetItem"
          UpdateMethod="FormViewCurrentTestCase_UpdateItem"
          OnDataBound="FormViewCurrentTestCase_DataBound"
-         DeleteMethod="FormViewCurrentTestCase_DeleteItem">
+         DeleteMethod="FormViewCurrentTestCase_DeleteItem"
+         CssClass="tabletestcasedetails">
             <ItemTemplate>
-                <div>
-                    <table style="margin-left: 0px;">
+                <div >
+                    <table class="tabletestcasedetails">
                         <tr>
                             <td>
-                                <asp:Label ID="Label1" runat="server" Text="Title : "   style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
+                                <asp:Label ID="Label1" runat="server" Text="Title : "  ></asp:Label>
                             </td>
                             <td>
-                                <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# Eval("Title") %>' CssClass="form-control" Enabled="false"></asp:TextBox>
+                                <asp:Literal ID="Literal1" runat="server" Text='<%# Eval("Title") %>'></asp:Literal>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                 <asp:Label ID="Label4" runat="server" Text="Description : "  style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
+                                 <asp:Label ID="Label4" runat="server" Text="Description : "  ></asp:Label>
                             </td>
-                            <td>
-                                 <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# Eval("Description") %>' CssClass="form-control"  Enabled="false" TextMode="MultiLine"  Wrap="true"></asp:TextBox>
+                            <td class="literalw">
+                                <asp:Literal ID="Literal2" runat="server" Text='<%# Eval("Description") %>' ></asp:Literal>
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="marginbuttons">
                             <td>
-                                 <asp:Button ID="ButtonEdit" runat="server" Text="Edit"  CommandName="Edit" class="btn btn-default"  style="margin-bottom:5px" CausesValidation="true" />
-                                 <asp:Button ID="ButtonDelete" runat="server" Text="Delete"  CommandName="Delete" class="btn btn-default" style="margin-bottom:5px" />
+                                 <asp:Button ID="ButtonEdit" runat="server" Text="Edit"  CommandName="Edit" class="btn btn-default btnmargintopandbottom"  CausesValidation="true" />
+                                 <asp:Button ID="ButtonDelete" runat="server" Text="Delete"  CommandName="Delete" class="btn btn-default btnmargintopandbottom"  />
                             </td>
                         </tr>
                         <tr>
@@ -80,7 +84,7 @@
     <div class="col-lg-12">
     <asp:Label ID="LabelRelatedSteps" runat="server" CssClass="titlemantest"></asp:Label>
     </div>
-    <br/>
+
     <asp:ListView ID="ListViewSteps" runat="server"
                   ItemType="ManTestAppWebForms.Models.Step"
                   SelectMethod="ListViewSteps_GetData"
@@ -88,14 +92,14 @@
                   OnItemDataBound="ListViewSteps_ItemDataBound"
          >
         <ItemTemplate>
-            <div>
-                <table>
+            <div class="col-lg-12">
+                <table class="tabletestcasedetails">
                     <tr>
                         <td>
                             <asp:Label ID="Label2" runat="server" Text="Step Order : "   style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
                         </td>
                         <td>
-                            <asp:TextBox ID="TextBox1" runat="server" Text='<%# Eval("StepOrder") %>' CssClass="form-control" Enabled="false"></asp:TextBox>
+                            <asp:Literal ID="Literal3" runat="server" Text='<%# Eval("StepOrder") %>'></asp:Literal>
                         </td>
                     </tr>
                     <tr>
@@ -103,15 +107,15 @@
                             <asp:Label ID="Label1" runat="server" Text="Title : "   style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
                         </td>
                         <td>
-                            <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# Eval("Title") %>' CssClass="form-control" Enabled="false"></asp:TextBox>
+                            <asp:Literal ID="Literal4" runat="server" Text='<%# Eval("Title") %>'></asp:Literal>
                         </td>
                     </tr>
                     <tr>
                         <td>
                              <asp:Label ID="Label4" runat="server" Text="Description : "  style="padding-left: 0px; text-wrap:avoid" ></asp:Label>
                         </td>
-                        <td>
-                             <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# Eval("Description") %>' CssClass="form-control"  Enabled="false" TextMode="MultiLine"  Wrap="true"></asp:TextBox>
+                        <td class="literalw">
+                            <asp:Literal ID="Literal5" runat="server" Text='<%# Eval("Description") %>' ></asp:Literal>
                         </td>
                     </tr>
                 </table>
@@ -143,11 +147,13 @@
                     </Columns>
                 </asp:GridView>
             </div>
-            <div>
-            <asp:Button ID="btn_StepDetails" runat="server" Text="Step Details"  OnClick="btn_StepDetails_Click" CommandArgument='<%# Eval("Id") %>' class="btn btn-default" style="margin-left: 15px;"/>
+            <div class="col-lg-12">
+            <asp:Button ID="btn_StepDetails" runat="server" Text="Step Details"  OnClick="btn_StepDetails_Click" CommandArgument='<%# Eval("Id") %>' class="btn btn-default" />
             </div>
-                <br/>
+            <br/>
+            <div class="col-lg-12">
             <hr class="hr">
+            </div>
         </ItemTemplate>
     </asp:ListView>
 

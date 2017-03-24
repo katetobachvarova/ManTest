@@ -66,12 +66,6 @@ namespace ManTestAppWebForms.Views
             return null;
         }
 
-        // The return type can be changed to IEnumerable, however to support
-        // paging and sorting, the following parameters must be added:
-        //     int maximumRows
-        //     int startRowIndex
-        //     out int totalRowCount
-        //     string sortByExpression
         public IQueryable<ManTestAppWebForms.Models.TestCase> GetTestCases()
         {
             if (currentProject != null)
@@ -81,35 +75,29 @@ namespace ManTestAppWebForms.Views
             return null;
         }
 
-        // The id parameter name should match the DataKeyNames value set on the control
         public void GridViewModules_DeleteItem(int id)
         {
             projectController.uof.GetRepository<Module>().Delete(id);
             projectController.uof.Save();
         }
 
-        // The id parameter name should match the DataKeyNames value set on the control
         public void GridViewModules_UpdateItem(int id)
         {
             ManTestAppWebForms.Models.Module item = null;
-            // Load the item here, e.g. item = MyDataLayer.Find(id);
             item = projectController.uof.GetRepository<Module>().FindByKey(id);
             if (item == null)
             {
-                // The item wasn't found
                 ModelState.AddModelError("", String.Format("Item with id {0} was not found", id));
                 return;
             }
             TryUpdateModel(item);
             if (ModelState.IsValid)
             {
-                // Save changes here, e.g. MyDataLayer.SaveChanges();
                 projectController.uof.GetRepository<Module>().Update(item);
                 projectController.uof.Save();
             }
         }
 
-        // The id parameter name should match the DataKeyNames value set on the control
         public void GridViewTestCases_DeleteItem(int id)
         {
             projectController.uof.GetRepository<TestCase>().Delete(id);
@@ -117,23 +105,19 @@ namespace ManTestAppWebForms.Views
 
         }
 
-        // The id parameter name should match the DataKeyNames value set on the control
         public void GridViewTestCases_UpdateItem(int id)
         {
             ManTestAppWebForms.Models.TestCase item = null;
-            // Load the item here, e.g. item = MyDataLayer.Find(id);
             item = projectController.uof.GetRepository<TestCase>().FindByKey(id);
 
             if (item == null)
             {
-                // The item wasn't found
                 ModelState.AddModelError("", String.Format("Item with id {0} was not found", id));
                 return;
             }
             TryUpdateModel(item);
             if (ModelState.IsValid)
             {
-                // Save changes here, e.g. MyDataLayer.SaveChanges();
                 projectController.uof.GetRepository<TestCase>().Update(item);
                 projectController.uof.Save();
             }
@@ -143,6 +127,7 @@ namespace ManTestAppWebForms.Views
         {
             if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex != GridViewModules.EditIndex)
             {
+                GridViewModules.Columns[3].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
                 GridViewModules.Columns[4].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
                 GridViewModules.Columns[5].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
             }

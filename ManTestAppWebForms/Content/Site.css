@@ -35,6 +35,18 @@ input[type="select"] {
     color: #300848;
     border-width: 1px;
     border-color: #300848;
+    padding-left:30px;
+    padding-right:15px;
+    margin-top:0px;
+}
+
+.col-lg-12 {
+    width: 100%;
+    padding-left:30px;
+}
+
+.tabletestcasedetails {
+    margin-left:0px;
 }
 
 
@@ -155,6 +167,19 @@ margin:0px;
     font-size: 22px;
     margin-top: 20px;
     margin-bottom : 10px;
+}
+
+.literalw {
+    max-width: 400px;
+}
+
+.marginbuttons {
+    margin-top:10px;
+}
+
+.btnmargintopandbottom {
+    margin-bottom:5px;
+     margin-top:10px;
 }
 
 
