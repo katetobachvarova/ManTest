@@ -16,7 +16,7 @@
         OnRowCreated="GridViewTestCases_RowCreated"
         EditRowStyle-CssClass="SelectedRowStyle"
         AllowSorting="true"
-        AllowPaging="true" PageSize="10" >
+        AllowPaging="true">
         <%--<EmptyDataTemplate>
             No data found
         </EmptyDataTemplate>--%>
@@ -37,9 +37,21 @@
                 <ItemTemplate>
                     <asp:Label runat="server" Text='<%# Bind("Description") %>' ID="Label2"></asp:Label>
                 </ItemTemplate>
-            </asp:TemplateField> 
-            <asp:CommandField ShowEditButton="True" />
-            <asp:CommandField ShowDeleteButton="True" />
+            </asp:TemplateField>
+            <asp:TemplateField ShowHeader="False">
+                <EditItemTemplate>
+                    <asp:LinkButton runat="server" Text="Update" CommandName="Update" CausesValidation="True" ID="LinkButton1"></asp:LinkButton>&nbsp;<asp:LinkButton runat="server" Text="Cancel" CommandName="Cancel" CausesValidation="False" ID="LinkButton2"></asp:LinkButton>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:LinkButton runat="server" Text="Edit" CommandName="Edit" CausesValidation="False" ID="LinkButton1"></asp:LinkButton>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField ShowHeader="False">
+                <ItemTemplate>
+                    <asp:LinkButton runat="server" Text="Delete" CommandName="Delete" CausesValidation="False" ID="LinkButton2" OnClientClick="return confirm('Are you sure you want to delete this Module?');"></asp:LinkButton>
+                </ItemTemplate>
+            </asp:TemplateField>
+
             <asp:HyperLinkField
                 DataNavigateUrlFields="Id"
                 DataNavigateUrlFormatString="TestCaseDetails.aspx?testCaseId={0}"

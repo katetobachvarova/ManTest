@@ -35,6 +35,7 @@ namespace ManTestAppWebForms.Views
             {
                 SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
             }
+            SiteMapPath1.PathSeparator = "";
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
@@ -79,9 +80,9 @@ namespace ManTestAppWebForms.Views
         SiteMapNode SiteMap_SiteMapResolve(object sender, SiteMapResolveEventArgs e)
         {
             SiteMap.SiteMapResolve -= new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
-
             if (SiteMap.CurrentNode != null)
             {
+                SiteMapPath1.PathSeparator = ">";
                 SiteMapNode currentNode = SiteMap.CurrentNode.Clone(true);
                 currentNode.Title = "TestCase " + currentTestCase?.Title;
                 if (currentTestCase.ModuleId.HasValue)

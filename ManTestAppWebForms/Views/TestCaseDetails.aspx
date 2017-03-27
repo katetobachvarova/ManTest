@@ -42,7 +42,7 @@
                         <tr class="marginbuttons">
                             <td>
                                  <asp:Button ID="ButtonEdit" runat="server" Text="Edit"  CommandName="Edit" class="btn btn-default btnmargintopandbottom"  CausesValidation="true" />
-                                 <asp:Button ID="ButtonDelete" runat="server" Text="Delete"  CommandName="Delete" class="btn btn-default btnmargintopandbottom"  />
+                                 <asp:Button ID="ButtonDelete" runat="server" Text="Delete"  CommandName="Delete" class="btn btn-default btnmargintopandbottom"  OnClientClick="return confirm('Are you sure you want to delete this TestCase?');" />
                             </td>
                         </tr>
                         <tr>

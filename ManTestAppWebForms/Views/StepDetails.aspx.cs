@@ -32,6 +32,7 @@ namespace ManTestAppWebForms.Views
                 ShowImageFiles();
                 SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
             }
+            SiteMapPath1.PathSeparator = "";
         }
 
         private void ShowImageFiles()
@@ -71,6 +72,8 @@ namespace ManTestAppWebForms.Views
 
             if (SiteMap.CurrentNode != null)
             {
+                SiteMapPath1.PathSeparator = ">";
+                SiteMapPath1.Visible = true;
                 SiteMapNode currentNode = SiteMap.CurrentNode.Clone(true);
                 currentNode.Title = "Step " + currentStep.Title;
                 currentNode.ParentNode.Title = "TestCase " + currentStep.TestCase.Title;

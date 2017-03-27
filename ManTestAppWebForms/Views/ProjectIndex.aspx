@@ -59,7 +59,7 @@
             </asp:TemplateField>
             <asp:TemplateField ShowHeader="False">
                 <ItemTemplate>
-                    <asp:LinkButton runat="server" Text="Delete" CommandName="Delete" CausesValidation="False" ID="LinkButtonDelete"></asp:LinkButton>
+                    <asp:LinkButton runat="server" Text="Delete" CommandName="Delete" CausesValidation="False" ID="LinkButtonDelete" OnClientClick="return confirm('Are you sure you want to delete this Project?');"></asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField>
