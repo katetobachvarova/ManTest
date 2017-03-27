@@ -4,12 +4,15 @@ using ManTestAppWebForms.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace ManTestAppWebForms.Views
 {
+    [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+    [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
     public partial class ModuleCreate : System.Web.UI.Page
     {
         private ModuleController moduleController;
@@ -24,12 +27,10 @@ namespace ManTestAppWebForms.Views
         public void InsertItem_Module()
         {
             var item = new ManTestAppWebForms.Models.Module();
-            int id;
-            Int32.TryParse(projectId, out id);
-            Project existingProject = moduleController.FindProject(id);
-            if (existingProject != null)
+            int projectid;
+            if (!string.IsNullOrEmpty(projectId) && Int32.TryParse(projectId, out projectid) && moduleController.FindProject(projectid) != null)
             {
-                item.ProjectId = id;
+                item.ProjectId = projectid;
             }
             else
             {

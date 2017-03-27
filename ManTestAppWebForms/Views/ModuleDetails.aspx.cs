@@ -91,8 +91,8 @@ namespace ManTestAppWebForms.Views
         {
             if (e.Row.RowType == DataControlRowType.DataRow && e.Row.RowIndex != GridViewTestCases.EditIndex)
             {
+                GridViewTestCases.Columns[3].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
                 GridViewTestCases.Columns[4].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
-                GridViewTestCases.Columns[5].Visible = (User.IsInRole("Admin") || User.IsInRole("QA"));
             }
         }
     }

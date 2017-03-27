@@ -54,30 +54,52 @@
                 </div>
             </ItemTemplate>
             <EditItemTemplate>
-                <div >
-                    <asp:DropDownList ID="DropDownListProjectsEdit" runat="server"   CssClass="form-control" DataTextField="Title" DataValueField="Id" OnSelectedIndexChanged="DropDownListProjects_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="DDControl DDValidator" ControlToValidate="DropDownListProjectsEdit" Visible="true" ErrorMessage="Required"></asp:RequiredFieldValidator>
-                </div>
-                <div>
-                    <asp:DropDownList ID="DropDownListModulesEdit" runat="server"   CssClass="form-control" DataTextField="Title" DataValueField="Id" OnSelectedIndexChanged="DropDownListModules_SelectedIndexChanged" Enabled="false" AutoPostBack="true"></asp:DropDownList>
-                </div>
-                <div>
-                    <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# Bind("Title") %>' CssClass="form-control"></asp:TextBox>
-                     <asp:DynamicValidator runat="server" ID="DynamicValidator2" 
-                                CssClass="DDControl DDValidator" ControlToValidate="TextBoxTitle" Display="Static" />
-                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" 
-                                CssClass="DDControl DDValidator" ControlToValidate="TextBoxTitle" Display="Static" Enabled="false" />
-                </div>
-                <div>
-                    <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# Bind("Description") %>' CssClass="form-control"  TextMode="MultiLine" Rows="3" Wrap="true"></asp:TextBox>
-                  <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" 
+                 <div >
+                    <table class="tabletestcasedetails">
+                        <tr>
+                            <td>
+                                <asp:Label ID="Label1" runat="server" Text="Project : "  ></asp:Label>
+                            </td>
+                            <td>
+                                <asp:DropDownList ID="DropDownListProjectsEdit" runat="server"   CssClass="form-control" DataTextField="Title" DataValueField="Id" OnSelectedIndexChanged="DropDownListProjects_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                 <asp:Label ID="Label4" runat="server" Text="Module : "  ></asp:Label>
+                            </td>
+                            <td class="literalw">
+                                <asp:DropDownList ID="DropDownListModulesEdit" runat="server"   CssClass="form-control" DataTextField="Title" DataValueField="Id" OnSelectedIndexChanged="DropDownListModules_SelectedIndexChanged" Enabled="false" AutoPostBack="true"></asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr>
+                             <td>
+                                <asp:Label ID="Label5" runat="server" Text="Title : "  ></asp:Label>
+                            </td>
+                             <td>
+                                 <asp:TextBox ID="TextBoxTitle" runat="server" Text='<%# Bind("Title") %>' CssClass="form-control"></asp:TextBox>
+                                 <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" 
+                                 CssClass="DDControl DDValidator" ControlToValidate="TextBoxTitle" Display="Static" Enabled="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                             <td>
+                                <asp:Label ID="Label6" runat="server" Text="Description : "  ></asp:Label>
+                            </td>
+                             <td>
+                                <asp:TextBox ID="TextBoxDescription" runat="server" Text='<%# Bind("Description") %>' CssClass="form-control"  TextMode="MultiLine" Rows="3" Wrap="true"></asp:TextBox>
+                                <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" 
                                     CssClass="DDControl DDValidator" ControlToValidate="TextBoxDescription" Display="Static" Enabled="false" />
+                            </td>
+                        </tr>
+                        <tr class="marginbuttons">
+                            <td>
+                                <asp:Button ID="ButtonUpdate" runat="server" Text="Update"  CommandName="Update" class="btn btn-default" CausesValidation="true" />
+                                <asp:Button ID="ButtonCancel" runat="server" Text="Cancel"  OnClick="btn_TestCaseCancel_Click" class="btn btn-default"/>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-            
-                    <div>
-                        <asp:Button ID="ButtonUpdate" runat="server" Text="Update"  CommandName="Update" class="btn btn-default" CausesValidation="true" />
-                        <asp:Button ID="ButtonCancel" runat="server" Text="Cancel"  OnClick="btn_TestCaseCancel_Click" class="btn btn-default"/>
-                    </div>
             </EditItemTemplate>
     </asp:FormView>
     <br/>

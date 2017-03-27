@@ -209,7 +209,6 @@
     <Content Include="Content\images\zoomin.cur" />
     <Content Include="Content\images\zoomout.cur" />
     <Content Include="Content\zoomimage.css" />
-    <Content Include="Data\Katerina_Petrova.jpg" />
     <Content Include="Roles\ManageRoles.aspx" />
     <Content Include="Roles\UserRoles.aspx" />
     <Content Include="Scripts\Zoom\eye.js" />
@@ -420,7 +419,9 @@
     <Compile Include="Child.master.designer.cs">
       <DependentUpon>Child.master</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AttachmentController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\Interfaces\IAttachmentController.cs" />
     <Compile Include="Controllers\Interfaces\IModuleController.cs" />
     <Compile Include="Controllers\Interfaces\IProjectController.cs" />
     <Compile Include="Controllers\Interfaces\IStepController.cs" />
@@ -624,6 +625,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Data\" />
     <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,44 +1,34 @@
 ﻿using ManTestAppWebForms.Controllers;
-using ManTestAppWebForms.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
+using System.Security.Permissions;
 using System.Web.UI.WebControls;
 
 namespace ManTestAppWebForms.Views
 {
+    [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+    [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
     public partial class StepCreate : System.Web.UI.Page
     {
-        private string testCaseId;
-        
         private StepController stepController;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             stepController = new StepController();
-            testCaseId = Request.QueryString["testCaseId"];
         }
 
         public void FormViewStep_InsertItem()
         {
             var item = new ManTestAppWebForms.Models.Step();
-            TryUpdateModel(item);
-            if (!string.IsNullOrEmpty(testCaseId))
+            int testCaseid;
+            if (!string.IsNullOrEmpty(Request.QueryString["testCaseId"]) && Int32.TryParse(Request.QueryString["testCaseId"], out testCaseid) && stepController.FindTestCase(testCaseid) != null)
             {
-                int testCaseid;
-                Int32.TryParse(testCaseId, out testCaseid);
-                TestCase existingTestCase = stepController.FindTestCase(testCaseid);
-                if (existingTestCase != null)
-                {
-                    item.TestCaseId = testCaseid;
-                }
-                else
-                {
-                    ModelState.AddModelError("TestCaseId","Test Case not Found!");
-                }
+                item.TestCaseId = testCaseid;
             }
+            else
+            {
+                ModelState.AddModelError("TestCaseId", "Test Case not Found!");
+            }
+            TryUpdateModel(item);
             if (ModelState.IsValid)
             {
                 stepController.Insert(item);

@@ -80,13 +80,16 @@ namespace ManTestAppWebForms.Views
                 {
                     currentNode.ParentNode.ParentNode.Title = "Module " + currentStep.TestCase.Module.Title;
                     currentNode.ParentNode.ParentNode.Url = string.Format("ModuleDetails.aspx?moduleId={0}", currentStep.TestCase.ModuleId);
+                    currentNode.ParentNode.ParentNode.ParentNode.Title = "Project " + currentStep.TestCase.Project.Title;
+                    currentNode.ParentNode.ParentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentStep.TestCase.ProjectId);
                 }
                 else
                 {
-                    currentNode.ParentNode.ParentNode.Title = "No related Module";
+                    //currentNode.ParentNode.ParentNode.Title = "No related Module";
+                    currentNode.ParentNode.ParentNode.Title = "Project " + currentStep.TestCase.Project.Title;
+                    currentNode.ParentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentStep.TestCase.ProjectId);
                 }
-                currentNode.ParentNode.ParentNode.ParentNode.Title = "Project " + currentStep.TestCase.Project.Title;
-                currentNode.ParentNode.ParentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentStep.TestCase.ProjectId);
+               
                 return currentNode;
             }
             return null;
@@ -153,7 +156,6 @@ namespace ManTestAppWebForms.Views
             if (ModelState.IsValid)
             {
                 stepController.Update(item);
-                Response.Redirect(String.Format("StepDetails.aspx?stepId={0}", item.Id));
             }
         }
 

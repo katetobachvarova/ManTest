@@ -17,5 +17,13 @@ namespace ManTestAppWebForms
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            // Get the error details
+
+            HttpException lastErrorWrapper = Server.GetLastError() as HttpException;
+            Server.Transfer("~/Account/Login.aspx");
+        }
     }
 }

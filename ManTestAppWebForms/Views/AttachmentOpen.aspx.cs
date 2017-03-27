@@ -11,26 +11,28 @@ namespace ManTestAppWebForms.Views
 {
     public partial class AttachmentOpen : System.Web.UI.Page
     {
-        private ControllerBase<Attachment> attachementController;
+        private AttachmentController attachementController;
         private string attachmentId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.attachementController = new ControllerBase<Attachment>();
+            this.attachementController = new AttachmentController();
             attachmentId = Request.QueryString["attachmentId"];
             int attachmentid;
             if (Int32.TryParse(attachmentId, out attachmentid))
             {
-                Attachment a = attachementController.FindById(attachmentid);
-                System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
-                response.ClearContent();
-                response.Clear();
-                response.ContentType = "text/plain";
-                response.AddHeader("Content-Disposition", "attachment; filename=" + a.FileName + ";");
-
-                response.TransmitFile(Server.MapPath(string.Format("~/Data/{0}", a.FileName)));
-                response.Flush();
-                response.End();
+                Attachment attachment = attachementController.FindById(attachmentid);
+                if (attachment != null)
+                {
+                    System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
+                    response.ClearContent();
+                    response.Clear();
+                    response.ContentType = "text/plain";
+                    response.AddHeader("Content-Disposition", "attachment; filename=" + attachment.FileName + ";");
+                    response.TransmitFile(Server.MapPath(string.Format("~/Data/{0}", attachment.FileName)));
+                    response.Flush();
+                    response.End();
+                }
             }
             
         }

@@ -3,12 +3,15 @@ using ManTestAppWebForms.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace ManTestAppWebForms.Views
 {
+    [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+    [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
     public partial class TestCaseCreate : System.Web.UI.Page
     {
         private TestCaseController testCaseController;
@@ -32,29 +35,28 @@ namespace ManTestAppWebForms.Views
         public void InsertItem_TestCase()
         {
             var item = new ManTestAppWebForms.Models.TestCase();
-               if (Session["projectIdDropDown"] !=null)
+            if (Session["projectIdDropDown"] !=null)
+            {
+                int projectid;
+                Int32.TryParse(Session["projectIdDropDown"].ToString(), out projectid);
+                item.ProjectId = projectid;
+            }
+            if (Session["moduleIdDropDown"] != null)
+            {
+                int moduleid;
+                if (Int32.TryParse(Session["moduleIdDropDown"].ToString(), out moduleid) && moduleid != 0)
                 {
-                    int projectid;
-                    Int32.TryParse(Session["projectIdDropDown"].ToString(), out projectid);
-                    item.ProjectId = projectid;
+                    item.ModuleId = moduleid;
                 }
-                if (Session["moduleIdDropDown"] != null)
+                else
                 {
-                    int moduleid;
-                    Int32.TryParse(Session["moduleIdDropDown"].ToString(), out moduleid);
-                    if (moduleid != 0)
-                    {
-                        item.ModuleId = moduleid;
-                    }
-                    else
-                    {
-                        item.ModuleId = null;
-                    }
+                    item.ModuleId = null;
                 }
+            }
             TryUpdateModel(item);
             if (item.ProjectId == 0)
             {
-                ModelState.AddModelError("ProjectId", "Project is required");
+                ModelState.AddModelError("ProjectId", "The Project field is required.");
             }
             if (ModelState.IsValid)
             {

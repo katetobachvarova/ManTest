@@ -37,13 +37,14 @@
                 <ItemTemplate>
                     <asp:Label runat="server" Text='<%# Bind("Description") %>' ID="Label2"></asp:Label>
                 </ItemTemplate>
-            </asp:TemplateField>
+            </asp:TemplateField> 
+            <asp:CommandField ShowEditButton="True" />
+            <asp:CommandField ShowDeleteButton="True" />
             <asp:HyperLinkField
                 DataNavigateUrlFields="Id"
                 DataNavigateUrlFormatString="TestCaseDetails.aspx?testCaseId={0}"
                 Text="Details>" />
-            <asp:CommandField ShowEditButton="True" />
-            <asp:CommandField ShowDeleteButton="True" />
+           
         </Columns>
     </asp:GridView>
 </asp:Content>

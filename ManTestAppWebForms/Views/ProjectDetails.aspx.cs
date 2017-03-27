@@ -3,6 +3,7 @@ using ManTestAppWebForms.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -75,11 +76,15 @@ namespace ManTestAppWebForms.Views
             return null;
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+        [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
         public void GridViewModules_DeleteItem(int id)
         {
             projectController.DeleteModule(id);
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+        [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
         public void GridViewModules_UpdateItem(int id)
         {
             ManTestAppWebForms.Models.Module item = null;
@@ -96,11 +101,15 @@ namespace ManTestAppWebForms.Views
             }
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+        [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
         public void GridViewTestCases_DeleteItem(int id)
         {
             projectController.DeleteTestCase(id);
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+        [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
         public void GridViewTestCases_UpdateItem(int id)
         {
             ManTestAppWebForms.Models.TestCase item = null;

@@ -88,13 +88,15 @@ namespace ManTestAppWebForms.Views
                 {
                     currentNode.ParentNode.Title = "Module " + currentTestCase.Module.Title;
                     currentNode.ParentNode.Url = string.Format("ModuleDetails.aspx?moduleId={0}", currentTestCase.ModuleId);
+                    currentNode.ParentNode.ParentNode.Title = "Project " + currentTestCase.Project.Title;
+                    currentNode.ParentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentTestCase.ProjectId);
                 }
                 else
                 {
-                    currentNode.ParentNode.Title = "No related Module";
+                    //currentNode.ParentNode.Title = "No related Module";
+                    currentNode.ParentNode.Title = "Project " + currentTestCase.Project.Title;
+                    currentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentTestCase.ProjectId);
                 }
-                currentNode.ParentNode.ParentNode.Title = "Project " + currentTestCase.Project.Title;
-                currentNode.ParentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentTestCase.ProjectId);
                 return currentNode;
             }
             return null;
@@ -163,7 +165,6 @@ namespace ManTestAppWebForms.Views
             {
                 testCaseController.Update(item);
             }
-            Response.Redirect(String.Format("TestCaseDetails.aspx?testCaseId={0}", item.Id));
         }
 
         protected void btn_TestCaseCancel_Click(object sender, EventArgs e)

@@ -1,25 +1,22 @@
 ﻿using ManTestAppWebForms.Controllers;
 using ManTestAppWebForms.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using System.Security.Permissions;
 using System.Threading;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace ManTestAppWebForms.Views
 {
+    [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+    [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
     public partial class AttechmentCreate : System.Web.UI.Page
     {
-        private ControllerBase<Attachment> attachementController;
+        private AttachmentController attachementController;
         private string stepId;
-
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.attachementController = new ControllerBase<Attachment>();
+            this.attachementController = new AttachmentController();
             stepId = Request.QueryString["stepId"];
         }
 
@@ -36,15 +33,18 @@ namespace ManTestAppWebForms.Views
                     StatusLabel.Text = "Upload status: File uploaded!";
                     Attachment att = new Attachment();
                     int stepid;
-                    if (Int32.TryParse(stepId, out stepid))
+                    if (!string.IsNullOrEmpty(Request.QueryString["stepId"]) && Int32.TryParse(Request.QueryString["stepId"], out stepid) && attachementController.FindStep(stepid) != null)
                     {
                         att.StepId = stepid;
                         att.FileName = filename;
                         att.Url = completeUrl;
+                        attachementController.Insert(att);
+                        Response.Redirect(string.Format("~/Views/StepDetails.aspx?stepId={0}", stepId));
                     }
-                    attachementController.Insert(att);
-                    Response.Redirect(string.Format("~/Views/StepDetails.aspx?stepId={0}", stepId));
-
+                    else
+                    {
+                        StatusLabel.Text = "The file could not be uploaded. The following error occured: Step not found!";
+                    }
                 }
                 catch (ThreadAbortException ex)
                 {

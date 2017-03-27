@@ -3,6 +3,7 @@ using ManTestAppWebForms.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -24,11 +25,15 @@ namespace ManTestAppWebForms.Views
             return testCaseController.GetAll();
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+        [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
         public void gvTestCases_DeleteItem(int id)
         {
             testCaseController.Delete(id);
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
+        [PrincipalPermission(SecurityAction.Demand, Role = "QA")]
         public void gvTestCases_UpdateItem(int id)
         {
             ManTestAppWebForms.Models.TestCase item = null;

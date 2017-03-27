@@ -1,18 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
   <siteMapNode>
-    <siteMapNode url="~/Views/ProjectIndex" title="projectIndex"  description="">
-        <siteMapNode url="~/Views/ProjectDetails" title="projectDetails"  description="" >
-                  <siteMapNode url="~/Views/ModuleDetails" title="moduleDetails"  description="" >
-                      <siteMapNode url="~/Views/TestCaseDetails" title="testCaseDetails"  description="" >
-                        <siteMapNode url="~/Views/StepDetails" title="stepDetails"  description="" >
-                          <siteMapNode url="~/Views/AttachmentDetails" title="attachmentDetails"  description="" >
+        <siteMapNode url="~/Views/ProjectDetails"   description="" >
+                  <siteMapNode url="~/Views/ModuleDetails"   description=""  >
+                      <siteMapNode url="~/Views/TestCaseDetails"   description="" >
+                        <siteMapNode url="~/Views/StepDetails"   description="" >
+                          <siteMapNode url="~/Views/AttachmentDetails"  description="" >
                           </siteMapNode>
                         </siteMapNode>
                       </siteMapNode>
                   </siteMapNode>
         </siteMapNode>
-    </siteMapNode>
     <siteMapNode title="Roles">
             <siteMapNode url="~/Account/Register" title="Register" />
             <siteMapNode url="~/Roles/ManageRoles.aspx" title="Manage Roles" />

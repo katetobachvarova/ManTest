@@ -8,7 +8,7 @@
         OnSelectedIndexChanged="DropDownListProjects_SelectedIndexChanged" AutoPostBack="true"
         ItemType="ManTestAppWebForms.Models.Project" >
     </asp:DropDownList>
-    <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator3" CssClass="DDControl DDValidator" ControlToValidate="DropDownListProjects" Display="Static" Enabled="false" />
+    <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator3" CssClass="DDControl DDValidator" ControlToValidate="DropDownListProjects" Display="Dynamic" Enabled="true" Text="*"  ErrorMessage="The Project field is required."/>
     </div>
     <asp:Label ID="Label2" runat="server" Text="Module : " class="col-lg-2 control-label"></asp:Label>
      <div class="col-lg-10">
@@ -33,7 +33,7 @@
                             <asp:DynamicValidator runat="server" ID="DynamicValidator2" 
                             CssClass="DDControl DDValidator" ControlToValidate="TestCaseTitle" Display="Static" />
                             <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" 
-                            CssClass="DDControl DDValidator" ControlToValidate="TestCaseTitle" Display="Static" Enabled="false" />
+                            CssClass="DDControl DDValidator" ControlToValidate="TestCaseTitle" Display="Dynamic" Enabled="true" Text="*"  ErrorMessage="The Title field is required." />
                         </div>
                         <asp:Label ID="Label6" runat="server" Text="Description : " class="col-lg-2 control-label"></asp:Label>
                         <div class="col-lg-10">
@@ -42,7 +42,7 @@
                             <asp:DynamicValidator runat="server" ID="DynamicValidator1" 
                                 CssClass="DDControl DDValidator" ControlToValidate="TestCaseDescription" Display="Static" />
                             <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" 
-                                CssClass="DDControl DDValidator" ControlToValidate="TestCaseDescription" Display="Static" Enabled="false" />
+                                CssClass="DDControl DDValidator" ControlToValidate="TestCaseDescription" Display="Dynamic" Enabled="true" Text="*"  ErrorMessage="The Description field is required." />
                         </div>
                     <asp:Button runat="server" Text="Insert" CommandName="Insert" class="btn btn-default"  CausesValidation="true"/>
                     <asp:Button runat="server" Text="Cancel" CausesValidation="false"  OnClick="Cancel_Click"  class="btn btn-default" />

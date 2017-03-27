@@ -21,7 +21,7 @@
                       <asp:DynamicValidator runat="server" ID="DynamicValidator3" 
                         CssClass="DDControl DDValidator" ControlToValidate="StepOrder" Display="Static" />
                     <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator3" 
-                        CssClass="DDControl DDValidator" ControlToValidate="StepOrder" Display="Static" Enabled="false" />
+                        CssClass="DDControl DDValidator" ControlToValidate="StepOrder" Display="Dynamic" Enabled="true" Text="*"  ErrorMessage="The StepOrder field is required." />
                   </td>
                 </tr>
                 <tr>
@@ -34,7 +34,7 @@
                       <asp:DynamicValidator runat="server" ID="DynamicValidator2" 
                         CssClass="DDControl DDValidator" ControlToValidate="StepTitle" Display="Static" />
                     <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator2" 
-                        CssClass="DDControl DDValidator" ControlToValidate="StepTitle" Display="Static" Enabled="false" />
+                        CssClass="DDControl DDValidator" ControlToValidate="StepTitle" Display="Dynamic" Enabled="true" Text="*"  ErrorMessage="The Title field is required." />
                   </td>
                 </tr>
                 <tr>
@@ -47,7 +47,7 @@
                     <asp:DynamicValidator runat="server" ID="DynamicValidator1" 
                         CssClass="DDControl DDValidator" ControlToValidate="StepDescription" Display="Static" />
                     <asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator1" 
-                        CssClass="DDControl DDValidator" ControlToValidate="StepDescription" Display="Static" Enabled="false" />
+                        CssClass="DDControl DDValidator" ControlToValidate="StepDescription" Display="Dynamic" Enabled="true" Text="*"  ErrorMessage="The Description field is required." />
                   </td>
                 </tr>
               </table>
