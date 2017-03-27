@@ -1,24 +1,12 @@
 ﻿using ManTestAppWebForms.Controllers.Interfaces;
 using ManTestAppWebForms.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace ManTestAppWebForms.Controllers
 {
     public class TestCaseController : ControllerBase<TestCase>, ITestCaseController
     {
-        public Module FindModule(int id)
-        {
-            return uof.GetRepository<Module>().FindByKey(id);
-        }
-
-        public Project FindProject(int id)
-        {
-            return uof.GetRepository<Project>().FindByKey(id);
-        }
-
         public IEnumerable<Project> GetAllProjects()
         {
             return uof.GetRepository<Project>().All();
@@ -37,6 +25,16 @@ namespace ManTestAppWebForms.Controllers
         public IQueryable<Step> GetRelatedSteps(int id)
         {
             return uof.GetRepository<Step>().All().Where(i => i.TestCaseId == id).OrderBy(e => e.StepOrder).AsQueryable();
+        }
+
+        public Module FindModule(int id)
+        {
+            return uof.GetRepository<Module>().FindByKey(id);
+        }
+
+        public Project FindProject(int id)
+        {
+            return uof.GetRepository<Project>().FindByKey(id);
         }
     }
 }
