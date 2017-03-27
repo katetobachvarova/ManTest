@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Web;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -22,8 +23,11 @@ namespace ManTestAppWebForms
         {
             // Get the error details
 
-            HttpException lastErrorWrapper = Server.GetLastError() as HttpException;
-            Server.Transfer("~/Account/Login.aspx");
+            SecurityException lastError = Server.GetLastError() as SecurityException;
+            if (lastError != null)
+            {
+                Server.Transfer("~/Account/Login.aspx");
+            }
         }
     }
 }
