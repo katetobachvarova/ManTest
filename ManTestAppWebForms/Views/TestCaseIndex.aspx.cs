@@ -22,7 +22,16 @@ namespace ManTestAppWebForms.Views
 
         public IQueryable<ManTestAppWebForms.Models.TestCase> gvTestCases_GetData()
         {
-            return testCaseController.GetAll();
+            string testCaseId = TextBoxSearch.Text;
+            IEnumerable<TestCase> tc = testCaseController.FindTestCaseByIdTitleOrDescription(testCaseId);
+            if (tc != null)
+            {
+                return tc.AsQueryable();
+            }
+            else
+            {
+                return testCaseController.GetAll();
+            }
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
@@ -148,6 +157,11 @@ namespace ManTestAppWebForms.Views
         protected void DropDownListModule_SelectedIndexChanged(object sender, EventArgs e)
         {
             Session["moduleIdDropDown"] = (sender as DropDownList).SelectedValue;
+        }
+
+        protected void ButtonSearch_Click(object sender, EventArgs e)
+        {
+            gvTestCases.DataBind();
         }
     }
 }

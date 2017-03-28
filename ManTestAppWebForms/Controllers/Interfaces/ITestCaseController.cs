@@ -12,5 +12,6 @@ namespace ManTestAppWebForms.Controllers.Interfaces
         IQueryable<Step> GetRelatedSteps(int id);
         Project FindProject(int id);
         Module FindModule(int id);
+        IEnumerable<TestCase> FindTestCaseByIdTitleOrDescription(string titleOrDescription);
     }
 }

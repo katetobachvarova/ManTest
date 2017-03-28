@@ -36,5 +36,14 @@ namespace ManTestAppWebForms.Controllers
         {
             return uof.GetRepository<Project>().FindByKey(id);
         }
+
+        public IEnumerable<TestCase> FindTestCaseByIdTitleOrDescription(string titleOrDescription)
+        {
+            if (!string.IsNullOrEmpty(titleOrDescription))
+            {
+                return currentRepository.FindBy(tc => tc.Title.Contains(titleOrDescription) || tc.Description.Contains(titleOrDescription) || tc.Id.ToString().Contains(titleOrDescription));
+            }
+            else return null;
+        }
     }
 }

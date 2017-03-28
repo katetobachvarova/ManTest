@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="TestCaseIndex.aspx.cs" Inherits="ManTestAppWebForms.Views.TestCaseIndex" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Test Cases</h2>
+    <asp:Label ID="LabelSearch" runat="server" Text="Search Test Case"></asp:Label><asp:TextBox ID="TextBoxSearch" runat="server" CssClass="form-control formcontrol2" ></asp:TextBox>
+    <asp:Button ID="ButtonSearch" runat="server" Text="Search" OnClick="ButtonSearch_Click" CssClass="btn btn-default btnmargintopandbottomequal" />
     <div>
         <asp:ValidationSummary ID="ValidationSummaryTestCase" runat="server"  ShowModelStateErrors="true"/>
     </div>
