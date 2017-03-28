@@ -27,31 +27,40 @@ namespace ManTestAppWebForms.Views
                     {
                         LabelRelatedTestCases.Text = "Related Test Cases";
                     }
+                    ShowBreadCrumb(currentModule);
                 }
                 else
                 {
                     Response.Redirect("~/Views/ProjectIndex.aspx");
                 }
             }
-            if (!IsPostBack && currentModule != null)
-            {
-                SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
-            }
         }
 
-        SiteMapNode SiteMap_SiteMapResolve(object sender, SiteMapResolveEventArgs e)
+        private void ShowBreadCrumb(Module currentModule)
         {
-            SiteMap.SiteMapResolve -= new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
-            if (SiteMap.CurrentNode != null)
-            {
-                SiteMapNode currentNode = SiteMap.CurrentNode.Clone(true);
-                currentNode.Title = "Module " + currentModule.Title;
-                currentNode.ParentNode.Title = "Project " + currentModule.Project.Title;
-                currentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentModule.ProjectId);
-                return currentNode;
-            }
-            return null;
+            HyperLink linkForProject = new HyperLink();
+            linkForProject.Text = string.Format("{0} >", currentModule.Project.Title);
+            linkForProject.NavigateUrl = string.Format("ProjectDetails.aspx?projectId={0}", currentModule.ProjectId);
+            PlaceHolderForLinks.Controls.Add(linkForProject);
+            Label lblM = new Label();
+            lblM.Text = string.Format(" {0}", currentModule.Title);
+            PlaceHolderForLinks.Controls.Add(lblM);
+            PlaceHolderForLinks.DataBind();
         }
+
+        //SiteMapNode SiteMap_SiteMapResolve(object sender, SiteMapResolveEventArgs e)
+        //{
+        //    SiteMap.SiteMapResolve -= new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
+        //    if (SiteMap.CurrentNode != null)
+        //    {
+        //        SiteMapNode currentNode = SiteMap.CurrentNode.Clone(true);
+        //        currentNode.Title = "Module " + currentModule.Title;
+        //        currentNode.ParentNode.Title = "Project " + currentModule.Project.Title;
+        //        currentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentModule.ProjectId);
+        //        return currentNode;
+        //    }
+        //    return null;
+        //}
 
         public IQueryable<ManTestAppWebForms.Models.TestCase> GridViewTestCases_GetData()
         {

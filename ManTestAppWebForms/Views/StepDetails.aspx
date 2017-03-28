@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="StepDetails.aspx.cs" Inherits="ManTestAppWebForms.Views.StepDetails" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div>
-        <asp:SiteMapPath ID="SiteMapPath1" runat="server" ></asp:SiteMapPath>
-    </div>
+    <asp:PlaceHolder ID="PlaceHolderForLinks" runat="server"></asp:PlaceHolder>
     <div>
         <asp:ValidationSummary ID="ValidationSummaryTestCase" runat="server"  ShowModelStateErrors="true"/>
     </div>

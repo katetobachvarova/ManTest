@@ -52,8 +52,7 @@ namespace ManTestAppWebForms.Views
             if (Session["moduleIdDropDown"] != null)
             {
                 int moduleid;
-                Int32.TryParse(Session["moduleIdDropDown"].ToString(), out moduleid);
-                if (moduleid != 0)
+                if (Int32.TryParse(Session["moduleIdDropDown"].ToString(), out moduleid) && moduleid != 0)
                 {
                     item.ModuleId = moduleid;
                 }
@@ -61,10 +60,7 @@ namespace ManTestAppWebForms.Views
                 {
                     item.ModuleId = null;
                 }
-            }
-            else
-            {
-                item.ModuleId = null;
+
             }
             TryUpdateModel(item);
             if (ModelState.IsValid)
@@ -131,6 +127,7 @@ namespace ManTestAppWebForms.Views
             Session["projectIdDropDown"] = (sender as DropDownList).SelectedValue;
             int projectid;
             Int32.TryParse(Session["projectIdDropDown"].ToString(), out projectid);
+            Session["moduleIdDropDown"] = "";
             DropDownList DropDownListModules = (DropDownList)(sender as DropDownList).Parent.Parent.FindControl("DropDownListModule");
             DropDownListModules.Items.Clear();
             IEnumerable<Module> modules = testCaseController.GetRelatedModules(projectid).ToList();
@@ -146,7 +143,6 @@ namespace ManTestAppWebForms.Views
             {
                 DropDownListModules.Items.Add(new ListItem() { Text = item.Title, Value = item.Id.ToString(), Selected = false });
             }
-            Session["moduleIdDropDown"] = null;
         }
 
         protected void DropDownListModule_SelectedIndexChanged(object sender, EventArgs e)

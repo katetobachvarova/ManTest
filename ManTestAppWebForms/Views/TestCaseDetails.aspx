@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="TestCaseDetails.aspx.cs" Inherits="ManTestAppWebForms.Views.TestCaseDetails" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-  <div>
-    <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
-    </div>
+    <asp:PlaceHolder ID="PlaceHolderForLinks" runat="server"></asp:PlaceHolder>
     <div >
      <br/>
     <asp:Label ID="Label3" runat="server" Text="Test Case" CssClass="titlemantest" style="margin-bottom:25px;" ></asp:Label>

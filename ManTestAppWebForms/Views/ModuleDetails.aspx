@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ModuleDetails.aspx.cs" Inherits="ManTestAppWebForms.Views.ModuleDetails" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div>
-    <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
-     </div>
+    <asp:PlaceHolder ID="PlaceHolderForLinks" runat="server"></asp:PlaceHolder>
     <br/>
     <asp:Label ID="LabelRelatedTestCases" runat="server" CssClass="labelmantest"></asp:Label>
     <asp:GridView ID="GridViewTestCases" runat="server"
@@ -48,7 +46,7 @@
             </asp:TemplateField>
             <asp:TemplateField ShowHeader="False">
                 <ItemTemplate>
-                    <asp:LinkButton runat="server" Text="Delete" CommandName="Delete" CausesValidation="False" ID="LinkButton2" OnClientClick="return confirm('Are you sure you want to delete this Module?');"></asp:LinkButton>
+                    <asp:LinkButton runat="server" Text="Delete" CommandName="Delete" CausesValidation="False" ID="LinkButton3" OnClientClick="return confirm('Are you sure you want to delete this Module?');"></asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
 

@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ProjectDetails.aspx.cs" Inherits="ManTestAppWebForms.Views.ProjectDetails" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div>
-    <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
-    </div>
+    <asp:PlaceHolder ID="PlaceHolderForRoot" runat="server"></asp:PlaceHolder>
     <br/>
     <div style="width:100%;">
     <asp:Label ID="LabelRelatedModules" runat="server"   CssClass="labelmantest"></asp:Label>

@@ -82,6 +82,7 @@ namespace ManTestAppWebForms.Views
             Session["projectIdDropDown"] = (sender as DropDownList).SelectedValue;
             int projectid;
             Int32.TryParse(Session["projectIdDropDown"].ToString(), out projectid);
+            Session["moduleIdDropDown"] = "";
             DropDownListModules.Enabled = true;
             DropDownListModules.Items.Clear();
             IEnumerable<Module> modules = this.testCaseController.GetRelatedModules(projectid);

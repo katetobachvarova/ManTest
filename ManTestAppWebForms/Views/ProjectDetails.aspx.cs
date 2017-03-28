@@ -33,30 +33,35 @@ namespace ManTestAppWebForms.Views
                     {
                         LabelRelatedTestCases.Text = "Related Test Cases";
                     }
+                    ShowBreadCrumb(currentProject);
                 }
                 else
                 {
                     Response.Redirect("~/Views/ProjectIndex.aspx");
                 }
             }
-            if (!IsPostBack && currentProject != null)
-            {
-                SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
-            }
         }
 
-        SiteMapNode SiteMap_SiteMapResolve(object sender, SiteMapResolveEventArgs e)
+        private void ShowBreadCrumb(Project currentProject)
         {
-            SiteMap.SiteMapResolve -= new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
-
-            if (SiteMap.CurrentNode != null)
-            {
-                SiteMapNode currentNode = SiteMap.CurrentNode.Clone(true);
-                currentNode.Title = "Project " + currentProject.Title;
-                return currentNode;
-            }
-            return null;
+            Label lblP = new Label();
+            lblP.Text = string.Format(" {0}", currentProject.Title);
+            PlaceHolderForRoot.Controls.Add(lblP);
+            PlaceHolderForRoot.DataBind();
         }
+
+        //SiteMapNode SiteMap_SiteMapResolve(object sender, SiteMapResolveEventArgs e)
+        //{
+        //    SiteMap.SiteMapResolve -= new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
+
+        //    if (SiteMap.CurrentNode != null)
+        //    {
+        //        SiteMapNode currentNode = SiteMap.CurrentNode.Clone(true);
+        //        currentNode.Title = "Project " + currentProject.Title;
+        //        return currentNode;
+        //    }
+        //    return null;
+        //}
 
         public IQueryable<Module> GetModules()
         {

@@ -33,9 +33,27 @@ namespace ManTestAppWebForms.Views
             }
             if (!IsPostBack && currentTestCase != null)
             {
-                SiteMap.SiteMapResolve += new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
+                ShowBreadCrumb(currentTestCase);
             }
-            SiteMapPath1.PathSeparator = "";
+        }
+
+        private void ShowBreadCrumb(TestCase currentTestCase)
+        {
+            HyperLink linkForProject = new HyperLink();
+            linkForProject.Text = string.Format("{0} >", currentTestCase.Project.Title);
+            linkForProject.NavigateUrl = string.Format("ProjectDetails.aspx?projectId={0}", currentTestCase.ProjectId);
+            PlaceHolderForLinks.Controls.Add(linkForProject);
+            if (currentTestCase.ModuleId.HasValue)
+            {
+                HyperLink linkForModule = new HyperLink();
+                linkForModule.Text = string.Format(" {0} >", currentTestCase.Module.Title);
+                linkForModule.NavigateUrl = string.Format("ModuleDetails.aspx?moduleId={0}", currentTestCase.ModuleId);
+                PlaceHolderForLinks.Controls.Add(linkForModule);
+            }
+            Label lblTC = new Label();
+            lblTC.Text = string.Format(" {0}", currentTestCase.Title);
+            PlaceHolderForLinks.Controls.Add(lblTC);
+            PlaceHolderForLinks.DataBind();
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
@@ -77,31 +95,31 @@ namespace ManTestAppWebForms.Views
             }
         }
 
-        SiteMapNode SiteMap_SiteMapResolve(object sender, SiteMapResolveEventArgs e)
-        {
-            SiteMap.SiteMapResolve -= new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
-            if (SiteMap.CurrentNode != null)
-            {
-                SiteMapPath1.PathSeparator = ">";
-                SiteMapNode currentNode = SiteMap.CurrentNode.Clone(true);
-                currentNode.Title = "TestCase " + currentTestCase?.Title;
-                if (currentTestCase.ModuleId.HasValue)
-                {
-                    currentNode.ParentNode.Title = "Module " + currentTestCase.Module.Title;
-                    currentNode.ParentNode.Url = string.Format("ModuleDetails.aspx?moduleId={0}", currentTestCase.ModuleId);
-                    currentNode.ParentNode.ParentNode.Title = "Project " + currentTestCase.Project.Title;
-                    currentNode.ParentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentTestCase.ProjectId);
-                }
-                else
-                {
-                    //currentNode.ParentNode.Title = "No related Module";
-                    currentNode.ParentNode.Title = "Project " + currentTestCase.Project.Title;
-                    currentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentTestCase.ProjectId);
-                }
-                return currentNode;
-            }
-            return null;
-        }
+        //SiteMapNode SiteMap_SiteMapResolve(object sender, SiteMapResolveEventArgs e)
+        //{
+        //    SiteMap.SiteMapResolve -= new SiteMapResolveEventHandler(SiteMap_SiteMapResolve);
+        //    if (SiteMap.CurrentNode != null)
+        //    {
+        //        //SiteMapPath1.PathSeparator = ">";
+        //        SiteMapNode currentNode = SiteMap.CurrentNode.Clone(true);
+        //        currentNode.Title = "TestCase " + currentTestCase?.Title;
+        //        if (currentTestCase.ModuleId.HasValue)
+        //        {
+        //            currentNode.ParentNode.Title = "Module " + currentTestCase.Module.Title;
+        //            currentNode.ParentNode.Url = string.Format("ModuleDetails.aspx?moduleId={0}", currentTestCase.ModuleId);
+        //            currentNode.ParentNode.ParentNode.Title = "Project " + currentTestCase.Project.Title;
+        //            currentNode.ParentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentTestCase.ProjectId);
+        //        }
+        //        else
+        //        {
+        //            //currentNode.ParentNode.Title = "No related Module";
+        //            currentNode.ParentNode.Title = "Project " + currentTestCase.Project.Title;
+        //            currentNode.ParentNode.Url = string.Format("ProjectDetails.aspx?projectId={0}", currentTestCase.ProjectId);
+        //        }
+        //        return currentNode;
+        //    }
+        //    return null;
+        //}
 
         public IQueryable<ManTestAppWebForms.Models.Step> ListViewSteps_GetData()
         {
@@ -154,8 +172,14 @@ namespace ManTestAppWebForms.Views
             if (Session["moduleIdDropDown"] != null)
             {
                 int moduleid;
-                Int32.TryParse(Session["moduleIdDropDown"].ToString(), out moduleid);
-                item.ModuleId = moduleid;
+                if (Int32.TryParse(Session["moduleIdDropDown"].ToString(), out moduleid) && moduleid != 0)
+                {
+                    item.ModuleId = moduleid;
+                }
+                else
+                {
+                    item.ModuleId = null;
+                }
             }
             TryUpdateModel(item);
             if (item.ProjectId == 0)
@@ -165,6 +189,7 @@ namespace ManTestAppWebForms.Views
              if (ModelState.IsValid)
             {
                 testCaseController.Update(item);
+                ShowBreadCrumb(item);
             }
         }
 
@@ -249,6 +274,7 @@ namespace ManTestAppWebForms.Views
             Session["projectIdDropDown"] = (sender as DropDownList).SelectedValue;
             int projectid;
             Int32.TryParse(Session["projectIdDropDown"].ToString(), out projectid);
+            Session["moduleIdDropDown"] = "";
             DropDownList dropModules =(DropDownList)FormViewCurrentTestCase.FindControl("DropDownListModulesEdit");
             if (dropModules != null)
             {
