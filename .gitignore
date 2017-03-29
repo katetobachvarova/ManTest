@@ -241,3 +241,5 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /ManTestAppWebForms/Data
+/ManTestAppWebForms/Properties/PublishProfiles
+/ManTestAppWebForms/Grant.sql

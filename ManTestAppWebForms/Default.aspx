@@ -11,13 +11,13 @@
         <div class="col-md-6">
             <h2>Projects</h2>
             <p>
-                <a class="btn btn-default" href="http://localhost:49280/Views/ProjectIndex">Project Index &raquo;</a>
+                <a class="btn btn-default" href="Views/ProjectIndex">Project Index &raquo;</a>
             </p>
         </div>
         <div class="col-md-6">
             <h2>Test Cases</h2>
             <p>
-                <a class="btn btn-default" href="http://localhost:49280/Views/TestCaseIndex">Test Case Index &raquo;</a>
+                <a class="btn btn-default" href="Views/TestCaseIndex">Test Case Index &raquo;</a>
             </p>
         </div>
     </div>

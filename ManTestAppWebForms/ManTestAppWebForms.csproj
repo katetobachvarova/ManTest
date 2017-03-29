@@ -209,6 +209,7 @@
     <Content Include="Content\images\zoomin.cur" />
     <Content Include="Content\images\zoomout.cur" />
     <Content Include="Content\zoomimage.css" />
+    <Content Include="Grant.sql" />
     <Content Include="Roles\ManageRoles.aspx" />
     <Content Include="Roles\UserRoles.aspx" />
     <Content Include="Scripts\Zoom\eye.js" />
@@ -233,6 +234,8 @@
     </Content>
     <Content Include="Child.master" />
     <Content Include="Roles\Web.config" />
+    <None Include="Properties\PublishProfiles\ManTest.pubxml" />
+    <None Include="Properties\PublishProfiles\Test4.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
