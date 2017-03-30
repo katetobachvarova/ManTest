@@ -22,6 +22,7 @@ namespace ManTestAppWebForms.Roles
         {
             applicationDbContext = new ApplicationDbContext();
             userMgr = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(applicationDbContext));
+            userMgr.UserValidator = new UserValidator<ApplicationUser>(userMgr) { AllowOnlyAlphanumericUserNames = false };
         }
 
         public IQueryable<ManTestAppWebForms.Models.ApplicationUser> GridViewUsers_GetData()
@@ -61,9 +62,8 @@ namespace ManTestAppWebForms.Roles
             if (ModelState.IsValid)
             {
                 item.Roles.Clear();
-                var IdUserResult = userMgr.AddToRole(userMgr.FindByEmail(item.Email).Id, userMgr.FindByEmail(item.Email).Role);
+                userMgr.AddToRole(item.Id, item.Role);
                 userMgr.Update(item);
-                var test = item.Roles;
             }
         }
 
@@ -71,7 +71,6 @@ namespace ManTestAppWebForms.Roles
         {
             string role = (GridViewUsers.Rows[e.RowIndex].FindControl("DropDownListRoles") as DropDownList).SelectedItem.Text;
             string userEmail = GridViewUsers.DataKeys[e.RowIndex].Value.ToString();
-
             userMgr.FindByEmail(userEmail).Role = role;
         }
     }

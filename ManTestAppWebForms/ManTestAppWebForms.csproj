@@ -236,6 +236,8 @@
     <Content Include="Roles\Web.config" />
     <None Include="Properties\PublishProfiles\ManTest.pubxml" />
     <None Include="Properties\PublishProfiles\Test4.pubxml" />
+    <None Include="Properties\PublishProfiles\TestRole.pubxml" />
+    <None Include="Properties\PublishProfiles\TestUsers.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
